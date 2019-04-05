@@ -4,18 +4,28 @@
       <h1>Zrelaksuj się nad wodą blisko siebie!</h1>
       <input v-model="city" class="search__input" type="text" placeholder="Podaj nazwę miasta"><!--
       this comment must be there!
-      --><button @click="submit" class="search__button"><i class="fas fa-search"></i>Szukaj</button>
+      --><button
+        @click="$router.push(`objects/${city}`)"
+        class="search__button">
+          <i class="fas fa-search"></i>Szukaj
+        </button>
     </div>
     <div class="categories">
-      <div class="categories__breadcrumb">
+      <div
+        @click="$router.push('objects/?type=aquapark')"
+        class="categories__breadcrumb">
         <i class="fas fa-swimming-pool category-icon"></i>
         <span>aquapark</span>
       </div>
-      <div class="categories__breadcrumb">
+      <div
+        @click="$router.push('objects/?type=swimming-pool')"
+        class="categories__breadcrumb">
         <i class="fas fa-water category-icon"></i>
         <span>basen</span>
       </div>
-      <div class="categories__breadcrumb">
+      <div
+        @click="$router.push('objects/?type=sauna')"
+        class="categories__breadcrumb">
         <i class="fas fa-hot-tub category-icon"></i>
         <span>sauna</span>
       </div>
@@ -29,11 +39,6 @@ export default {
     return {
       city: ''
     };
-  },
-  methods: {
-    submit() {
-      this.$router.push(`objects/${this.city}`);
-    }
   }
 };
 </script>

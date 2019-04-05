@@ -11,7 +11,8 @@
   "rules": {
     "no-console": "off",
     "no-debugger": "off",
-    "comma-dangle": ["error", "never"]
+    "comma-dangle": ["error", "never"],
+    "vue/no-unused-components": "warn"
   },
   "parserOptions": {
     "parser": "babel-eslint"
