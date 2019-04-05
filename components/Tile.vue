@@ -1,6 +1,11 @@
 <template>
-  <article :class="['container', {
-    'no-active': !active
+  <article
+  :style="{
+    padding: light? '' : '10px'
+  }"
+  :class="['container', {
+    'no-active': !active,
+    dark: !active && (light === 'no')
   }]">
     <img @click="$router.push(href)" :src="src" :alt="alt">
     <div class="content">
@@ -44,6 +49,10 @@ export default {
     active: {
       type: Boolean,
       default: false
+    },
+    light: {
+      type: String,
+      default: 'no'
     }
   },
   filters: {
@@ -55,6 +64,9 @@ export default {
 <style scoped lang="scss">
   .no-active {
     transform: scale(.9);
+  }
+
+  .dark {
     filter: grayscale(45%) opacity(70%);
   }
 

@@ -5,7 +5,7 @@
       <SearchBar />
     </nav>
     <Recommended />
-    <!-- <PopularArticles /> -->
+    <PopularArticles />
 
     <!-- <Footer /> -->
   </section>
