@@ -1,6 +1,6 @@
 <template>
   <article :class="['container', {
-    active
+    'no-active': !active
   }]">
     <img @click="$router.push(href)" :src="src" :alt="alt">
     <div class="content">
@@ -53,8 +53,9 @@ export default {
 </script>
 
 <style scoped lang="scss">
-  .active {
-    transform: scale(1.05);
+  .no-active {
+    transform: scale(.9);
+    filter: grayscale(45%) opacity(70%);
   }
 
   .container {
