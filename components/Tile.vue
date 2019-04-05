@@ -1,0 +1,95 @@
+<template>
+  <article :class="['container', {
+    active
+  }]">
+    <img @click="$router.push(href)" :src="src" :alt="alt">
+    <div class="content">
+      <h2 @click="$router.push(href)">{{ title }}</h2>
+      <br>
+      <span class="description">
+        {{ description | short }}
+        <nuxt-link :to="href">Czytaj więcej</nuxt-link>
+      </span>
+    </div>
+  </article>
+</template>
+
+<script>
+export default {
+  props: {
+    src: {
+      type: String,
+      default: 'https://placeimg.com/400/230/any'
+    },
+    href: {
+      type: String,
+      required: true
+    },
+    alt: {
+      type: String,
+      default: 'Random image from www.placeimg.com'
+    },
+    title: {
+      type: String,
+      required: true
+    },
+    description: {
+      type: String,
+      default: `Lorem ipsum dolor sit, amet
+      consectetur adipisicing elit.
+      Repudiandae magnam nam quibusdam cumque exercitationem tempore,
+      consequatur error veritatis harum, assumenda sed ducimus
+      minima repellat asperiores non alias ab iure natus.`
+    },
+    active: {
+      type: Boolean,
+      default: false
+    }
+  },
+  filters: {
+    short: desc => `${desc.substr(0, 250)}...`
+  }
+};
+</script>
+
+<style scoped lang="scss">
+  .active {
+    transform: scale(1.05);
+  }
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 0 10px -5px #000;
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  img {
+    z-index: 0;
+    transition: ease-in .5s transform;
+
+    &:hover {
+      transform: scale(1.2) rotate(2deg);
+    }
+
+    &,
+    h2 {
+      cursor: pointer;
+    }
+  }
+
+  .content {
+    background-color: #fff;
+    z-index: 1;
+    padding: 20px 10px;
+
+    h2 {
+      font-size: 20px;
+    }
+
+    .description {
+      font-family: 'Segoe UI'
+    }
+  }
+</style>

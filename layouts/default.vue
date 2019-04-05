@@ -25,6 +25,7 @@ html {
 body {
   padding: 0 $page-padding;
   overflow-x: hidden;
+  min-height: 400vh;
 }
 
 *,

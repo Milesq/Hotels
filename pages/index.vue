@@ -34,7 +34,7 @@ export default {
 @import '@/static/variables.scss';
 
 .container {
-  background-color: #f8f8f8;
+  background-color: #f5f5f5;
   display: flex;
   align-items: center;
   flex-direction: column;
