@@ -25,18 +25,15 @@ export default {
 
 section {
   min-height: 500vh;
-  background-color: #345;
+  background-color: #f8f8f8;
   display: flex;
   justify-content: center;
 }
 
 .search-bar {
-  background: url(https://placeimg.com/1000/800/any/grayscale);
+  background: url(https://placeimg.com/1000/350/any/grayscale);
   min-height: 60vh;
-  // max-height: 80vh;
-  /* witchout this property sticky menu
-  is sticky all time,
-  and div is too large because of background image */
+  max-height: 50vh;
 
   width: 100vw;
   background-position: 0 0;

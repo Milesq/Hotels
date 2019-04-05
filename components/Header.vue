@@ -29,7 +29,7 @@ header {
   height: $header-height;
   width: 100vw;
 
-  padding: 2% 10vw;
+  padding: 1.5% 10vw;
 
   &::before {
     content: '';

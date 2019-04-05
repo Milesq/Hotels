@@ -66,7 +66,7 @@ export default {
 
       color: #000;
 
-      padding: 10px 40px;
+      padding: 10px 57px;
 
       text-transform: capitalize;
 
