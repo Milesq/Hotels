@@ -1,0 +1,19 @@
+{
+  "root": true,
+  "env": {
+    "node": true,
+    "jest": true
+  },
+  "extends": [
+    "plugin:vue/essential",
+    "@vue/airbnb"
+  ],
+  "rules": {
+    "no-console": "off",
+    "no-debugger": "off",
+    "comma-dangle": ["error", "never"]
+  },
+  "parserOptions": {
+    "parser": "babel-eslint"
+  }
+}
