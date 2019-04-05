@@ -40,16 +40,14 @@ export default {
 
 <style scoped lang="scss">
   .title {
-    margin-top: 12%;
+    margin-top: 4%;
     color: white;
-    min-height: 60vh;
     text-align: center;
     font-weight: 700;
     font-size: 1.4em;
 
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
   }
 
   .categories {
@@ -58,7 +56,7 @@ export default {
     background-color: #fff;
     box-shadow: -2px 3px 10px -5px rgba(0,0,0,0.75);
     border-radius: 5px;
-    margin: 0 auto;
+    margin: 10% auto;
     padding: 5px;
 
     &__breadcrumb {
