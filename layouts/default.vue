@@ -10,6 +10,8 @@
 html {
   font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI',
     Roboto, 'Helvetica Neue', Arial, sans-serif;
+  padding: 0;
+  margin: 0;
   font-size: 16px;
   word-spacing: 1px;
   -ms-text-size-adjust: 100%;
@@ -30,5 +32,10 @@ body {
 *:after {
   box-sizing: border-box;
   margin: 0;
+}
+
+.subtitle {
+  font-size: 40px;
+  font-family: 'Segoe UI';
 }
 </style>

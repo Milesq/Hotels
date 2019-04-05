@@ -17,7 +17,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../static/variables.scss';
+@import '@/static/variables.scss';
 
 header {
   display: flex;
