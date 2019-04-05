@@ -7,7 +7,7 @@
     <Recommended />
     <PopularArticles />
 
-    <!-- <Footer /> -->
+    <Footer />
   </section>
 </template>
 
