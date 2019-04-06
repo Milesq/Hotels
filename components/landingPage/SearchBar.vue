@@ -107,7 +107,7 @@ export default {
       border-top-left-radius: $radius;
       border-bottom-left-radius: $radius;
       color: #959595;
-      width: 40vw;
+      width: 40vmax;
 
       &::placeholder {
         color: #959595;

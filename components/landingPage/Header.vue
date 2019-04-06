@@ -1,18 +1,26 @@
 <template>
-  <header>
+  <header :class="{
+    light: !shadow
+  }">
     <nuxt-link to="/">
       <img src="https://placeimg.com/200/50/any" alt="Logo strony">
     </nuxt-link>
+    <slot />
     <div>
-      <nuxt-link class="link" to="objects">obiekty</nuxt-link>
-      <nuxt-link class="link" to="articles">artykuły</nuxt-link>
+      <nuxt-link :class="['link', { light: !shadow }]" to="objects">obiekty</nuxt-link>
+      <nuxt-link :class="['link', { light: !shadow }]" to="articles">artykuły</nuxt-link>
     </div>
   </header>
 </template>
 
 <script>
 export default {
-
+  props: {
+    shadow: {
+      type: Boolean,
+      default: true
+    }
+  }
 };
 </script>
 
@@ -31,7 +39,7 @@ header {
 
   padding: 1.5% 10vw;
 
-  &::before {
+  &:not(.light)::before {
     content: '';
     display: block;
     position: absolute;
@@ -45,12 +53,17 @@ header {
 }
 
 .link {
-  text-transform: capitalize;
   color: white;
+  text-transform: capitalize;
   font-weight: 800;
   height: auto;
   margin: 0 5px;
   text-decoration: none;
   font-size: 1.2em;
+
+  &.light {
+    color: black;
+    font-weight: 500;
+  }
 }
 </style>

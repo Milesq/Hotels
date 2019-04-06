@@ -1,8 +1,19 @@
 <template>
   <div>
     <nuxt />
+    <Footer />
   </div>
 </template>
+
+<script>
+import Footer from '../components/landingPage/Footer.vue';
+
+export default {
+  components: {
+    Footer
+  }
+};
+</script>
 
 <style lang="scss">
 @import '../static/variables.scss';
@@ -37,5 +48,12 @@ body {
 .subtitle {
   font-size: 40px;
   font-family: 'Segoe UI';
+}
+
+.container {
+  background-color: #f5f5f5;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 }
 </style>

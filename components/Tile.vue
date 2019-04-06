@@ -68,6 +68,11 @@ export default {
 
   .dark {
     filter: grayscale(45%) opacity(70%);
+    transition: ease-in .5s filter;
+
+    &:hover {
+      filter: none;
+    }
   }
 
   .container {
