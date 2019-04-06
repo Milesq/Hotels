@@ -1,22 +1,24 @@
 <template>
-  <article
-  :style="{
-    padding: light? '' : '10px'
-  }"
-  :class="['container', {
-    'no-active': !active,
-    dark: !active && (light === 'no')
-  }]">
-    <img @click="$router.push(href)" :src="src" :alt="alt">
-    <div class="content">
-      <h2 @click="$router.push(href)">{{ title }}</h2>
-      <br>
-      <span class="description">
-        {{ description | short }}
-        <nuxt-link :to="href">Czytaj więcej</nuxt-link>
-      </span>
-    </div>
-  </article>
+  <div class="wrapper">
+    <article
+    :style="{
+      padding: light? '' : '10px'
+    }"
+    :class="['container', {
+      'no-active': !active,
+      dark: !active && (light === 'no')
+    }]">
+      <img @click="$router.push(href)" :src="src" :alt="alt">
+      <div class="content">
+        <h2 @click="$router.push(href)">{{ title }}</h2>
+        <br>
+        <span class="description">
+          {{ description | short }}
+          <nuxt-link :to="href">Czytaj więcej</nuxt-link>
+        </span>
+      </div>
+    </article>
+  </div>
 </template>
 
 <script>
@@ -81,6 +83,15 @@ export default {
     box-shadow: 0 0 10px -5px #000;
     border-radius: 3px;
     overflow: hidden;
+  }
+
+  .wrapper {
+    transition: ease-in .5s all;
+    box-shadow: 0 0 #000;
+
+    &:hover {
+      transform: translateY(-10px);
+    }
   }
 
   img {
