@@ -75,6 +75,14 @@ export default {
 
       text-transform: capitalize;
 
+      i {
+        transition: .2s ease-in transform;
+      }
+
+      &:hover i {
+        transform: translateY(-5px) scale(1.1);
+      }
+
       span {
         font-size: .75em;
       }
