@@ -36,5 +36,6 @@ export default {
   background-position: 0 0;
   background-repeat: no-repeat;
   background-size: 100%;
+  background-attachment: fixed;
 }
 </style>
