@@ -2,28 +2,29 @@
   <footer>
     <section class="for-users">
       <div>
+        <base target="blank">
         <h3>Szybkie linki:</h3>
         <ul>
-          <li>Wszystkie obiekty</li>
-          <li>Artykuły</li>
+          <li><nuxt-link to="objects">Wszystkie obiekty</nuxt-link></li>
+          <li><nuxt-link to="articles">Artykuły</nuxt-link></li>
         </ul>
       </div>
       <div>
         <h3>Kategorie:</h3>
         <ul>
-          <li>Aquapark</li>
-          <li>Basen kryty</li>
-          <li>Basen odkryty</li>
-          <li>Basen termalny</li>
-          <li>Sauna</li>
+          <li><NLink to="objects/?type=aquapark">Aquapark</NLink></li>
+          <li><NLink to="objects/?type=swimming-pool-indoor">Basen kryty</NLink></li>
+          <li><NLink to="objects/?type=swimming-pool-outdoor">Basen odkryty</NLink></li>
+          <li><NLink to="objects/?type=swimming-pool-thermal">Basen termalny</NLink></li>
+          <li><NLink to="objects/?type=sauna">Sauna</NLink></li>
         </ul>
       </div>
       <div>
         <h3>Znajdź nas na:</h3>
         <ul>
-          <li>Facebook</li>
-          <li>Instagram</li>
-          <li>Youtube</li>
+          <li><a href="https://www.facebook.com">Facebook</a></li>
+          <li><a href="https://www.instagram.com">Instagram</a></li>
+          <li><a href="https://www.youtube.com">Youtube</a></li>
         </ul>
       </div>
     </section>
@@ -34,12 +35,6 @@
     </section>
   </footer>
 </template>
-
-<script>
-export default {
-
-};
-</script>
 
 <style scoped lang="scss">
   footer {
@@ -60,6 +55,11 @@ export default {
 
       & > li {
         margin-top: 15px;
+      }
+
+      a {
+        color: black;
+        text-decoration: none;
       }
     }
   }
