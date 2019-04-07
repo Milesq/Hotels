@@ -6,7 +6,7 @@
       <img src="https://placeimg.com/200/50/any" alt="Logo strony">
     </nuxt-link>
     <slot />
-    <div>
+    <div class="center-y">
       <nuxt-link :class="['link', { light: !shadow }]" to="objects">obiekty</nuxt-link>
       <nuxt-link :class="['link', { light: !shadow }]" to="articles">artykuły</nuxt-link>
     </div>
@@ -34,7 +34,7 @@ header {
   position: sticky;
   top: 0px;
 
-  height: $header-height;
+  min-height: $header-height;
   width: 100vw;
 
   padding: 1.5% 10vw;
@@ -49,6 +49,10 @@ header {
     width: 100vw;
     height: 0;
     box-shadow: 0 0 $shadow-height ($shadow-height * .4) #000;
+  }
+
+  &.light {
+    background-color: #fff;
   }
 }
 
@@ -65,5 +69,10 @@ header {
     color: black;
     font-weight: 500;
   }
+}
+
+.center-y {
+  display: inline-flex;
+  align-items: center;
 }
 </style>

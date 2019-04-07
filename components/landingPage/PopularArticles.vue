@@ -45,8 +45,7 @@ export default {
 }
 
 .subtitle {
-  margin-top: 5vmin;
-  margin-bottom: 5vmin;
+  margin: 5vmin 0;
 }
 
 .tiles {
