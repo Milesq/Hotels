@@ -46,8 +46,19 @@
   .for-users {
     display: flex;
     justify-content: space-around;
+    flex-wrap: wrap;
     padding: 35px;
     border-top: .8px solid#626262;
+    // @media(max-width: 585px) {
+    //   flex-direction: column;
+    //   align-items: center;
+    // }
+
+    div {
+      @media(max-width: 585px) {
+        margin: 5%;
+      }
+    }
 
     ul {
       padding: 0px;

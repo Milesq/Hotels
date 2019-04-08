@@ -36,23 +36,8 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import '@/static/variables.scss';
-
-.container {
-  width: 100%;
-}
-
+@import '@/static/tiles.scss';
 .subtitle {
-  margin-bottom: 5vmin;
-}
-
-.tiles {
-  width: 100%;
-  display: flex;
-  justify-content: space-around;
-}
-
-.tile {
-  width: 400px;
+  margin-top: 0;
 }
 </style>

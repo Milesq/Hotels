@@ -106,6 +106,10 @@ export default {
     h2 {
       cursor: pointer;
     }
+
+    @media (max-width: 960px) {
+      width: 100%;
+    }
   }
 
   .content {

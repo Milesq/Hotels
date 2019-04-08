@@ -31,8 +31,11 @@ header {
   display: flex;
   justify-content: space-between;
 
-  position: sticky;
-  top: 0px;
+  @media (min-width: 678px) {
+    position: sticky;
+    top: 0px;
+  }
+
 
   min-height: $header-height;
   width: 100vw;

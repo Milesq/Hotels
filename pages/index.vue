@@ -31,6 +31,9 @@ export default {
 
 .search-bar {
   background: url(https://placeimg.com/1000/350/any/grayscale);
+  @media (max-width: 678px) {
+    background-size: cover;
+  }
 
   width: 100vw;
   background-position: 0 0;
