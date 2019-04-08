@@ -7,6 +7,9 @@ export default {
   ** Headers of the page
   */
   head: {
+    htmlAttrs: {
+      lang: 'pl'
+    },
     title: pkg.name,
     meta: [
       { charset: 'utf-8' },

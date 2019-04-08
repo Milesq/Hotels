@@ -1,6 +1,6 @@
 <template>
   <div>
-    <section class="container">
+    <div class="container">
       <nav class="search-bar">
         <Header :shadow="false">
           <span class="search-container">
@@ -21,7 +21,7 @@
       <main style="width: 100%">
         <nuxt />
       </main>
-    </section>
+    </div>
     <Footer />
   </div>
 </template>

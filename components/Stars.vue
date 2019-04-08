@@ -1,10 +1,10 @@
 <template>
-  <div class="stars">
+  <span class="stars">
     <template v-for="i in 5">
       <input @click="send(i)" :key="i" type="radio" :id="'star' + i" name="star">
       <label :key="i" :for="'star' + i"></label>
     </template>
-  </div>
+  </span>
 </template>
 
 <script>

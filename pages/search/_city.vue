@@ -28,17 +28,17 @@
           v-model="r">
         {{ r }}km
       </label>
-      <label>
+      <span>
         Minimalna ocena
         <Stars v-model="rating" />
-      </label>
-      <label>
+      </span>
+      <span>
         Godziny otwarcia
         <span>
-          Od: <input type="number" min="0" max="24" v-model="openHours.open">
-          Do: <input type="number" min="0" max="24" v-model="openHours.closed">
+          <label>Od: <input type="number" min="0" max="24" v-model="openHours.open"></label>
+          <label>Do: <input type="number" min="0" max="24" v-model="openHours.closed"></label>
         </span>
-      </label>
+      </span>
     </nav>
     <section class="results">
       <h1>Baseny - {{ $route.params.city }}</h1>

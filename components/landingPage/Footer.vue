@@ -2,7 +2,6 @@
   <footer>
     <section class="for-users">
       <div>
-        <base target="blank">
         <h3>Szybkie linki:</h3>
         <ul>
           <li><nuxt-link to="/objects">Wszystkie obiekty</nuxt-link></li>
@@ -22,9 +21,9 @@
       <div>
         <h3>Znajdź nas na:</h3>
         <ul>
-          <li><a href="https://www.facebook.com">Facebook</a></li>
-          <li><a href="https://www.instagram.com">Instagram</a></li>
-          <li><a href="https://www.youtube.com">Youtube</a></li>
+          <li><a target="blank" href="https://www.facebook.com">Facebook</a></li>
+          <li><a target="blank" href="https://www.instagram.com">Instagram</a></li>
+          <li><a target="blank" href="https://www.youtube.com">Youtube</a></li>
         </ul>
       </div>
     </section>
