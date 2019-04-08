@@ -36,10 +36,14 @@ export default {
 }
 
 label {
+  position: relative;
+  bottom: 10px;
+  right: 30px;
   width: 30px;
   height: 30px;
   padding: 5px;
   color: transparent;
+  cursor: pointer;
 
   &::before {
     content: '★';

@@ -1,7 +1,10 @@
 <template>
   <section class="container">
-    <nav>
-      <label>
+    <nav class="filters">
+      <h3 class="title">
+        <span>Filtry</span> <i class="fas fa-filter"></i>
+      </h3>
+      <label class="filter">
         Rodzaj obiektu
         <select v-model="category">
           <option value="aquapark">Aquapark</option>
@@ -9,7 +12,7 @@
           <option value="sauna">Sauna</option>
         </select>
       </label>
-      <span>
+      <span class="filter">
         Atrakcje
         <label
           v-for="attraction in possibilityAttractions"
@@ -19,7 +22,7 @@
           <input type="checkbox" :value="attraction[1]" v-model="attractions">
         </label>
       </span>
-      <label>
+      <label class="filter">
         Odległość od miasta
         <input
           type="range"
@@ -28,11 +31,11 @@
           v-model="r">
         {{ r }}km
       </label>
-      <span>
+      <span class="filter">
         Minimalna ocena
         <Stars v-model="rating" />
       </span>
-      <span>
+      <span class="filter">
         Godziny otwarcia
         <span>
           <label>Od: <input type="number" min="0" max="24" v-model="openHours.open"></label>
@@ -88,5 +91,34 @@ export default {
 
 .results {
   margin-left: 50px;
+}
+
+.title {
+  display: flex;
+  justify-content: space-between;
+  font-size: 24px;
+  margin-bottom: 10%;
+
+  .fas {
+    font-size: 20px;
+  }
+}
+
+.filter {
+  display: block;
+  margin: 18px 0;
+  font-weight: 700;
+  font-size: 1.1em;
+
+  & > *:nth-child(1) {
+    margin-top: 15px;
+  }
+}
+
+.filters {
+  padding: 20px;
+  background-color: #fff;
+  margin: 10% 0;
+  box-shadow: 0 2px 5px -3px #000;
 }
 </style>
