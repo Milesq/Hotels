@@ -5,7 +5,7 @@
       <input v-model="city" class="search__input" type="text" placeholder="Podaj nazwę miasta"><!--
       this comment must be there!
       --><button
-        @click="$router.push(`objects/${city}`)"
+        @click="$router.push(`search/${city}`)"
         class="search__button">
           <i class="fas fa-search"></i>Szukaj
         </button>

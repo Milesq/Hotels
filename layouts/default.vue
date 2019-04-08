@@ -16,7 +16,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import '../static/variables.scss';
+@import '../assets/variables.scss';
 
 html {
   font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI',

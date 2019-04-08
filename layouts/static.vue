@@ -38,7 +38,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import '../static/variables.scss';
+@import '../assets/variables.scss';
 
 html {
   font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI',
@@ -89,7 +89,7 @@ body {
   margin-top: 25px;
 }
 
-@import '@/static/search.scss';
+@import '@/assets/search.scss';
 
 .search__input {
   box-sizing: content-box;
