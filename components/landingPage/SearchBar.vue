@@ -2,10 +2,15 @@
   <div class="title">
     <div class="search">
       <h1>Zrelaksuj się nad wodą blisko siebie!</h1>
-      <input v-model="city" class="search__input" type="text" placeholder="Podaj nazwę miasta"><!--
+      <input
+        @keydown.enter="send"
+        v-model="city"
+        class="search__input"
+        type="text"
+        placeholder="Podaj nazwę miasta"><!--
       this comment must be there!
       --><button
-        @click="$router.push(`search/${city}`)"
+        @click="send"
         class="search__button">
           <i class="fas fa-search"></i>Szukaj
         </button>
@@ -39,6 +44,11 @@ export default {
     return {
       city: ''
     };
+  },
+  methods: {
+    send() {
+      this.$router.push(`search/${this.city}`);
+    }
   }
 };
 </script>

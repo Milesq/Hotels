@@ -7,10 +7,11 @@
             <input
               class="search__input"
               type="text"
+              v-model="city"
               placeholder="Podaj nazwę miasta"><!--
             this comment must be there!
             --><button
-                @click="$router.push(`objects/${city}`)"
+                @click="$router.push(`/search/${city}`)"
                 class="search__button">
                 <i class="fas fa-search"></i>Szukaj
               </button>
@@ -30,6 +31,11 @@ import Header from '../components/landingPage/Header.vue';
 import Footer from '../components/landingPage/Footer.vue';
 
 export default {
+  data() {
+    return {
+      city: ''
+    };
+  },
   components: {
     Header,
     Footer

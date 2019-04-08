@@ -12,7 +12,8 @@
     "no-console": "off",
     "no-debugger": "off",
     "comma-dangle": ["error", "never"],
-    "vue/no-unused-components": "warn"
+    "vue/no-unused-components": "warn",
+    "import/no-unresolved": "off"
   },
   "parserOptions": {
     "parser": "babel-eslint"

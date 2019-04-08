@@ -29,7 +29,7 @@
         <span style="font-size: .87em; cursor: pointer">
           Dane wpisane w formularzu kontaktowym będą udzielane
           w celu udzielenia odpowiedzi na przesłane zapytanie zgodnie z
-          <nuxt-link to="privacy">polityką prywatności</nuxt-link>
+          <nuxt-link to="/privacy">polityką prywatności</nuxt-link>
         </span>
 
         <input
