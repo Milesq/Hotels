@@ -4,7 +4,7 @@
       <h3 class="title">
         <span>Filtry</span> <i class="fas fa-filter"></i>
       </h3>
-      <label class="filter">
+      <label class="filter filter__object-type">
         Rodzaj obiektu
         <select v-model="category">
           <option value="aquapark">Aquapark</option>
@@ -12,34 +12,40 @@
           <option value="sauna">Sauna</option>
         </select>
       </label>
-      <span class="filter">
+      <span class="filter filter__attractions">
         Atrakcje
         <label
           v-for="attraction in possibilityAttractions"
           :key="attraction[1]"
           style="display: block">
-            {{ attraction[0] }}
-          <input type="checkbox" :value="attraction[1]" v-model="attractions">
+            <div class="pretty p-default p-round p-thick p-smooth">
+                <input type="checkbox" :value="attraction[1]" v-model="attractions">
+                <div class="state p-primary-o">
+                    <label>{{ attraction[0] }}</label>
+                </div>
+            </div>
         </label>
       </span>
-      <label class="filter">
+      <label class="filter filter__range">
         Odległość od miasta
-        <input
-          type="range"
-          min="0"
-          max="200"
-          v-model="r">
-        {{ r }}km
+        <span>
+          <input
+            type="range"
+            min="0"
+            max="200"
+            v-model="r">
+          {{ r }}km
+        </span>
       </label>
       <span class="filter">
         Minimalna ocena
-        <Stars v-model="rating" />
+        <Stars v-model="rating" style="width: 100%" />
       </span>
       <span class="filter">
-        Godziny otwarcia
+        <span style="display: block">Godziny otwarcia</span>
         <span>
-          <label>Od: <input type="number" min="0" max="24" v-model="openHours.open"></label>
           <label>Do: <input type="number" min="0" max="24" v-model="openHours.closed"></label>
+          <label>Od: <input type="number" min="0" max="24" v-model="openHours.open"></label>
         </span>
       </span>
     </nav>
@@ -84,7 +90,7 @@ export default {
 <style scoped lang="scss">
 .container {
   display: grid;
-  grid-template-columns: 2fr 7fr;
+  grid-template-columns: 3fr 9fr;
 
   padding: 0 10vw;
 }
@@ -110,6 +116,33 @@ export default {
   font-weight: 700;
   font-size: 1.1em;
 
+  &__attractions * {
+    font-weight: 400;
+  }
+
+  &__object-type select {
+    font-family: Arial;
+    width: 100%;
+    padding: 7px;
+    appearance: none;
+    background-repeat: no-repeat;
+    background-position: right;
+    background-image: url(../../assets/dropdown.svg);
+  }
+
+  &__range {
+
+    & > span {
+      display: flex;
+      justify-content: space-between;
+      align-content: center;
+    }
+
+    input {
+      width: 70%;
+    }
+  }
+
   & > *:nth-child(1) {
     margin-top: 15px;
   }
@@ -121,4 +154,7 @@ export default {
   margin: 10% 0;
   box-shadow: 0 2px 5px -3px #000;
 }
+
+@import '@/assets/rangeInput.scss';
+@import '~pretty-checkbox/src/pretty-checkbox.scss';
 </style>
