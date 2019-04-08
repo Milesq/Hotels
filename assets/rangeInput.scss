@@ -4,7 +4,7 @@ input[type=range] {
   margin: 7.5px 0;
 }
 input[type=range]:focus {
-  outline: none;
+  // outline: none;
 }
 input[type=range]::-webkit-slider-runnable-track {
   width: 100%;

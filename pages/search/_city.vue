@@ -34,7 +34,9 @@
             min="0"
             max="200"
             v-model="r">
-          {{ r }}km
+            <!-- Witchout next line, range input is too long when r <= 100 -->
+            <span v-if="r < 100" style="color: transparent">0</span>
+            {{ r }}km
         </span>
       </label>
       <span class="filter">
@@ -44,8 +46,8 @@
       <span class="filter">
         <span style="display: block">Godziny otwarcia</span>
         <span>
-          <label>Do: <input type="number" min="0" max="24" v-model="openHours.closed"></label>
-          <label>Od: <input type="number" min="0" max="24" v-model="openHours.open"></label>
+          <label>Do: <input type="number" min="0" max="24" v-model="openHours.open"></label>
+          <label>Od: <input type="number" min="0" max="24" v-model="openHours.closed"></label>
         </span>
       </span>
     </nav>
@@ -97,6 +99,7 @@ export default {
 
 .results {
   margin-left: 50px;
+  min-height: 100%;
 }
 
 .title {
@@ -131,7 +134,6 @@ export default {
   }
 
   &__range {
-
     & > span {
       display: flex;
       justify-content: space-between;
