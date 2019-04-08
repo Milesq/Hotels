@@ -77,5 +77,12 @@ header {
 .center-y {
   display: inline-flex;
   align-items: center;
+
+  @media(max-width: 585px) {
+    flex-direction: column;
+    * {
+      margin: 5px;
+    }
+  }
 }
 </style>

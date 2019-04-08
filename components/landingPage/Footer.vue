@@ -49,10 +49,6 @@
     flex-wrap: wrap;
     padding: 35px;
     border-top: .8px solid#626262;
-    // @media(max-width: 585px) {
-    //   flex-direction: column;
-    //   align-items: center;
-    // }
 
     div {
       @media(max-width: 585px) {
@@ -85,7 +81,11 @@
   .link {
     font-weight: 500;
     color: #000;
+    margin: 0 10px;
     text-decoration: none;
-    margin: 0 40px;
+
+    @media(min-width: 585px) {
+      margin: 0 40px;
+    }
   }
 </style>
