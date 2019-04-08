@@ -36,7 +36,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import '@/static/tiles.scss';
+@import '@/assets/tiles.scss';
 .subtitle {
   margin-top: 0;
 }

@@ -27,7 +27,7 @@ export default {
 
 <style lang="scss" scoped>
 @import url(https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css);
-@import '@/static/variables.scss';
+@import '@/assets/variables.scss';
 
 .search-bar {
   background: url(https://placeimg.com/1000/350/any/grayscale);
