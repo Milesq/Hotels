@@ -1,5 +1,7 @@
 <script>
 export default {
-  middleware: 'goToMain'
+  asyncData({ redirect }) {
+    redirect('/');
+  }
 };
 </script>
