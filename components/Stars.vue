@@ -2,7 +2,7 @@
   <span class="stars">
     <template v-for="i in 5">
       <input @click="send(i)" :key="i" type="radio" :id="'star' + i" name="star">
-      <label :key="i" :for="'star' + i"></label>
+      <label :key="10 * i" :for="'star' + i"></label>
     </template>
   </span>
 </template>
@@ -19,6 +19,8 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@import '@/assets/variables.scss';
+
 .stars {
   height: 30px;
   width: 200px;
@@ -57,6 +59,6 @@ label {
 label:hover::before,
 label:hover ~ label::before,
 .stars input:checked ~ label::before {
-  color: #1976d3;
+  color: $primary-dark;
 }
 </style>

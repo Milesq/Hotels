@@ -53,7 +53,10 @@
     </nav>
     <section class="results">
       <h1>Baseny - {{ $route.params.city }}</h1>
-      <ObjectInfo />
+      <ObjectInfo
+        v-for="object in swimmingPools"
+        :key="object.name"
+        :data="object" />
     </section>
   </section>
 </template>
@@ -63,6 +66,22 @@ import ObjectInfo from '~/components/ObjectInfo.vue';
 import Stars from '~/components/Stars.vue';
 
 export default {
+  asyncData() {
+    return {
+      swimmingPools: [
+        {
+          name: 'Basen Warszawa',
+          img: 'https://placeimg.com/400/250/any',
+          address: 'Warszawa ul. Długa 64',
+          ratings: {
+            average: 4.7,
+            numbers: 120
+          },
+          attractions: ['Basen sportowy', 'Basen olimpijski', 'Brodzik dla dzieci']
+        }
+      ]
+    };
+  },
   data() {
     return {
       category: 'aquapark',

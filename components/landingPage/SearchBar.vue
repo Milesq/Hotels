@@ -54,6 +54,8 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@import '@/assets/variables.scss';
+
 .title {
   margin-top: 4%;
   color: white;
@@ -113,7 +115,7 @@ export default {
 }
 
 .category-icon {
-  color: #5bb5f6;
+  color: $primary-color;
   font-size: 60px;
 }
 

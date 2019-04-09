@@ -79,6 +79,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '@/assets/variables.scss';
+
 input,
 textarea {
   padding: 10px;
@@ -127,7 +129,7 @@ h2 {
 }
 
 .fas {
-  color: #5bb5f6;
+  color: $primary-color;
   font-size: 60px;
 }
 
