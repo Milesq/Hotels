@@ -30,7 +30,9 @@ export default {
   */
   loading: {
     color: 'green',
-    height: '10px'
+    height: '10px',
+    duration: 1500,
+    continuous: true
   },
 
   /*
