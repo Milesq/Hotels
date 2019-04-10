@@ -5,16 +5,14 @@
         <Header :shadow="false">
           <span class="search-container">
             <input
+              @keydown.enter="search"
               class="search__input"
               type="text"
               v-model="city"
               placeholder="Podaj nazwę miasta"><!--
-            this comment must be there!
-            --><button
-                @click="$router.push(`/search/${city}`)"
-                class="search__button">
-                <i class="fas fa-search"></i>Szukaj
-              </button>
+              --><span @click="search" class="search__button">
+                <i class="fas fa-map-marker-alt"></i>
+              </span>
           </span>
         </Header>
       </nav>
@@ -39,6 +37,11 @@ export default {
   components: {
     Header,
     Footer
+  },
+  methods: {
+    search() {
+      this.$router.push(`/search/${this.city}`);
+    }
   }
 };
 </script>
@@ -97,14 +100,32 @@ body {
 
 @import '@/assets/search.scss';
 
-.search__input {
+$shadow: 0 1px 4px -1px #000;
+
+.search__input,
+.search__button {
   box-sizing: content-box;
-  border: 1px solid #959595;
-  border-right: none;
+  background-color: #fff;
+  border: 1px solid #fff;
+
+  &:focus {
+    box-shadow: $shadow;
+  }
 }
 
 .search__button {
-  box-sizing: content-box;
-  border: 1px solid #ff9801;
+  border-left: 0;
+  border: none;
+  padding-bottom: 14.5px;
+  color: $secondary-color;
+}
+
+.search__input {
+  border-right: 0;
+  outline: none;
+
+  &:focus ~ .search__button {
+    box-shadow: $shadow;
+  }
 }
 </style>

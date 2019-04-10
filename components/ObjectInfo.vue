@@ -25,11 +25,9 @@
           {{ isOpen? 'Otwarte' : 'Zamknięte' }}
         </span>
         <div class="rating">
-          <div class="rating__info">
-            <span>Bardzo dobry</span>
-            <span>{{ data.ratings.numbers }} opinie</span>
-          </div>
-          <div class="rating__average">{{ data.ratings.average }}</div>
+          <i class="fas fa-star"></i>
+          <span class="rating__average">{{ data.ratings.average }}</span>
+          <span class="rating__numbers">({{ data.ratings.numbers }})</span>
         </div>
       </div>
     </div>
@@ -79,6 +77,7 @@ $green: #48a277;
   grid-template-columns: 1fr 1fr;
   background-color: #fff;
   box-shadow: 0 2px 5px -3px #000;
+  margin: 30px 0;
 }
 
 .logo-img {
@@ -103,34 +102,15 @@ $green: #48a277;
 }
 
 .rating {
-  display: flex;
-  & > * {
-    margin: 0 10px;
-  }
-
-  &__info {
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
-    flex-direction: column;
-
-    margin-right: 3px;
-
-    font-size: .9em;
-
-    span:nth-child(2) {
-      font-size: .9em;
-      font-weight: 400;
-    }
-  }
-
   &__average {
-    color: white;
-    font-weight: 700;
-    background-color: $green;
-    padding: 5px;
-    border-radius: 4px;
-    box-shadow:0 0 3px -1px #000;
+    font-weight: 600;
+    font-size: 1.2em;
+  }
+
+  &__numbers {
+    font-weight: 400;
+    font-size: .9em;
+    padding-right: 15px;
   }
 }
 

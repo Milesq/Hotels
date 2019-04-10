@@ -40,10 +40,6 @@
         </span>
       </label>
       <span class="filter">
-        Minimalna ocena
-        <Stars v-model="rating" style="width: 100%" />
-      </span>
-      <span class="filter">
         <span style="display: block">Godziny otwarcia</span>
         <span>
           <label>Do: <input type="number" min="0" max="24" v-model="openHours.open"></label>
@@ -51,8 +47,17 @@
         </span>
       </span>
     </nav>
+    <span></span>
     <section class="results">
-      <h1>Baseny - {{ $route.params.city }}</h1>
+      <h1>Baseny - {{ $route.params.city == 'all'? 'Polska' : $route.params.city }}</h1>
+      <ObjectInfo
+        v-for="object in swimmingPools"
+        :key="object.name"
+        :data="object" />
+      <ObjectInfo
+        v-for="object in swimmingPools"
+        :key="object.name"
+        :data="object" />
       <ObjectInfo
         v-for="object in swimmingPools"
         :key="object.name"
@@ -63,7 +68,6 @@
 
 <script>
 import ObjectInfo from '~/components/ObjectInfo.vue';
-import Stars from '~/components/Stars.vue';
 
 export default {
   asyncData() {
@@ -102,8 +106,7 @@ export default {
     };
   },
   components: {
-    ObjectInfo,
-    Stars
+    ObjectInfo
   },
   layout: 'static'
 };
@@ -120,6 +123,16 @@ export default {
 .results {
   margin-left: 50px;
   min-height: 100%;
+  margin-bottom: 20px;
+}
+
+.filters {
+  padding: 20px;
+  background-color: #fff;
+  margin: 10% 0;
+  box-shadow: 0 2px 5px -3px #000;
+  position: fixed;
+  top: -40px;
 }
 
 .title {
@@ -168,13 +181,6 @@ export default {
   & > *:nth-child(1) {
     margin-top: 15px;
   }
-}
-
-.filters {
-  padding: 20px;
-  background-color: #fff;
-  margin: 10% 0;
-  box-shadow: 0 2px 5px -3px #000;
 }
 
 @import '@/assets/rangeInput.scss';

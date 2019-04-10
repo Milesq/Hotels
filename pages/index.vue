@@ -30,7 +30,8 @@ export default {
 @import '@/assets/variables.scss';
 
 .search-bar {
-  background: url(https://placeimg.com/1000/350/any/grayscale);
+  background: url(https://placeimg.com/1000/350/any);
+
   @media (max-width: 678px) {
     background-size: cover;
   }

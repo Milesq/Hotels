@@ -8,7 +8,7 @@
     <slot />
     <div class="center-y">
       <nuxt-link :class="['link', { light: !shadow }]" to="/search/all">obiekty</nuxt-link>
-      <nuxt-link :class="['link', { light: !shadow }]" to="/blog">artykuły</nuxt-link>
+      <nuxt-link :class="['link', { light: !shadow }]" to="/blog">blog</nuxt-link>
     </div>
   </header>
 </template>
@@ -30,6 +30,7 @@ export default {
 header {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 
   @media (min-width: 678px) {
     position: sticky;
@@ -40,7 +41,7 @@ header {
   min-height: $header-height;
   width: 100vw;
 
-  padding: 1.5% 10vw;
+  padding: 10px 10vw;
 
   &:not(.light)::before {
     content: '';
@@ -55,7 +56,8 @@ header {
   }
 
   &.light {
-    background-color: #fff;
+    background-color: $secondary-color;
+    box-shadow: 0 0 5px -1px #000;
   }
 }
 
@@ -64,12 +66,11 @@ header {
   text-transform: capitalize;
   font-weight: 800;
   height: auto;
-  margin: 0 5px;
+  margin: 0 10px;
   text-decoration: none;
   font-size: 1.2em;
 
   &.light {
-    color: black;
     font-weight: 500;
   }
 }

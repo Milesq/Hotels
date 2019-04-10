@@ -5,7 +5,7 @@
         <h3>Szybkie linki:</h3>
         <ul>
           <li><nuxt-link to="/search/all">Wszystkie obiekty</nuxt-link></li>
-          <li><nuxt-link to="/blog">Artykuły</nuxt-link></li>
+          <li><nuxt-link to="/blog">Blog</nuxt-link></li>
         </ul>
       </div>
       <div>

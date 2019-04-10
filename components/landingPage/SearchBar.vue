@@ -70,9 +70,6 @@ export default {
 .categories {
   display: flex;
   justify-content: center;
-  background-color: #fff;
-  box-shadow: -2px 3px 10px -5px rgba(0,0,0,0.75);
-  border-radius: 5px;
   margin: 10% auto;
   padding: 5px;
 
@@ -86,9 +83,14 @@ export default {
     display: flex;
     flex-direction: column;
 
+    margin: 10px;
+    border-radius: 5px;
+    box-shadow: -2px 3px 10px -5px rgba(0,0,0,0.75);
+    background-color: #fff;
+
     color: #000;
 
-    padding: 10px 57px;
+    padding: 15px 57px;
 
     text-transform: capitalize;
 
@@ -102,14 +104,6 @@ export default {
 
     span {
       font-size: .75em;
-    }
-
-    &:not(:nth-child(1)) {
-      border-left: 2px #626262 solid;
-      @media (max-width: 678px) {
-        border-left: 0;
-        border-top: 2px #626262 solid;
-      }
     }
   }
 }
