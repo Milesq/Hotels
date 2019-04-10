@@ -11,11 +11,11 @@
       <div>
         <h3>Kategorie:</h3>
         <ul>
-          <li><NLink to="/search/all/all?type=aquapark">Aquapark</NLink></li>
-          <li><NLink to="/search/all/all?type=swimming-pool-indoor">Basen kryty</NLink></li>
-          <li><NLink to="/search/all/all?type=swimming-pool-outdoor">Basen odkryty</NLink></li>
-          <li><NLink to="/search/all/all?type=swimming-pool-thermal">Basen termalny</NLink></li>
-          <li><NLink to="/search/all/all?type=sauna">Sauna</NLink></li>
+          <li><NLink to="/search/all?type=aquapark">Aquapark</NLink></li>
+          <li><NLink to="/search/all?type=swimming-pool-indoor">Basen kryty</NLink></li>
+          <li><NLink to="/search/all?type=swimming-pool-outdoor">Basen odkryty</NLink></li>
+          <li><NLink to="/search/all?type=swimming-pool-thermal">Basen termalny</NLink></li>
+          <li><NLink to="/search/all?type=sauna">Sauna</NLink></li>
         </ul>
       </div>
       <div>
