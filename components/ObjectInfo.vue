@@ -48,7 +48,13 @@ export default {
       return ret;
     },
     isOpen() {
-      return !true;
+      if (
+        (new Date()).getHours() > this.data.open[0]
+        && (new Date()).getHours() < this.data.open[1]) {
+        return true;
+      }
+
+      return false;
     }
   }
 };

@@ -77,6 +77,7 @@ export default {
             average: 4.7,
             numbers: 120
           },
+          open: [8, 22],
           attractions: ['Basen sportowy', 'Basen olimpijski', 'Brodzik dla dzieci']
         }
       ]
