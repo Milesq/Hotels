@@ -7,8 +7,8 @@
     </nuxt-link>
     <slot />
     <div class="center-y">
-      <nuxt-link :class="['link', { light: !shadow }]" to="/objects">obiekty</nuxt-link>
-      <nuxt-link :class="['link', { light: !shadow }]" to="/articles">artykuły</nuxt-link>
+      <nuxt-link :class="['link', { light: !shadow }]" to="/search/all">obiekty</nuxt-link>
+      <nuxt-link :class="['link', { light: !shadow }]" to="/blog">artykuły</nuxt-link>
     </div>
   </header>
 </template>

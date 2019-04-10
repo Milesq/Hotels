@@ -4,18 +4,18 @@
       <div>
         <h3>Szybkie linki:</h3>
         <ul>
-          <li><nuxt-link to="/objects">Wszystkie obiekty</nuxt-link></li>
-          <li><nuxt-link to="/articles">Artykuły</nuxt-link></li>
+          <li><nuxt-link to="/search/all">Wszystkie obiekty</nuxt-link></li>
+          <li><nuxt-link to="/blog">Artykuły</nuxt-link></li>
         </ul>
       </div>
       <div>
         <h3>Kategorie:</h3>
         <ul>
-          <li><NLink to="/objects/?type=aquapark">Aquapark</NLink></li>
-          <li><NLink to="/objects/?type=swimming-pool-indoor">Basen kryty</NLink></li>
-          <li><NLink to="/objects/?type=swimming-pool-outdoor">Basen odkryty</NLink></li>
-          <li><NLink to="/objects/?type=swimming-pool-thermal">Basen termalny</NLink></li>
-          <li><NLink to="/objects/?type=sauna">Sauna</NLink></li>
+          <li><NLink to="/search/all/all?type=aquapark">Aquapark</NLink></li>
+          <li><NLink to="/search/all/all?type=swimming-pool-indoor">Basen kryty</NLink></li>
+          <li><NLink to="/search/all/all?type=swimming-pool-outdoor">Basen odkryty</NLink></li>
+          <li><NLink to="/search/all/all?type=swimming-pool-thermal">Basen termalny</NLink></li>
+          <li><NLink to="/search/all/all?type=sauna">Sauna</NLink></li>
         </ul>
       </div>
       <div>

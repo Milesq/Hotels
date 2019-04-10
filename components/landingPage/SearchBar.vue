@@ -17,19 +17,19 @@
     </div>
     <div class="categories">
       <div
-        @click="$router.push('objects/?type=aquapark')"
+        @click="$router.push('/search/all/?type=aquapark')"
         class="categories__breadcrumb">
         <i class="fas fa-swimming-pool category-icon"></i>
         <span>aquapark</span>
       </div>
       <div
-        @click="$router.push('objects/?type=swimming-pool')"
+        @click="$router.push('/search/all/?type=swimming-pool')"
         class="categories__breadcrumb">
         <i class="fas fa-water category-icon"></i>
         <span>basen</span>
       </div>
       <div
-        @click="$router.push('objects/?type=sauna')"
+        @click="$router.push('/search/all/?type=sauna')"
         class="categories__breadcrumb">
         <i class="fas fa-hot-tub category-icon"></i>
         <span>sauna</span>
