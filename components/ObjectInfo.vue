@@ -1,10 +1,14 @@
 <template>
   <div class="wrapper">
-    <div :style="{
-      backgroundImage: `url(${data.img})`
-    }" class="logo-img"></div>
+    <nuxt-link :to="url">
+      <div :style="{
+        backgroundImage: `url(${data.img})`
+      }" class="logo-img"></div>
+    </nuxt-link>
     <div class="description">
-      <h2>{{ data.name }}</h2>
+      <nuxt-link :to="url">
+        <h2>{{ data.name }}</h2>
+      </nuxt-link>
       <h3 class="address">{{ data.address }}</h3>
       <div class="attractions">
         <span
@@ -21,11 +25,11 @@
           {{ isOpen? 'Otwarte' : 'Zamknięte' }}
         </span>
         <div class="rating">
-          <div>
+          <div class="rating__info">
             <span>Bardzo dobry</span>
             <span>{{ data.ratings.numbers }} opinie</span>
           </div>
-          <div>{{ data.ratings.average }}</div>
+          <div class="rating__average">{{ data.ratings.average }}</div>
         </div>
       </div>
     </div>
@@ -55,6 +59,12 @@ export default {
       }
 
       return false;
+    },
+    url() {
+      let url = this.data.name;
+      while (url.search(' ') !== -1) url = url.replace(' ', '');
+      url = url.charAt(0).toLowerCase() + url.slice(1);
+      return `/object/${url}`;
     }
   }
 };
@@ -62,6 +72,7 @@ export default {
 
 <style scoped lang="scss">
 @import '@/assets/variables.scss';
+$green: #48a277;
 
 .wrapper {
   display: grid;
@@ -91,8 +102,36 @@ export default {
   margin: 5px 0;
 }
 
-.ratings {
+.rating {
+  display: flex;
+  & > * {
+    margin: 0 10px;
+  }
 
+  &__info {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    flex-direction: column;
+
+    margin-right: 3px;
+
+    font-size: .9em;
+
+    span:nth-child(2) {
+      font-size: .9em;
+      font-weight: 400;
+    }
+  }
+
+  &__average {
+    color: white;
+    font-weight: 700;
+    background-color: $green;
+    padding: 5px;
+    border-radius: 4px;
+    box-shadow:0 0 3px -1px #000;
+  }
 }
 
 .fas {
@@ -126,7 +165,7 @@ export default {
       margin: 15px;
 
       &--open{
-        color: #48a277;
+        color: $green;
       }
     }
   }
@@ -137,5 +176,10 @@ export default {
   font-weight: 600;
   color: #afafaf;
   margin-top: 5px;
+}
+
+a {
+  color: black;
+  text-decoration: none;
 }
 </style>
