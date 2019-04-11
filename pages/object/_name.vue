@@ -103,10 +103,81 @@
         </div>
       </section>
     </section>
+    <section style="width: 100%" class="tile">
+      <h3 class="tile__header">Cennik</h3>
+      <div
+        class="tile__content pricing">
+        <span class="pricing__info">Sprawdź aktualne ceny na oficjalnej stronie basenu</span>
+        <span>Bilet normalny od <b>10zł</b></span>
+        <span>Bilet ulgowy od <b>6zł</b></span>
+      </div>
+    </section>
+    <section style="width: 100%" class="tile">
+      <h3 class="tile__header">Ocena</h3>
+      <div class="tile__content ratings">
+        <div class="ratings__main">
+          <span>
+            <span style="font-weight: 700">3.5</span>
+            <i class="fas fa-star"></i>
+          </span>
+          <span class="ratings__numbers">
+            Na podstawie <b>136 opini</b>
+          </span>
+        </div>
+        <div class="details">
+          <div class="details__unit">
+            <span style="font-weight: 800">Obsługa:</span>
+            <span>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star no-active"></i>
+              <i class="fas fa-star no-active"></i>
+              <i class="fas fa-star no-active"></i>
+            </span>
+            <span style="font-weight: 800">2.0</span>
+          </div>
+          <div class="details__unit">
+            <span style="font-weight: 800">Zatłoczenie:</span>
+            <span>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star no-active"></i>
+            </span>
+            <span style="font-weight: 800">4.0</span>
+          </div>
+          <div class="details__unit">
+            <span style="font-weight: 800">Czystość:</span>
+            <span>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+            </span>
+            <span style="font-weight: 800">5.0</span>
+          </div>
+          <div class="details__unit">
+            <span style="font-weight: 800">Atrakcje:</span>
+            <span>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star no-active"></i>
+              <i class="fas fa-star no-active"></i>
+              <i class="fas fa-star no-active"></i>
+              <i class="fas fa-star no-active"></i>
+            </span>
+            <span style="font-weight: 800">1.0</span>
+          </div>
+        </div>
+      </div>
+    </section>
+    <Comments :for="$route.params.name" />
   </div>
 </template>
 
 <script>
+import Comments from '@/components/Comments.vue';
 import Ad from '@/components/ArticleAd.vue';
 
 export default {
@@ -162,7 +233,8 @@ export default {
     }
   },
   components: {
-    Ad
+    Ad,
+    Comments
   },
   filters: {
     fromUrlToHuman(notFriendly) {
@@ -177,8 +249,51 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import '@/assets/variables.scss';
+@import '@/assets/BlueTile.scss';
 $image-height: 600;
+
+.details {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+
+  &__unit {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    & > * {
+      margin: auto 0;
+    }
+  }
+}
+
+.ratings {
+  display: grid;
+  padding: 40px;
+  grid-template-columns: 1fr 2fr;
+  & > * {
+    margin: auto 0;
+  }
+
+  &__numbers {
+    font-size: .5em;
+    display: block;
+  }
+
+  &__main {
+    font-size: 2em;
+  }
+}
+
+.pricing {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  &__info {
+    font-size: 1.1em;
+    font-weight: 600;
+  }
+}
 
 .tile__content {
   &--attractions {
@@ -225,45 +340,6 @@ $image-height: 600;
   outline: none;
 }
 
-.tile {
-  $padding-x: 18px;
-  $padding-y: 9px;
-
-  box-shadow: 0 1px 9px -3px #000;
-  border-radius: 3px;
-  overflow: hidden;
-  margin-top: 25px;
-
-  & > * {
-    padding: $padding-y $padding-x;
-  }
-
-  &__header {
-    color: #fff;
-    background-color: $secondary-color;
-    z-index: 2;
-  }
-
-  &__content {
-    background-color: #fff;
-    position: relative;
-    min-height: 90px;
-
-    &::after {
-      content: '';
-      display: block;
-      width: calc(100% + #{($padding-x * 2)});
-
-      position: absolute;
-      left: 0;
-      top: 0;
-
-      height: 5px;
-      background-image: linear-gradient(#777, #fff);
-    }
-  }
-}
-
 .ads {
   display: flex;
   justify-content: center;
@@ -282,6 +358,10 @@ $image-height: 600;
 
 .fas {
   color: $secondary-color;
+
+  &.no-active {
+    color: #e5e5e5;
+  }
 }
 
 .grid {
