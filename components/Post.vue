@@ -105,6 +105,10 @@ export default {
 .wrapper {
   margin: 15px 0;
   padding: 0 70px;
+
+  @media (max-width: 870px) {
+    padding: 0 7px;
+  }
 }
 
 .container {
@@ -112,6 +116,10 @@ export default {
   grid-template-columns: 1fr 2fr;
   box-shadow: 0 2px 5px -3px #000;
   background-color: #fff;
+
+  @media (max-width: 870px) {
+    grid-template-columns: 1fr;
+  }
 }
 
 .description {
@@ -127,6 +135,10 @@ export default {
   height: 250px;
   width: 400px;
   overflow: hidden;
+
+  @media (max-width: 870px) {
+    width: 100%;
+  }
 
   div {
     background-position: 0 0;
