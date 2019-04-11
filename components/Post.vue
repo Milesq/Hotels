@@ -100,6 +100,8 @@ export default {
 </script>
 
 <style scoped lang="scss">
+@import '@/assets/variables.scss';
+
 .wrapper {
   margin: 15px 0;
   padding: 0 70px;
@@ -144,6 +146,6 @@ export default {
 }
 
 .link {
-  color: #2196f3;
+  color: $secondary-color;
 }
 </style>
