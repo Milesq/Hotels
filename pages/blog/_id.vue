@@ -36,5 +36,7 @@ export default {
 
 .post {
   text-align: center;
+  max-width: 100%;
+  overflow: hidden;
 }
 </style>
