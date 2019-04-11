@@ -26,7 +26,7 @@
 <script>
 function a(obj) {
   return {
-    require: true,
+    required: true,
     ...obj
   };
 }

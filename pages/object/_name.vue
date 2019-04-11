@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="gallery"></div>
-    <h1>Aquapark warszawa</h1>
+    <h1>{{ $route.params.name | fromUrlToHuman }}</h1>
 
     <section style="margin-top: 15px" class="object-info">
       <section style="margin-right: 20px" class="tile">
@@ -42,10 +42,17 @@
         </button>
         </div>
     </section>
+    <section class="ads">
+      <Ad img="https://placeimg.com/400/250/any">Co wziąść na basen? Pełna lista które musisz zabrać!</Ad>
+      <Ad img="https://placeimg.com/400/500/any">Higiena po basenie, czyli pamiętaj o wzięciu prysznica!</Ad>
+      <Ad img="https://placeimg.com/300/350/any">Najlepsze ćwiczenia odchudzające na basenie! Sprawdź naszą listę!</Ad>
+    </section>
   </div>
 </template>
 
 <script>
+import Ad from '@/components/ArticleAd.vue';
+
 export default {
   validate({ redirect, params: { name } }) {
     if (name[0] === name[0].toUpperCase()) {
@@ -58,8 +65,8 @@ export default {
 
     return true;
   },
-  asyncData() {
-    return {
+  async asyncData({ $axios }) {
+    const ret = {
       attractions: ['Basen sportowy', 'Basen rekreacyjny', 'Jacuzzi', 'Łaźnia parowa'],
       partners: [
         'https://placeimg.com/120/50/any',
@@ -67,30 +74,12 @@ export default {
         'https://placeimg.com/120/50/any/grayscale',
         'https://placeimg.com/120/50/any/sepia'
       ],
-      description: `
-      <b>Super!!</b>,
-              Lorem ipsum dolor sit amet consectetur
-        adipisicing elit. Nisi esse
-        corrupti accusantium voluptas eveniet reiciendis autem quo
-        impedit aut atque incidunt alias doloribus
-        odit consectetur officiis id, itaque laboriosam! A!
-                Lorem ipsum dolor sit amet consectetur
-        adipisicing elit. Nisi esse
-        corrupti accusantium voluptas eveniet reiciendis autem quo
-        impedit aut atque incidunt alias doloribus
-        odit consectetur officiis id, itaque laboriosam! A!
-                Lorem ipsum dolor sit amet consectetur
-        adipisicing elit. Nisi esse
-        corrupti accusantium voluptas eveniet reiciendis autem quo
-        impedit aut atque incidunt alias doloribus
-        odit consectetur officiis id, itaque laboriosam! A!
-                Lorem ipsum dolor sit amet consectetur
-        adipisicing elit. Nisi esse
-        corrupti accusantium voluptas eveniet reiciendis autem quo
-        impedit aut atque incidunt alias doloribus
-        odit consectetur officiis id, itaque laboriosam! A!
-      `
+      description: ''
     };
+
+    ret.description = (await $axios.get('/desc.txt')).data;
+
+    return ret;
   },
   data() {
     return {
@@ -104,7 +93,19 @@ export default {
         return this.description;
       }
 
-      return this.description.substr(0, 100);
+      return this.description.substr(0, 1000);
+    }
+  },
+  components: {
+    Ad
+  },
+  filters: {
+    fromUrlToHuman(notFriendly) {
+      let friendly = notFriendly[0].toUpperCase();
+      friendly += notFriendly.substr(1);
+      return friendly
+        .split('')
+        .reduce((acc, el) => acc + (/[A-Z]/.test(el) ? ' ' : '') + el);
     }
   }
 };
@@ -137,6 +138,11 @@ $image-height: 600;
   &--description {
     display: flex;
     justify-content: center;
+
+    & > span {
+      padding: 13px;
+      padding-bottom: 30px;
+    }
   }
 }
 
@@ -148,7 +154,7 @@ $image-height: 600;
   background-color: transparent;
   border: none;
   cursor: pointer;
-  font-size: 1em;
+  font-size: 1.2em;
   font-weight: 600;
   outline: none;
 }
@@ -190,6 +196,12 @@ $image-height: 600;
       background-image: linear-gradient(#777, #fff);
     }
   }
+}
+
+.ads {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
 .partners-none {
