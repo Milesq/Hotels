@@ -2,18 +2,20 @@
   <div class="title">
     <div class="search">
       <h1>Zrelaksuj się nad wodą blisko siebie!</h1>
-      <input
-        @keydown.enter="send"
-        v-model="city"
-        class="search__input"
-        type="text"
-        placeholder="Podaj nazwę miasta"><!--
-      this comment must be there!
-      --><button
-        @click="send"
-        class="search__button">
-          <i class="fas fa-search"></i>Szukaj
-        </button>
+      <div class="search__wrapper">
+        <input
+          @keydown.enter="send"
+          v-model="city"
+          class="search__input"
+          type="text"
+          placeholder="Podaj nazwę miasta"><!--
+        this comment must be there!
+        --><button
+          @click="send"
+          class="search__button">
+            <i class="fas fa-search"></i>Szukaj
+          </button>
+      </div>
     </div>
     <div class="categories">
       <div
@@ -114,6 +116,16 @@ export default {
 }
 
 .search {
+  &__wrapper {
+    @media (max-width: 380px) {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+
+  $radius: 10px;
+
   &__input,
   &__button {
     padding: 15px;
@@ -122,9 +134,11 @@ export default {
     font-weight: 500;
     border: none;
     margin: 0;
-  }
 
-  $radius: 10px;
+    @media (max-width: 380px) {
+      border-radius: $radius;
+    }
+  }
 
   &__input {
     border-top-left-radius: $radius;
