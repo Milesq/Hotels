@@ -21,6 +21,10 @@ export default {
       {
         rel: 'stylesheet',
         href: 'https://use.fontawesome.com/releases/v5.8.1/css/all.css'
+      },
+      {
+        rel: 'stylesheet',
+        href: 'https://fonts.googleapis.com/css?family=Hind:400,500,600,700&amp;subset=latin-ext'
       }
     ]
   },
@@ -30,7 +34,7 @@ export default {
   */
   loading: {
     color: 'green',
-    height: '10px',
+    height: '5px',
     duration: 1500,
     continuous: true
   },

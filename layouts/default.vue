@@ -19,7 +19,7 @@ export default {
 @import '../assets/variables.scss';
 
 html {
-  font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+  font-family: Hind, 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI',
     Roboto, 'Helvetica Neue', Arial, sans-serif;
   padding: 0;
   margin: 0;
