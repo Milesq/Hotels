@@ -179,8 +179,8 @@
 </template>
 
 <script>
-import Comments from "@/components/Comments.vue";
-import Ad from "@/components/ArticleAd.vue";
+import Comments from '@/components/Comments.vue';
+import Ad from '@/components/ArticleAd.vue';
 
 export default {
   validate({ redirect, params: { name } }) {
@@ -197,25 +197,25 @@ export default {
   async asyncData({ $axios }) {
     const ret = {
       attractions: [
-        "Basen sportowy",
-        "Basen rekreacyjny",
-        "Jacuzzi",
-        "Łaźnia parowa"
+        'Basen sportowy',
+        'Basen rekreacyjny',
+        'Jacuzzi',
+        'Łaźnia parowa'
       ],
       partners: [
-        "https://placeimg.com/120/50/any",
-        "https://placeimg.com/120/50/tech",
-        "https://placeimg.com/120/50/any/grayscale",
-        "https://placeimg.com/120/50/any/sepia"
+        'https://placeimg.com/120/50/any',
+        'https://placeimg.com/120/50/tech',
+        'https://placeimg.com/120/50/any/grayscale',
+        'https://placeimg.com/120/50/any/sepia'
       ],
-      description: "",
-      address: "Gdańsk Dworzec",
+      description: '',
+      address: 'Gdańsk Dworzec',
       phone: 123456789,
-      mail: "abc@example.com",
-      page: "example.org"
+      mail: 'abc@example.com',
+      page: 'example.org'
     };
 
-    ret.description = (await $axios.get("/desc.txt")).data;
+    ret.description = (await $axios.get('/desc.txt')).data;
 
     return ret;
   },
@@ -224,7 +224,7 @@ export default {
       fullLengthDescription: false
     };
   },
-  layout: "static",
+  layout: 'static',
   computed: {
     desc() {
       if (this.fullLengthDescription) {
@@ -248,8 +248,8 @@ export default {
       let friendly = notFriendly[0].toUpperCase();
       friendly += notFriendly.substr(1);
       return friendly
-        .split("")
-        .reduce((acc, el) => acc + (/[A-Z]/.test(el) ? " " : "") + el);
+        .split('')
+        .reduce((acc, el) => acc + (/[A-Z]/.test(el) ? ' ' : '') + el);
     }
   }
 };

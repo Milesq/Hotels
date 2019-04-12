@@ -10,7 +10,7 @@
           </div>
           <textarea
             placeholder="Dodaj komentarz"
-            v-model="comment"
+            v-model="newComment"
             class="new-comment__area"></textarea>
           <button class="new-comment__send-button">
             Dodaj komentarz
@@ -18,6 +18,18 @@
         </div>
       </div>
     </section>
+    <article
+      v-for="(comment, i) in comments"
+      :key="'comment' + forProps + i"
+      class="comment">
+      <span class="comment__header">
+        <span class="comment__header__author">{{ comment.author }}</span>
+        <span class="comment__header__date">{{ comment.date }}</span>
+      </span>
+      <div class="comment__content">
+        {{ comment.content }}
+      </div>
+    </article>
   </section>
 </template>
 
@@ -31,7 +43,14 @@ export default {
   },
   data() {
     return {
-      comment: '',
+      newComment: '',
+      comments: [
+        {
+          author: 'Milesq',
+          date: '25.09.2018',
+          content: 'lorem ipsum sit dolerum'
+        }
+      ],
       user: {
         name: 'Anna Kowalska'
       }
@@ -42,11 +61,6 @@ export default {
 
 <style lang="scss" scoped>
 @import '@/assets/BlueTile.scss';
-
-.link {
-  color: $secondary-color;
-  text-decoration: none;
-}
 
 .new-comment {
   font-weight: 600;
@@ -69,6 +83,7 @@ export default {
     min-height: 200px;
     resize: none;
     border-radius: 3px;
+    padding: 15px;
   }
 
   &__send-button {
@@ -86,5 +101,10 @@ export default {
       transform: translateY(-2px);
     }
   }
+}
+
+.link {
+  color: $secondary-color;
+  text-decoration: none;
 }
 </style>
