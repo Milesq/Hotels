@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/Milesq/Hotels.svg?token=sB2RiYGtoe8tKfWzUwEX&branch=master)](https://travis-ci.com/Milesq/Hotels)
+
 # hotels
 
 > My dazzling Nuxt.js project
