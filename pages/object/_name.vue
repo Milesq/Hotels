@@ -16,36 +16,37 @@
       <section style="margin-left: 20px" class="tile">
         <h3 class="tile__header">Programy partnerskie</h3>
         <div class="tile__content tile__content--partners">
-          <img
-            v-for="partner in partners"
-            :key="partner + 'logo'"
-            :src="partner">
-            <span class="partners-none" v-if="!partners || !partners.length">
-              Brak programów partnerskich w tym obiekcie
-            </span>
+          <img v-for="partner in partners" :key="partner + 'logo'" :src="partner">
+          <span
+            class="partners-none"
+            v-if="!partners || !partners.length"
+          >Brak programów partnerskich w tym obiekcie</span>
         </div>
       </section>
     </section>
     <section style="width: 100%" class="tile">
       <h3 class="tile__header">Opis obiektu</h3>
-      <div
-        class="tile__content tile__content--description">
+      <div class="tile__content tile__content--description">
         <span v-html="desc"></span>
 
-        <button
-          @click="fullLengthDescription = !fullLengthDescription"
-          class="descriptionToggle">
+        <button @click="fullLengthDescription = !fullLengthDescription" class="descriptionToggle">
           {{
-            fullLengthDescription ? 'Zwiń' : 'Rozwiń'
+          fullLengthDescription ? 'Zwiń' : 'Rozwiń'
           }}
           opis
         </button>
-        </div>
+      </div>
     </section>
     <section class="ads">
-      <Ad img="https://placeimg.com/400/250/any">Co wziąść na basen? Pełna lista które musisz zabrać!</Ad>
-      <Ad img="https://placeimg.com/400/500/any">Higiena po basenie, czyli pamiętaj o wzięciu prysznica!</Ad>
-      <Ad img="https://placeimg.com/300/350/any">Najlepsze ćwiczenia odchudzające na basenie! Sprawdź naszą listę!</Ad>
+      <Ad
+        img="https://placeimg.com/400/250/any"
+      >Co wziąść na basen? Pełna lista które musisz zabrać!</Ad>
+      <Ad
+        img="https://placeimg.com/400/500/any"
+      >Higiena po basenie, czyli pamiętaj o wzięciu prysznica!</Ad>
+      <Ad
+        img="https://placeimg.com/300/350/any"
+      >Najlepsze ćwiczenia odchudzające na basenie! Sprawdź naszą listę!</Ad>
     </section>
     <section class="grid">
       <section style="margin-right: 20px; background-color: white" class="tile">
@@ -57,19 +58,14 @@
             frameborder="0"
             scrolling="no"
             marginheight="0"
-            marginwidth="0"></iframe>
+            marginwidth="0"
+          ></iframe>
           <div class="contact__address" style="margin-bottom: 20px" v-text="address"></div>
           <div class="contact__wrapper contact--map">
             <i class="fas fa-map-marked-alt"></i>
-            <a
-              target="blank"
-              :href="'https://www.google.com/maps/place/' + address">
-              Otwórz mapę
-            </a>
+            <a target="blank" :href="'https://www.google.com/maps/place/' + address">Otwórz mapę</a>
 
-            <span>
-              z trasą do obiektu
-            </span>
+            <span>z trasą do obiektu</span>
           </div>
           <div class="contact" style="height: 100%;">
             <i class="fas fa-phone"></i>
@@ -105,11 +101,16 @@
     </section>
     <section style="width: 100%" class="tile">
       <h3 class="tile__header">Cennik</h3>
-      <div
-        class="tile__content pricing">
+      <div class="tile__content pricing">
         <span class="pricing__info">Sprawdź aktualne ceny na oficjalnej stronie basenu</span>
-        <span>Bilet normalny od <b>10zł</b></span>
-        <span>Bilet ulgowy od <b>6zł</b></span>
+        <span>
+          Bilet normalny od
+          <b>10zł</b>
+        </span>
+        <span>
+          Bilet ulgowy od
+          <b>6zł</b>
+        </span>
       </div>
     </section>
     <section style="width: 100%" class="tile">
@@ -121,7 +122,8 @@
             <i class="fas fa-star"></i>
           </span>
           <span class="ratings__numbers">
-            Na podstawie <b>136 opini</b>
+            Na podstawie
+            <b>136 opini</b>
           </span>
         </div>
         <div class="details">
@@ -172,13 +174,13 @@
         </div>
       </div>
     </section>
-    <Comments :for="$route.params.name" />
+    <Comments :for="$route.params.name"/>
   </div>
 </template>
 
 <script>
-import Comments from '@/components/Comments.vue';
-import Ad from '@/components/ArticleAd.vue';
+import Comments from "@/components/Comments.vue";
+import Ad from "@/components/ArticleAd.vue";
 
 export default {
   validate({ redirect, params: { name } }) {
@@ -194,21 +196,26 @@ export default {
   },
   async asyncData({ $axios }) {
     const ret = {
-      attractions: ['Basen sportowy', 'Basen rekreacyjny', 'Jacuzzi', 'Łaźnia parowa'],
-      partners: [
-        'https://placeimg.com/120/50/any',
-        'https://placeimg.com/120/50/tech',
-        'https://placeimg.com/120/50/any/grayscale',
-        'https://placeimg.com/120/50/any/sepia'
+      attractions: [
+        "Basen sportowy",
+        "Basen rekreacyjny",
+        "Jacuzzi",
+        "Łaźnia parowa"
       ],
-      description: '',
-      address: 'Gdańsk Dworzec',
+      partners: [
+        "https://placeimg.com/120/50/any",
+        "https://placeimg.com/120/50/tech",
+        "https://placeimg.com/120/50/any/grayscale",
+        "https://placeimg.com/120/50/any/sepia"
+      ],
+      description: "",
+      address: "Gdańsk Dworzec",
       phone: 123456789,
-      mail: 'abc@example.com',
-      page: 'example.org'
+      mail: "abc@example.com",
+      page: "example.org"
     };
 
-    ret.description = (await $axios.get('/desc.txt')).data;
+    ret.description = (await $axios.get("/desc.txt")).data;
 
     return ret;
   },
@@ -217,7 +224,7 @@ export default {
       fullLengthDescription: false
     };
   },
-  layout: 'static',
+  layout: "static",
   computed: {
     desc() {
       if (this.fullLengthDescription) {
@@ -241,15 +248,15 @@ export default {
       let friendly = notFriendly[0].toUpperCase();
       friendly += notFriendly.substr(1);
       return friendly
-        .split('')
-        .reduce((acc, el) => acc + (/[A-Z]/.test(el) ? ' ' : '') + el);
+        .split("")
+        .reduce((acc, el) => acc + (/[A-Z]/.test(el) ? " " : "") + el);
     }
   }
 };
 </script>
 
 <style scoped lang="scss">
-@import '@/assets/BlueTile.scss';
+@import "@/assets/BlueTile.scss";
 $image-height: 600;
 
 .details {
@@ -275,7 +282,7 @@ $image-height: 600;
   }
 
   &__numbers {
-    font-size: .5em;
+    font-size: 0.5em;
     display: block;
   }
 

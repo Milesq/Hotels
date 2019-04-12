@@ -14,7 +14,8 @@
     "comma-dangle": ["error", "never"],
     "vue/no-unused-components": "warn",
     "import/no-unresolved": "off",
-    "prefer-template": "off"
+    "prefer-template": "off",
+    "dot-notation": "off"
   },
   "parserOptions": {
     "parser": "babel-eslint"
