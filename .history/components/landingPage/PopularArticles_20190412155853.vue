@@ -4,14 +4,14 @@
     <article class="tiles">
       <Tile
         alt=""
-        href="/blog/0"
+        href="/search/all"
         title="Aquapark Delfin Warszawa"
         class="tile"
         light
       />
       <Tile
         alt=""
-        href="/blog/1"
+        href="/search/all"
         title="Aquapark Delfin Warszawa"
         class="tile"
         light
