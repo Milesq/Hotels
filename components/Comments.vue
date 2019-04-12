@@ -1,9 +1,9 @@
 <template>
-  <section>
-    <section style="width: 100%" class="tile">
+  <section style="width: 100%">
+    <section class="tile">
       <h3 class="tile__header">Dodaj komentarz</h3>
       <div class="tile__content">
-        <div v-if="user" class="new-comment">
+        <div v-if="user.name" class="new-comment">
           <div class="new-comment__header">
             Zalogowano jako {{ user.name }}.
             <nuxt-link class="link" to="/">Wyloguj się</nuxt-link>
@@ -12,9 +12,14 @@
             placeholder="Dodaj komentarz"
             v-model="newComment"
             class="new-comment__area"></textarea>
-          <button class="new-comment__send-button">
+          <button @click="addComment" class="new-comment__send-button">
             Dodaj komentarz
           </button>
+        </div>
+        <div class="login" v-else>
+          <div>Zaloguj się żeby dodać komentarz</div>
+          <div>google</div>
+          <div>facebook</div>
         </div>
       </div>
     </section>
@@ -52,15 +57,65 @@ export default {
         }
       ],
       user: {
-        name: 'Anna Kowalska'
+        name: 'Ania Kowalska'
       }
     };
+  },
+  methods: {
+    addComment() {
+      const now = new Date;
+      this.comments.push({
+        author: this.user.name,
+        date: `${now.getDate()}.${now.getMonth()}.${now.getFullYear()}`,
+        content: this.newComment
+      });
+
+      this.newComment = '';
+    }
   }
 };
 </script>
 
 <style lang="scss" scoped>
+@import '@/assets/variables.scss';
 @import '@/assets/BlueTile.scss';
+
+.comment {
+  background-color: #fff;
+  box-shadow: 0 1px 5px -1px #000;
+  margin: 20px 0;
+  padding: 20px;
+
+  &__header {
+    margin: 10px 0;
+    font-size: 1.1em;
+
+    &__author {
+      font-weight: 700;
+    }
+
+    &__date {
+      font-weight: 400;
+      font-size: .9em;
+      margin-left: 10px;
+    }
+  }
+
+  &__content {
+    border-top: 1px solid #c1c1c1;
+    padding: 10px 0;
+    margin-top: 10px;
+    font-weight: 300;
+    font-size: .95em;
+  }
+}
+
+.login {
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
 
 .new-comment {
   font-weight: 600;

@@ -15,7 +15,8 @@
     "vue/no-unused-components": "warn",
     "import/no-unresolved": "off",
     "prefer-template": "off",
-    "dot-notation": "off"
+    "dot-notation": "off",
+    "new-parens": "off"
   },
   "parserOptions": {
     "parser": "babel-eslint"
