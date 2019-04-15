@@ -2,8 +2,7 @@
   <div class="container">
     <div class="gallery"></div>
     <h1>{{ $route.params.name | fromUrlToHuman }}</h1>
-
-    <section style="margin-top: 15px" class="grid">
+    <section style="margin-top: 15px" class="grid grid--smallscreen">
       <section style="margin-right: 20px" class="tile">
         <h3 class="tile__header">Atrakcje</h3>
         <div class="tile__content tile__content--attractions">
@@ -48,7 +47,7 @@
         img="https://placeimg.com/300/350/any"
       >Najlepsze ćwiczenia odchudzające na basenie! Sprawdź naszą listę!</Ad>
     </section>
-    <section class="grid">
+    <section class="grid grid--smallscreen">
       <section style="margin-right: 20px; background-color: white" class="tile">
         <h3 class="tile__header">Kontakt</h3>
         <div class="tile__content contact" style="margin: 0">
@@ -264,9 +263,19 @@ $image-height: 600;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr;
 
+  @media(max-width: 1300px) {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
   &__unit {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
+    @media(max-width: 350px) {
+      grid-template-columns: 1fr;
+      margin: 15px 0;
+    }
+
     & > * {
       margin: auto 0;
     }
@@ -277,6 +286,9 @@ $image-height: 600;
   display: grid;
   padding: 40px;
   grid-template-columns: 1fr 2fr;
+  @media(max-width: 1300px) {
+    grid-template-columns: 1fr;
+  }
   & > * {
     margin: auto 0;
   }
@@ -350,6 +362,7 @@ $image-height: 600;
 .ads {
   display: flex;
   justify-content: center;
+  max-width: 100%;
   flex-wrap: wrap;
 }
 
@@ -375,13 +388,28 @@ $image-height: 600;
   display: grid;
   grid-template-columns: 1fr 1fr;
   width: 100%;
+
+  &--smallscreen {
+    @media(max-width: 800px) {
+      grid-template-columns: 1fr;
+      & > * {
+        margin-left: auto !important;
+        margin-right: auto !important;
+        width: 100%;
+      }
+    }
+  }
 }
 
 .container {
-  padding: 50px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  padding: 50px 0;
+
+  @media(min-width: 800px) {
+    padding: 50px;
+  }
 }
 
 .gallery {
@@ -395,6 +423,10 @@ $image-height: 600;
   box-shadow: 0 0 5px -2px #000;
 
   border-radius: 4px;
+
+  @media(max-width: 800px) {
+    height: 40vw;
+  }
 }
 
 .contact {

@@ -67,6 +67,10 @@ html {
 
 body {
   padding: 0 $page-padding;
+  @media(max-width: 800px) {
+    padding: 0;
+    font-size: .8em;
+  }
   overflow-x: hidden;
 }
 
