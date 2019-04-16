@@ -16,7 +16,7 @@
         Atrakcje
         <label
           v-for="attraction in possibilityAttractions"
-          :key="attraction[1]"
+          :key="attraction[1] + 'attraction'"
           style="display: block">
             <div class="pretty p-default p-round p-thick p-smooth">
                 <input type="checkbox" :value="attraction[1]" v-model="attractions">
@@ -52,15 +52,15 @@
       <h1>Baseny - {{ $route.params.city == 'all'? 'Polska' : $route.params.city }}</h1>
       <ObjectInfo
         v-for="object in swimmingPools"
-        :key="object.name"
+        :key="object.name + 'searchResult'"
         :data="object" />
       <ObjectInfo
         v-for="object in swimmingPools"
-        :key="object.name"
+        :key="object.name + '3'"
         :data="object" />
       <ObjectInfo
         v-for="object in swimmingPools"
-        :key="object.name"
+        :key="object.name + '4'"
         :data="object" />
     </section>
   </section>

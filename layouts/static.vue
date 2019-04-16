@@ -42,6 +42,9 @@ export default {
     search() {
       this.$router.push(`/search/${this.city}`);
     }
+  },
+  mounted() {
+    console.log(10);
   }
 };
 </script>
