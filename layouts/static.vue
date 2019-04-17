@@ -136,4 +136,10 @@ $shadow: 0 1px 4px -1px #000;
     box-shadow: $shadow;
   }
 }
+
+@media (max-width: 805px) {
+  .search-container {
+    display: none;
+  }
+}
 </style>
