@@ -25,13 +25,17 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .wrapper {
   width: 100%;
   margin-left: auto;
   margin-right: auto;
   padding: 20px 70px;
   background-color: #fff;
+
+  @media (max-width: 880px) {
+    padding: 20px;
+  }
 }
 
 .post {
