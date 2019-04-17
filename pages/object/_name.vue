@@ -361,8 +361,8 @@ $image-height: 600;
 
 .ads {
   display: flex;
-  justify-content: center;
-  max-width: 100%;
+  justify-content: space-around;
+  width: 100%;
   flex-wrap: wrap;
 }
 

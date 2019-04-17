@@ -1,7 +1,6 @@
 .search {
   &__input,
   &__button {
-    padding: 15px;
     color: white;
     font-weight: 500;
     border: none;
@@ -13,6 +12,7 @@
   &__input {
     border-top-left-radius: $radius;
     border-bottom-left-radius: $radius;
+    padding: 15px;
     color: #959595;
     width: 30vmax;
 
@@ -27,6 +27,8 @@
     min-width: 10vw;
     cursor: pointer;
     background-color: #ff9801;
+    padding: 12px;
+    padding-bottom: 12px !important;
     border: none;
   }
 }

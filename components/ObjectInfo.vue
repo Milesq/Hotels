@@ -83,6 +83,8 @@ $green: #48a277;
 .logo-img {
   min-height: 250px;
   background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
   cursor: pointer;
   transition: .2s linear filter;
 
