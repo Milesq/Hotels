@@ -116,6 +116,10 @@ textarea {
 .text {
   width: 90%;
   margin: 0 auto;
+
+  @media (max-width: 850px) {
+    width: 100%;
+  }
 }
 
 h1 {
@@ -140,8 +144,11 @@ form {
 
 .forms {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-column-gap: 10vw;
+
+  @media (min-width: 850px) {
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 10vw;
+  }
 }
 
 .tile {
