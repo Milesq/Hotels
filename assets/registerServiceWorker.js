@@ -1,6 +1,9 @@
 /* eslint-disable */
 
 export default () => {
+  if (!window.caches || !navigator.serviceWorker)
+    return;
+
   caches.open('poolsOfflineCache')
     .then(cache => {
       cache.add('/offline');
