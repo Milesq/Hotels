@@ -115,13 +115,22 @@ export default {
 <style scoped lang="scss">
 .container {
   display: grid;
-  grid-template-columns: 3fr 9fr;
+  @media(min-width: 950px) {
+    grid-template-columns: 1fr 3fr;
+  }
 
-  padding: 0 10vw;
+  padding: 0 10%;
+
+  @media(max-width: 1150px) {
+    padding: 25px;
+  }
 }
 
 .results {
-  margin-left: 50px;
+  @media(min-width: 950px) {
+    margin-left: 50px;
+  }
+
   min-height: 100%;
   margin-bottom: 20px;
 }
@@ -131,8 +140,15 @@ export default {
   background-color: #fff;
   margin: 10% 0;
   box-shadow: 0 2px 5px -3px #000;
-  position: fixed;
-  top: -40px;
+
+  @media(min-width: 950px) {
+    position: fixed;
+    top: -40px;
+  }
+
+  @media(max-width: 1150px) {
+    top: 0;
+  }
 }
 
 .title {
@@ -164,6 +180,7 @@ export default {
     background-repeat: no-repeat;
     background-position: right;
     background-image: url(../../assets/dropdown.svg);
+    background-color: #fff;
   }
 
   &__range {

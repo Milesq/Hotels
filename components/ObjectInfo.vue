@@ -74,7 +74,10 @@ $green: #48a277;
 
 .wrapper {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  @media(min-width: 650px) {
+    grid-template-columns: 1fr 1fr;
+  }
+
   background-color: #fff;
   box-shadow: 0 2px 5px -3px #000;
   margin: 30px 0;
@@ -132,6 +135,12 @@ $green: #48a277;
     position: absolute;
     bottom: 0;
     left: 0;
+
+    @media (max-width: 650px) {
+      background-color: #fff;
+      padding: 20px 0;
+      bottom: -25px;
+    }
 
     display: flex;
     align-items: center;
