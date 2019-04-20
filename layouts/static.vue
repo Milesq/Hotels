@@ -40,6 +40,7 @@ export default {
     Header,
     Footer
   },
+  middleware: 'https',
   methods: {
     search() {
       this.$router.push(`/search/${this.city}`);

@@ -14,6 +14,7 @@ export default {
   components: {
     Footer
   },
+  middleware: 'https',
   mounted: registerServiceWorker
 };
 </script>
