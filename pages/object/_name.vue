@@ -214,7 +214,11 @@ export default {
       page: 'example.org'
     };
 
-    ret.description = (await $axios.get('/desc.txt')).data;
+    try {
+      ret.description = (await $axios.get('/desc.txt')).data;
+    } catch (err) {
+      ret.description = 'Failed fetch';
+    }
 
     return ret;
   },
