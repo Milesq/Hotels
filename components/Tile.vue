@@ -8,7 +8,12 @@
       'no-active': !active,
       dark: !active && (light === 'no')
     }]">
-      <img @click="$router.push(href)" :src="src" :alt="alt">
+      <ImagePlaceholder
+        :dark="true"
+        class="img"
+        @click.native="$router.push(href)"
+        :src="src"
+        :alt="alt" />
       <div class="content">
         <h2 @click="$router.push(href)">{{ title }}</h2>
         <br>
@@ -22,6 +27,8 @@
 </template>
 
 <script>
+import ImagePlaceholder from '@/components/ImagePlaceholder.vue';
+
 export default {
   props: {
     src: {
@@ -59,6 +66,9 @@ export default {
   },
   filters: {
     short: desc => `${desc.substr(0, 250)}...`
+  },
+  components: {
+    ImagePlaceholder
   }
 };
 </script>
@@ -94,7 +104,7 @@ export default {
     }
   }
 
-  img {
+  .img {
     z-index: 0;
     transition: ease-in .5s transform;
 

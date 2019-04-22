@@ -4,8 +4,8 @@
       <nuxt-link
         :to="`/blog/${id}`"
         class="img">
-        <div :style="{
-        backgroundImage: `url(${url})`
+        <div class="post-logo" :style="{
+          backgroundImage: `url(${url})`
         }"></div>
       </nuxt-link>
       <div class="description">
