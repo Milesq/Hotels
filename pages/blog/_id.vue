@@ -1,22 +1,38 @@
 <template>
   <section class="wrapper">
-    <article class="post" v-html="data"></article>
+    <article class="post" v-html="dataHtml"></article>
     <Comments for="blog" />
   </section>
 </template>
 
 <script>
 import Comments from '@/components/Comments.vue';
+import { API } from '@/assets/config.json';
+import showdown from 'showdown';
+
 
 export default {
-  validate({ params }) {
-    return /^\d+$/.test(params.id);
+  async validate({ params, $axios }) {
+    let flag = true;
+    flag = flag && /^\d+$/.test(params.id);
+
+    const { data } = await $axios.get(`${API}/posts/count`);
+
+    flag = flag && params.id > 0;
+    flag = flag && params.id <= data;
+
+    return flag;
   },
-  asyncData({ params }) {
-    return {
-      data: `
-      post ${params.id} <img src="https://placeimg.com/800/500/any">`
-    };
+  async asyncData({ params: { id }, $axios }) {
+    const { data: { content } } = await $axios.get(`${API}/posts/${id}`);
+
+    return { data: content };
+  },
+  computed: {
+    dataHtml() {
+      const converter = new showdown.Converter();
+      return converter.makeHtml(this.data);
+    }
   },
   layout: 'static',
   components: {

@@ -12,23 +12,24 @@
 
 <script>
 import Post from '@/components/Post.vue';
+import { API } from '@/assets/config.json';
 
 export default {
-  data() {
-    return {
-      posts: [
-        {
-          id: 0,
-          title: 'Lorem ipsum sit dolerum',
-          img: 'https://placeimg.com/400/250/nature'
-        },
-        {
-          id: 1,
-          title: 'Lorem ipsum sit amet',
-          img: 'https://placeimg.com/400/250/tech'
-        }
-      ]
-    };
+  async asyncData({ $axios }) {
+    let { data } = await $axios.get(`${API}/posts`);
+    data = data.map(({
+      id,
+      title,
+      content,
+      image
+    }) => ({
+      id,
+      title,
+      description: content,
+      img: API + image.url
+    }));
+
+    return { posts: data };
   },
   components: {
     Post

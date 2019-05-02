@@ -15,7 +15,7 @@
             :to="'/blog/' + id">{{ title }}</nuxt-link>
         </h2>
         <span class="desc">
-          {{ desc }}
+          <section v-html="desc"></section>
           <nuxt-link class="link" :to="'/blog/' + id">Czytaj więcej</nuxt-link>
         </span>
       </div>
@@ -24,6 +24,8 @@
 </template>
 
 <script>
+import showdown from 'showdown';
+
 function a(obj) {
   return {
     required: true,
@@ -80,13 +82,15 @@ export default {
   },
   computed: {
     desc() {
+      const converter = new showdown.Converter();
+
       const MAX = 800;
       let ret = this.description;
       if (ret.length > MAX) {
         ret = ret.substr(0, MAX) + '...';
       }
 
-      return ret;
+      return converter.makeHtml(ret);
     }
   },
   mounted() {
