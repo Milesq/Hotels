@@ -11,8 +11,8 @@
           placeholder="Podaj nazwę miasta"><!--
         this comment must be there!
         --><button
-          @click="send"
-          class="search__button">
+            @click="send"
+            class="search__button">
             <i class="fas fa-search"></i>Szukaj
           </button>
       </div>

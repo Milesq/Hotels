@@ -125,7 +125,7 @@ $shadow: 0 1px 4px -1px #000;
 .search__button {
   border-left: 0;
   border: none;
-  padding-bottom: 14.5px;
+  padding-bottom: 12.5px;
   color: $secondary-color;
 }
 
