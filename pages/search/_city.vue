@@ -54,38 +54,108 @@
         v-for="object in swimmingPools"
         :key="object.name + 'searchResult'"
         :data="object" />
-      <ObjectInfo
-        v-for="object in swimmingPools"
-        :key="object.name + '3'"
-        :data="object" />
-      <ObjectInfo
-        v-for="object in swimmingPools"
-        :key="object.name + '4'"
-        :data="object" />
     </section>
   </section>
 </template>
 
 <script>
 import ObjectInfo from '~/components/ObjectInfo.vue';
+import { API } from '@/assets/config.json';
 
 export default {
-  asyncData() {
-    return {
-      swimmingPools: [
-        {
-          name: 'Basen Warszawa',
-          img: 'https://placeimg.com/400/250/any',
-          address: 'Warszawa ul. Długa 64',
-          ratings: {
-            average: 4.7,
-            numbers: 120
-          },
-          open: [8, 22],
-          attractions: ['Basen sportowy', 'Basen olimpijski', 'Brodzik dla dzieci']
+  async asyncData({ $axios, params: { city } }) {
+    let url = `${API}/swimmingpools`;
+    if (city !== 'all') url += `/?address_contains=${city}`;
+
+    let swimmingPools = (await $axios.get(url)).data;
+    swimmingPools = swimmingPools.map((pool) => {
+      const {
+        name,
+        gallery,
+        open,
+        address
+      } = pool;
+
+      const possibilityAttractions = [
+        'BasenSportowy25m',
+        'BasenOlimpijski50m',
+        'BasenRekreacyjny',
+        'BrodzikDlaDzieci',
+        'BasenZewnętrzny',
+        'BasenSolankowy',
+        'BasenTreningowy',
+        'Zjeżdżalnia',
+        'Jacuzzi',
+        'GrotaSolna',
+        'GrotaLodowa',
+        'SaunaSucha',
+        'SaunaParowa',
+        'SaunaInfrared',
+        'SaunaAromatyczna',
+        'SaunaZiołowa',
+        'Biosauna',
+        'ŁaźniaTurecka',
+        'RuskaBania',
+        'Sanarium',
+        'SłonecznaŁąka',
+        'Tepidarium',
+        'Laconium',
+        'Caldarium'
+      ];
+
+      let attractions = [];
+
+      // eslint-disable-next-line
+      for (const x of possibilityAttractions) {
+        if (pool[x] === 1) attractions.push(x);
+      }
+
+      attractions = attractions.map(
+        attraction => attraction
+          .split('')
+          .reduce((acc, el) => acc
+            + (/[0-9]/.test(el) || el.toLocaleUpperCase() === el ? ' ' : '')
+            + el)
+      ).map((el) => {
+        let ret = el;
+        while (/[0-9] [0-9]/.test(ret)) {
+          ret = ret.replace(/([0-9]) ([0-9])/, '$1$2');
         }
-      ]
+
+        return ret;
+      });
+
+      return {
+        name,
+        img: gallery.map(img => API + img.url),
+        address,
+        attractions,
+        open: open[new Date().getDay()],
+        ratings: {
+          average: 4.7,
+          numbers: 120
+        }
+      };
+    });
+
+    return {
+      swimmingPools
     };
+    // return {
+    //   swimmingPools: [
+    //     {
+    //       name: 'Basen Warszawa',
+    //       img: 'https://placeimg.com/400/250/any',
+    //       address: 'Warszawa ul. Długa 64',
+    //       ratings: {
+    //         average: 4.7,
+    //         numbers: 120
+    //       },
+    //       open: [8, 22],
+    //       attractions: ['Basen sportowy', 'Basen olimpijski', 'Brodzik dla dzieci']
+    //     }
+    //   ]
+    // };
   },
   data() {
     return {

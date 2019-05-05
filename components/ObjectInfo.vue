@@ -1,8 +1,9 @@
 <template>
   <div class="wrapper">
+    <!-- <pre>{{ JSON.stringify(data, null, 2) }}</pre> -->
     <nuxt-link :to="url">
       <div :style="{
-        backgroundImage: `url(${data.img})`
+        backgroundImage: `url(${data.img[0]})`
       }" class="logo-img"></div>
     </nuxt-link>
     <div class="description">
@@ -41,6 +42,7 @@ export default {
     attractions() {
       const MAX = 6;
       let ret = this.data.attractions;
+      if (ret[0] === null) return [];
 
       if (ret.length >= MAX) {
         ret = ret.slice(0, MAX - 1);
@@ -84,15 +86,19 @@ $green: #48a277;
 }
 
 .logo-img {
-  min-height: 250px;
+  height: 250px;
+  width: 400px;
+  overflow: hidden;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
   cursor: pointer;
-  transition: .2s linear filter;
+  transition: .2s linear all;
+  background-blend-mode: darken;
 
   &:hover {
-    filter: contrast(120%);
+    /* filter: contrast(120%); */
+    background-color: #999;
   }
 }
 
