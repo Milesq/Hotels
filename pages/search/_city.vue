@@ -42,8 +42,8 @@
       <span class="filter">
         <span style="display: block">Godziny otwarcia</span>
         <span>
-          <label>Do: <input type="number" min="0" max="24" v-model="openHours.open"></label>
-          <label>Od: <input type="number" min="0" max="24" v-model="openHours.closed"></label>
+          <label>Do: <input type="number" min="0" max="24" v-model="openHoursBeg"></label>
+          <label>Od: <input type="number" min="0" max="24" v-model="openHoursEnd"></label>
         </span>
       </span>
     </nav>
@@ -51,7 +51,7 @@
     <section class="results">
       <h1>Baseny - {{ $route.params.city == 'all'? 'Polska' : $route.params.city }}</h1>
       <ObjectInfo
-        v-for="object in swimmingPools"
+        v-for="object in filteredSwimmingPools"
         :key="object.name + 'searchResult'"
         :data="object" />
     </section>
@@ -139,7 +139,8 @@ export default {
     });
 
     return {
-      swimmingPools
+      swimmingPools,
+      filteredSwimmingPools: swimmingPools
     };
     // return {
     //   swimmingPools: [
@@ -159,14 +160,15 @@ export default {
   },
   data() {
     return {
+      swimmingPools: [],
+      filteredSwimmingPools: [],
+
       category: 'aquapark',
       attractions: [],
       r: 100,
       rating: 0,
-      openHours: {
-        open: 8,
-        closed: 22
-      },
+      openHoursBeg: '6',
+      openHoursEnd: '18',
       possibilityAttractions: [
         ['Basen sportowy', 'sports-swimming-pool'],
         ['Basen rekreacyjny', 'recreational-pool'],
@@ -174,6 +176,14 @@ export default {
         ['Brodzik dla dzieci', 'paddling']
       ]
     };
+  },
+  watch: {
+    openHoursEnd(endHour) {
+      this.filteredSwimmingPools = this.swimmingPools.filter(el => endHour <= el.open[1]);
+    },
+    openHoursBeg(begHour) {
+      this.filteredSwimmingPools = this.swimmingPools.filter(el => begHour >= el.open[0]);
+    }
   },
   components: {
     ObjectInfo
