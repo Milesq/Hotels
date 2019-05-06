@@ -7,8 +7,9 @@
       <label class="filter filter__object-type">
         Rodzaj obiektu
         <select v-model="category">
+          <option value="---">Dowolny</option>
           <option value="aquapark">Aquapark</option>
-          <option value="basen">Basen</option>
+          <option value="swimmingpool">Basen</option>
           <option value="sauna">Sauna</option>
         </select>
       </label>
@@ -73,7 +74,10 @@ export default {
         name,
         gallery,
         open,
-        address
+        address,
+        swimmingpool,
+        sauna,
+        aquapark
       } = pool;
 
       const possibilityAttractions = [
@@ -134,6 +138,11 @@ export default {
         ratings: {
           average: 4.7,
           numbers: 120
+        },
+        type: {
+          swimmingpool,
+          sauna,
+          aquapark
         }
       };
     });
@@ -163,7 +172,7 @@ export default {
       swimmingPools: [],
       filteredSwimmingPools: [],
 
-      category: 'aquapark',
+      category: '---',
       attractions: [],
       r: 100,
       rating: 0,
@@ -183,6 +192,13 @@ export default {
     },
     openHoursBeg(begHour) {
       this.filteredSwimmingPools = this.swimmingPools.filter(el => begHour >= el.open[0]);
+    },
+    category(newCategory) {
+      if (newCategory === '---') {
+        this.filteredSwimmingPools = this.swimmingPools;
+      } else {
+        this.filteredSwimmingPools = this.swimmingPools.filter(el => el.type[newCategory]);
+      }
     }
   },
   components: {
