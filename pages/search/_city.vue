@@ -51,10 +51,21 @@
     <span></span>
     <section class="results">
       <h1>Baseny - {{ $route.params.city == 'all'? 'Polska' : $route.params.city }}</h1>
-      <ObjectInfo
-        v-for="object in filteredSwimmingPools"
-        :key="object.name + 'searchResult'"
-        :data="object" />
+      <section v-if="filteredSwimmingPools.length">
+        <ObjectInfo
+          v-for="object in filteredSwimmingPools"
+          :key="object.name + 'searchResult'"
+          :data="object" />
+      </section>
+      <article v-else>
+        Nic nie znaleziono!
+        <section>
+          <ObjectInfo
+            v-for="object in swimmingPools"
+            :key="object.name + 'searchResult'"
+            :data="object" />
+        </section>
+      </article>
     </section>
   </section>
 </template>
@@ -62,6 +73,24 @@
 <script>
 import ObjectInfo from '~/components/ObjectInfo.vue';
 import { API } from '@/assets/config.json';
+
+function watchHandler() {
+  this.filteredSwimmingPools = this.swimmingPools.filter(el => this.openHoursEnd <= el.open[1]);
+}
+
+const watchers = {};
+
+for(let el of [
+  'category',
+  'attractions',
+  'r',
+  'rating',
+  'openHoursBeg',
+  'openHoursEnd',
+  'possibilityAttractions'
+]) {
+  watchers[el] = watchHandler;
+}
 
 export default {
   async asyncData({ $axios, params: { city } }) {
@@ -187,19 +216,20 @@ export default {
     };
   },
   watch: {
-    openHoursEnd(endHour) {
-      this.filteredSwimmingPools = this.swimmingPools.filter(el => endHour <= el.open[1]);
-    },
-    openHoursBeg(begHour) {
-      this.filteredSwimmingPools = this.swimmingPools.filter(el => begHour >= el.open[0]);
-    },
-    category(newCategory) {
-      if (newCategory === '---') {
-        this.filteredSwimmingPools = this.swimmingPools;
-      } else {
-        this.filteredSwimmingPools = this.swimmingPools.filter(el => el.type[newCategory]);
-      }
-    }
+    ...watchers
+    // openHoursEnd(endHour) {
+    //   this.filteredSwimmingPools = this.swimmingPools.filter(el => endHour <= el.open[1]);
+    // },
+    // openHoursBeg(begHour) {
+    //   this.filteredSwimmingPools = this.swimmingPools.filter(el => begHour >= el.open[0]);
+    // },
+    // category(newCategory) {
+    //   if (newCategory === '---') {
+    //     this.filteredSwimmingPools = this.swimmingPools;
+    //   } else {
+    //     this.filteredSwimmingPools = this.swimmingPools.filter(el => el.type[newCategory]);
+    //   }
+    // }
   },
   components: {
     ObjectInfo
