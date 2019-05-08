@@ -51,13 +51,13 @@
     <span></span>
     <section class="results">
       <h1>Baseny - {{ $route.params.city == 'all'? 'Polska' : $route.params.city }}</h1>
-      <section v-if="filteredSwimmingPools.length">
-        <ObjectInfo
-          v-for="object in filteredSwimmingPools"
-          :key="object.name + 'searchResult'"
-          :data="object" />
-      </section>
-      <article v-else>
+      <!-- <section v-if="filteredSwimmingPools.length"> -->
+      <ObjectInfo
+        v-for="object in filteredSwimmingPools"
+        :key="object.name + 'searchResult'"
+        :data="object" />
+      <!-- </section> -->
+      <!-- <article v-else>
         Nic nie znaleziono!
         <section>
           <ObjectInfo
@@ -65,7 +65,7 @@
             :key="object.name + 'searchResult'"
             :data="object" />
         </section>
-      </article>
+      </article> -->
     </section>
   </section>
 </template>
@@ -75,15 +75,20 @@ import ObjectInfo from '~/components/ObjectInfo.vue';
 import { API } from '@/assets/config.json';
 
 // TODO: add husky
-// TODO: write watchHandler function's body
 
 function watchHandler() {
-  this.filteredSwimmingPools = this.swimmingPools.filter(el => this.openHoursEnd <= el.open[1]);
+  let filtered = this.swimmingPools.filter(el => this.openHoursBeg >= el.open[0]);
+  filtered = filtered.filter(el => this.openHoursEnd <= el.open[1]);
+
+  if (this.category !== '---') filtered = filtered.filter(el => el.type[this.category]);
+
+  this.filteredSwimmingPools = filtered;
 }
 
 const watchers = {};
 
-for(let el of [
+// eslint-disable-next-line
+for (const el of [
   'category',
   'attractions',
   'r',
@@ -208,8 +213,8 @@ export default {
       attractions: [],
       r: 100,
       rating: 0,
-      openHoursBeg: '6',
-      openHoursEnd: '18',
+      openHoursBeg: '8.30',
+      openHoursEnd: '14',
       possibilityAttractions: [
         ['Basen sportowy', 'sports-swimming-pool'],
         ['Basen rekreacyjny', 'recreational-pool'],
@@ -218,22 +223,7 @@ export default {
       ]
     };
   },
-  watch: {
-    ...watchers
-    // openHoursEnd(endHour) {
-    //   this.filteredSwimmingPools = this.swimmingPools.filter(el => endHour <= el.open[1]);
-    // },
-    // openHoursBeg(begHour) {
-    //   this.filteredSwimmingPools = this.swimmingPools.filter(el => begHour >= el.open[0]);
-    // },
-    // category(newCategory) {
-    //   if (newCategory === '---') {
-    //     this.filteredSwimmingPools = this.swimmingPools;
-    //   } else {
-    //     this.filteredSwimmingPools = this.swimmingPools.filter(el => el.type[newCategory]);
-    //   }
-    // }
-  },
+  watch: watchers,
   components: {
     ObjectInfo
   },
