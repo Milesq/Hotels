@@ -74,6 +74,9 @@
 import ObjectInfo from '~/components/ObjectInfo.vue';
 import { API } from '@/assets/config.json';
 
+// TODO: add husky
+// TODO: write watchHandler function's body
+
 function watchHandler() {
   this.filteredSwimmingPools = this.swimmingPools.filter(el => this.openHoursEnd <= el.open[1]);
 }
