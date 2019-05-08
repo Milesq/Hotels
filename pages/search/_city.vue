@@ -15,17 +15,19 @@
       </label>
       <span class="filter filter__attractions">
         Atrakcje
-        <label
-          v-for="attraction in possibilityAttractions"
-          :key="attraction[1] + 'attraction'"
-          style="display: block">
-            <div class="pretty p-default p-round p-thick p-smooth">
-                <input type="checkbox" :value="attraction[1]" v-model="attractions">
-                <div class="state p-primary-o">
-                    <label>{{ attraction[0] }}</label>
-                </div>
-            </div>
-        </label>
+        <div class="filter__wrapper">
+          <label
+            v-for="attraction in possibilityAttractions"
+            :key="attraction + '-attraction'"
+            style="display: block">
+              <div class="pretty p-default p-round p-thick p-smooth">
+                  <input type="checkbox" :value="attraction" v-model="attractions">
+                  <div class="state p-primary-o">
+                      <label>{{ attraction }}</label>
+                  </div>
+              </div>
+          </label>
+        </div>
       </span>
       <label class="filter filter__range">
         Odległość od miasta
@@ -81,6 +83,10 @@ function watchHandler() {
   filtered = filtered.filter(el => this.openHoursEnd <= el.open[1]);
 
   if (this.category !== '---') filtered = filtered.filter(el => el.type[this.category]);
+
+  filtered = filtered.filter((el) => {
+
+  });
 
   this.filteredSwimmingPools = filtered;
 }
@@ -216,10 +222,30 @@ export default {
       openHoursBeg: '8.30',
       openHoursEnd: '14',
       possibilityAttractions: [
-        ['Basen sportowy', 'sports-swimming-pool'],
-        ['Basen rekreacyjny', 'recreational-pool'],
-        ['Sauna sucha', 'dry-sauna'],
-        ['Brodzik dla dzieci', 'paddling']
+        'Basen sportowy 25m',
+        'Basen olimpijski 50m',
+        'Basen rekreacyjny',
+        'Brodzik dla dzieci',
+        'Basen zewnętrzny',
+        'Basen solankowy',
+        'Basen treningowy',
+        'Zjeżdżalnia ',
+        'Jacuzzi',
+        'Grota solna',
+        'Grota lodowa',
+        'Sauna sucha',
+        'Sauna parowa',
+        'Sauna infrared',
+        'Sauna aromatyczna',
+        'Sauna ziołowa',
+        'Biosauna',
+        'Łaźnia turecka',
+        'Ruska Bania',
+        'Sanarium',
+        'Słoneczna łąka',
+        'Tepidarium',
+        'Laconium',
+        'Caldarium'
       ]
     };
   },
@@ -268,6 +294,11 @@ export default {
   @media(max-width: 1150px) {
     top: 0;
   }
+}
+
+.filter__wrapper {
+  height: 175px;
+  overflow-y: scroll;
 }
 
 .title {
