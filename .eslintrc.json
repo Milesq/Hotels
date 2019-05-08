@@ -16,7 +16,8 @@
     "import/no-unresolved": "off",
     "prefer-template": "off",
     "dot-notation": "off",
-    "new-parens": "off"
+    "new-parens": "off",
+    "linebreak-style": ["error", "windows"]
   },
   "parserOptions": {
     "parser": "babel-eslint"
