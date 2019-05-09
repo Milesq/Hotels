@@ -84,7 +84,6 @@ function watchHandler() {
 
   if (this.category !== '---') filtered = filtered.filter(el => el.type[this.category]);
 
-
   /* eslint-disable */
   const mustHave = this.attractions.map(_ => _.toLowerCase());
   filtered = filtered.filter(
@@ -96,6 +95,13 @@ function watchHandler() {
               _.toLowerCase()).includes(item))
     );
   /* eslint-enable */
+
+  if (this.$route.params.city !== 'all') {
+    filtered = filtered.filter((item) => {
+      console.log(item.address);
+      return true;
+    });
+  }
 
   this.filteredSwimmingPools = filtered;
 }
