@@ -1,6 +1,6 @@
 <script>
 export default {
-  asyncData({ redirect }) {
+  validate({ redirect }) {
     redirect('/search/all');
   }
 };
