@@ -84,7 +84,18 @@ function watchHandler() {
 
   if (this.category !== '---') filtered = filtered.filter(el => el.type[this.category]);
 
-  filtered = filtered.filter((el) => {});
+
+  /* eslint-disable */
+  const mustHave = this.attractions.map(_ => _.toLowerCase());
+  filtered = filtered.filter(
+    ({ attractions }) =>
+      mustHave.every(
+        item =>
+          attractions.map(
+            _ =>
+              _.toLowerCase()).includes(item))
+    );
+  /* eslint-enable */
 
   this.filteredSwimmingPools = filtered;
 }
