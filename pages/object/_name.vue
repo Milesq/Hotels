@@ -180,6 +180,7 @@
 <script>
 import Comments from '@/components/Comments.vue';
 import Ad from '@/components/ArticleAd.vue';
+import { API } from '@/assets/config.json';
 
 export default {
   validate({ redirect, params: { name } }) {
@@ -194,33 +195,79 @@ export default {
     return true;
   },
   async asyncData({ $axios }) {
-    const ret = {
-      attractions: [
-        'Basen sportowy',
-        'Basen rekreacyjny',
-        'Jacuzzi',
-        'Łaźnia parowa'
-      ],
+    const pool = (await $axios.get(`${API}/swimmingpools/1`)).data;
+
+    const possibilityAttractions = [
+      'BasenSportowy25m',
+      'BasenOlimpijski50m',
+      'BasenRekreacyjny',
+      'BrodzikDlaDzieci',
+      'BasenZewnętrzny',
+      'BasenSolankowy',
+      'BasenTreningowy',
+      'Zjeżdżalnia',
+      'Jacuzzi',
+      'GrotaSolna',
+      'GrotaLodowa',
+      'SaunaSucha',
+      'SaunaParowa',
+      'SaunaInfrared',
+      'SaunaAromatyczna',
+      'SaunaZiołowa',
+      'Biosauna',
+      'ŁaźniaTurecka',
+      'RuskaBania',
+      'Sanarium',
+      'SłonecznaŁąka',
+      'Tepidarium',
+      'Laconium',
+      'Caldarium'
+    ];
+
+    let attractions = [];
+
+    // eslint-disable-next-line
+    for (const x of possibilityAttractions) {
+      if (pool[x] === 1) attractions.push(x);
+    }
+
+    attractions = attractions.map(
+      attraction => attraction
+        .split('')
+        .reduce((acc, el) => acc
+          + (/[0-9]/.test(el) || el.toLocaleUpperCase() === el ? ' ' : '')
+          + el)
+    ).map((el) => {
+      let ret = el;
+      while (/[0-9] [0-9]/.test(ret)) {
+        ret = ret.replace(/([0-9]) ([0-9])/, '$1$2');
+      }
+
+      return ret;
+    });
+
+    const {
+      description,
+      address,
+      mail,
+      website: page,
+      phone
+    } = pool;
+
+    return {
+      attractions,
       partners: [
         'https://placeimg.com/120/50/any',
         'https://placeimg.com/120/50/tech',
         'https://placeimg.com/120/50/any/grayscale',
         'https://placeimg.com/120/50/any/sepia'
       ],
-      description: '',
-      address: 'Gdańsk Dworzec',
-      phone: 123456789,
-      mail: 'abc@example.com',
-      page: 'example.org'
+      description,
+      address,
+      phone,
+      mail,
+      page
     };
-
-    try {
-      ret.description = (await $axios.get('/desc.txt')).data;
-    } catch (err) {
-      ret.description = 'Failed fetch';
-    }
-
-    return ret;
   },
   data() {
     return {
