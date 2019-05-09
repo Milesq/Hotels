@@ -84,9 +84,7 @@ function watchHandler() {
 
   if (this.category !== '---') filtered = filtered.filter(el => el.type[this.category]);
 
-  filtered = filtered.filter((el) => {
-
-  });
+  filtered = filtered.filter((el) => {});
 
   this.filteredSwimmingPools = filtered;
 }
@@ -224,7 +222,7 @@ export default {
       possibilityAttractions: [
         'Basen sportowy 25m',
         'Basen olimpijski 50m',
-        'Basen rekreacyjny',
+        'Basen Rekreacyjny',
         'Brodzik dla dzieci',
         'Basen zewnętrzny',
         'Basen solankowy',
