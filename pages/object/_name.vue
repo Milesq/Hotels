@@ -1,15 +1,17 @@
 <template>
   <div class="container">
-    <div class="gallery"></div>
+    <div class="gallery" :style="{
+      backgroundImage: gallerySrc
+    }"></div>
     <h1>{{ $route.params.name | fromUrlToHuman }}</h1>
     <section style="margin-top: 15px" class="grid grid--smallscreen">
       <section style="margin-right: 20px" class="tile">
         <h3 class="tile__header">Atrakcje</h3>
         <div class="tile__content tile__content--attractions">
-          <span v-for="element in attractions" :key="'attraction_' + element[0]">
+          <!-- <span v-for="element in attractions" :key="'attraction_' + element[0]">
             <i class="fas fa-check"></i>
             {{ element }}
-          </span>
+          </span> -->
         </div>
       </section>
       <section style="margin-left: 20px" class="tile">
@@ -182,6 +184,8 @@ import Comments from '@/components/Comments.vue';
 import Ad from '@/components/ArticleAd.vue';
 import { API } from '@/assets/config.json';
 
+const FADE_TIME = 6000;
+
 export default {
   validate({ redirect, params: { name } }) {
     if (name[0] === name[0].toUpperCase()) {
@@ -196,6 +200,7 @@ export default {
   },
   async asyncData({ $axios }) {
     const pool = (await $axios.get(`${API}/swimmingpools/1`)).data;
+    // console.log(pool);
 
     const possibilityAttractions = [
       'BasenSportowy25m',
@@ -251,7 +256,8 @@ export default {
       address,
       mail,
       website: page,
-      phone
+      phone,
+      gallery
     } = pool;
 
     return {
@@ -266,12 +272,14 @@ export default {
       address,
       phone,
       mail,
-      page
+      page,
+      gallery
     };
   },
   data() {
     return {
-      fullLengthDescription: false
+      fullLengthDescription: false,
+      galleryID: 0
     };
   },
   layout: 'static',
@@ -287,7 +295,20 @@ export default {
       return `https://maps.google.com/maps?q=${
         this.address
       }&t=&z=13&ie=UTF8&iwloc=&output=embed`;
+    },
+    gallerySrc() {
+      return `url(${API}${this.gallery[this.galleryID].url})`;
     }
+  },
+  mounted() {
+    setInterval(() => {
+      console.log(this.galleryID, this.gallery.length);
+      if (this.galleryID < this.gallery.length - 1) {
+        this.galleryID++;
+      } else {
+        this.galleryID = 0;
+      }
+    }, FADE_TIME);
   },
   components: {
     Ad,
@@ -466,10 +487,10 @@ $image-height: 600;
 .gallery {
   height: $image-height * 1px;
   width: 100%;
-  background-image: url(https://placeimg.com/1000/#{$image-height}/any);
   background-size: cover;
   background-repeat: no-repeat;
   background-position: 50% 50%;
+  transition: .5s ease-in background-image;
 
   box-shadow: 0 0 5px -2px #000;
 
