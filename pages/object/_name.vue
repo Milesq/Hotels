@@ -1,8 +1,6 @@
 <template>
   <div class="container">
-    <div class="gallery" :style="{
-      backgroundImage: gallerySrc
-    }"></div>
+    <Gallery :images="gallery.map(img => this.API + img.url)" />
     <h1>{{ $route.params.name | fromUrlToHuman }}</h1>
     <section style="margin-top: 15px" class="grid grid--smallscreen">
       <section style="margin-right: 20px" class="tile">
@@ -181,10 +179,9 @@
 
 <script>
 import Comments from '@/components/Comments.vue';
+import Gallery from '@/components/Gallery.vue';
 import Ad from '@/components/ArticleAd.vue';
 import { API } from '@/assets/config.json';
-
-const FADE_TIME = 6000;
 
 export default {
   validate({ redirect, params: { name } }) {
@@ -279,7 +276,8 @@ export default {
   data() {
     return {
       fullLengthDescription: false,
-      galleryID: 0
+      galleryID: 0,
+      API
     };
   },
   layout: 'static',
@@ -295,24 +293,12 @@ export default {
       return `https://maps.google.com/maps?q=${
         this.address
       }&t=&z=13&ie=UTF8&iwloc=&output=embed`;
-    },
-    gallerySrc() {
-      return `url(${API}${this.gallery[this.galleryID].url})`;
     }
-  },
-  mounted() {
-    setInterval(() => {
-      console.log(this.galleryID, this.gallery.length);
-      if (this.galleryID < this.gallery.length - 1) {
-        this.galleryID++;
-      } else {
-        this.galleryID = 0;
-      }
-    }, FADE_TIME);
   },
   components: {
     Ad,
-    Comments
+    Comments,
+    Gallery
   },
   filters: {
     fromUrlToHuman(notFriendly) {
@@ -328,7 +314,6 @@ export default {
 
 <style scoped lang="scss">
 @import "@/assets/BlueTile.scss";
-$image-height: 600;
 
 .details {
   display: grid;
@@ -481,23 +466,6 @@ $image-height: 600;
 
   @media(min-width: 800px) {
     padding: 50px;
-  }
-}
-
-.gallery {
-  height: $image-height * 1px;
-  width: 100%;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: 50% 50%;
-  transition: .5s ease-in background-image;
-
-  box-shadow: 0 0 5px -2px #000;
-
-  border-radius: 4px;
-
-  @media(max-width: 800px) {
-    height: 40vw;
   }
 }
 
