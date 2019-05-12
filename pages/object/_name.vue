@@ -6,16 +6,22 @@
       <section style="margin-right: 20px" class="tile">
         <h3 class="tile__header">Atrakcje</h3>
         <div class="tile__content tile__content--attractions">
-          <!-- <span v-for="element in attractions" :key="'attraction_' + element[0]">
+          <span v-for="element in attractions" :key="'attraction__' + element[0]">
             <i class="fas fa-check"></i>
             {{ element }}
-          </span> -->
+          </span>
         </div>
       </section>
       <section style="margin-left: 20px" class="tile">
         <h3 class="tile__header">Programy partnerskie</h3>
         <div class="tile__content tile__content--partners">
-          <img v-for="partner in partners" :key="partner + 'logo'" :src="partner">
+          <a
+            v-for="partner in partners"
+            :key="partner.name + 'logo'"
+            :href="partner.link"
+            target="blank">
+            <img :src="partner.image">
+          </a>
           <span
             class="partners-none"
             v-if="!partners || !partners.length"
@@ -63,8 +69,6 @@
           <div class="contact__wrapper contact--map">
             <i class="fas fa-map-marked-alt"></i>
             <a target="blank" :href="'https://www.google.com/maps/place/' + address">Otwórz mapę</a>
-
-            <span>z trasą do obiektu</span>
           </div>
           <div class="contact" style="height: 100%;">
             <i class="fas fa-phone"></i>
@@ -197,7 +201,6 @@ export default {
   },
   async asyncData({ $axios }) {
     const pool = (await $axios.get(`${API}/swimmingpools/1`)).data;
-    // console.log(pool);
 
     const possibilityAttractions = [
       'BasenSportowy25m',
@@ -254,17 +257,13 @@ export default {
       mail,
       website: page,
       phone,
-      gallery
+      gallery,
+      partners
     } = pool;
 
     return {
       attractions,
-      partners: [
-        'https://placeimg.com/120/50/any',
-        'https://placeimg.com/120/50/tech',
-        'https://placeimg.com/120/50/any/grayscale',
-        'https://placeimg.com/120/50/any/sepia'
-      ],
+      partners,
       description,
       address,
       phone,
