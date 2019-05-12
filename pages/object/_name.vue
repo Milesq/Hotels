@@ -80,7 +80,7 @@
           </div>
           <div class="contact">
             <i class="fas fa-desktop"></i>
-            <a target="blank" :href="'http://' + page">{{ page }}</a>
+            <a target="blank" :href="'https://' + page">{{ page }}</a>
           </div>
         </div>
       </section>
@@ -105,14 +105,17 @@
     <section style="width: 100%" class="tile">
       <h3 class="tile__header">Cennik</h3>
       <div class="tile__content pricing">
-        <span class="pricing__info">Sprawdź aktualne ceny na oficjalnej stronie basenu</span>
+        <a
+          :href="'https://' + page"
+          target="blank"
+          class="pricing__info link">Sprawdź aktualne ceny na oficjalnej stronie basenu</a>
         <span>
           Bilet normalny od
-          <b>10zł</b>
+          <b>{{price.normal}}zł</b>
         </span>
         <span>
           Bilet ulgowy od
-          <b>6zł</b>
+          <b>{{price.student}}zł</b>
         </span>
       </div>
     </section>
@@ -251,25 +254,19 @@ export default {
       return ret;
     });
 
-    const {
-      description,
-      address,
-      mail,
-      website: page,
-      phone,
-      gallery,
-      partners
-    } = pool;
-
     return {
       attractions,
-      partners,
-      description,
-      address,
-      phone,
-      mail,
-      page,
-      gallery
+      partners: pool.partners,
+      description: pool.description,
+      address: pool.address,
+      phone: pool.phone,
+      mail: pool.mail,
+      gallery: pool.gallery,
+      page: pool.website,
+      price: {
+        student: pool.studentPrice,
+        normal: pool.price
+      }
     };
   },
   data() {
@@ -512,5 +509,10 @@ export default {
   &.subtitle {
     font-size: 1.2em;
   }
+}
+
+.link {
+  color: black;
+  text-decoration: none;
 }
 </style>
