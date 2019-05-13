@@ -43,6 +43,7 @@ export default {
     }
   },
   mounted() {
+    this.$refs.flipCardFront.style.backgroundImage = `url(${this.images[0]})`;
     setInterval(this.change, this.interval);
   }
 };
