@@ -48,36 +48,7 @@ export default {
       type: String,
       default: `
       Lorem ipsum dolor sit amet,
-      consectetur adipiscing elit, sed do eiusmod tempor
-      incididunt ut labore et dolore magna aliqua.
-      Aliquam eleifend mi in nulla posuere sollicitudin aliquam.
-      Mollis nunc sed id semper risus in hendrerit.
-      Leo integer malesuada nunc vel risus commodo viverra maecenas.
-      Lectus urna duis convallis convallis tellus id interdum
-      velit laoreet. Vestibulum lorem sed risus ultricies. Faucibus a pellentesque
-      sit amet porttitor eget. Nisi scelerisque eu ultrices
-      vitae auctor eu. A pellentesque sit amet porttitor
-      eget dolor morbi non. Bibendum ut tristique et egestas quis
-      ipsum suspendisse. Sit amet justo donec enim diam vulputate.
-      Magna sit amet purus gravida quis blandit turpis
-      cursus in. Ipsum a arcu cursus vitae.
-      Cursus in hac habitasse platea dictumst quisque sagittis
-      purus sit. Viverra vitae congue eu consequat ac felis.
-      Nunc pulvinar sapien et ligula. Lobortis scelerisque fermentum dui faucibus
-      in ornare. Justo eget magna fermentum iaculis eu
-      Adipiscing vitae proin sagittis nisl rhoncus
-      mattis. Dolor purus non enim praesent elementum
-      facilisis leo vel fringilla. Dui accumsan sit amet nulla
-      facilisi morbi tempus iaculis. Facilisis sed odio
-      morbi quis. Eros in cursus turpis massa. Commodo
-      sed egestas egestas fringilla. Auctor urna nunc id cursus
-      metus aliquam eleifend mi. Nibh praesent tristique magna sit
-      amet purus gravida quis. Nisl nunc mi ipsum faucibus vitae
-      Gravida quis blandit turpis cursus in hac
-      habitasse platea dictumst. Lorem ipsum dolor
-      sit amet. Urna cursus eget nunc scelerisque
-      viverra mauris in. Eleifend donec pretium vulputate sapien nec
-      sagittis aliquam malesuada. Ipsum dolor sit amet consectetur adipiscing.`
+      consectetur adipiscing elit, sed do eiusmod tempor`
     }
   },
   computed: {
@@ -92,13 +63,6 @@ export default {
 
       return converter.makeHtml(ret);
     }
-  },
-  mounted() {
-    this.$nextTick(() => {
-      this.$nuxt.$loading.start();
-
-      setTimeout(this.$nuxt.$loading.finish, 1500);
-    });
   }
 };
 </script>
