@@ -90,14 +90,24 @@
           <div class="subtitle open-hours">
             <span>Basen</span>
             <span></span>
-            <span>Sauna</span>
-            <span></span>
           </div>
           <div class="open-hours" :key="`day${day}`" v-for="day in 7">
-            <span>{{day}}</span>
-            <span>8-22</span>
-            <span>{{day}}</span>
-            <span>8-22</span>
+            <span>{{day | weekDay}}</span>
+            <span class="open-hours__hours">
+              <span>
+                {{ Math.floor(openHours[day - 1][0]) }}
+                <sup style="font-size: .6em">
+                  {{ openHours[day - 1][0] | minutes }}
+                </sup>
+              </span>
+              <span> - </span>
+              <span>
+                {{ Math.floor(openHours[day - 1][1]) }}
+                <sup style="font-size: .6em">
+                  {{ openHours[day - 1][1] | minutes }}
+                </sup>
+              </span>
+            </span>
           </div>
         </div>
       </section>
@@ -263,6 +273,7 @@ export default {
       mail: pool.mail,
       gallery: pool.gallery,
       page: pool.website,
+      openHours: pool.open,
       price: {
         student: pool.studentPrice,
         normal: pool.price
@@ -303,6 +314,21 @@ export default {
       return friendly
         .split('')
         .reduce((acc, el) => acc + (/[A-Z]/.test(el) ? ' ' : '') + el);
+    },
+    weekDay: day => ([
+      'Poniedziałek',
+      'Wtorek',
+      'Środa',
+      'Czwartek',
+      'Piątek',
+      'Sobota',
+      'Niedziela'
+    ])[day - 1],
+    minutes(time) {
+      const minutes = (time + '').split('.')[1];
+      if (minutes === undefined) return '00';
+      if (minutes.length === 2) return minutes;
+      return minutes + '0';
     }
   }
 };
@@ -498,7 +524,7 @@ export default {
 
 .open-hours {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   padding: 20px;
   font-size: 1.3em;
 
@@ -508,6 +534,11 @@ export default {
 
   &.subtitle {
     font-size: 1.2em;
+  }
+
+  &__hours {
+    display: flex;
+    justify-content: space-around;
   }
 }
 
