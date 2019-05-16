@@ -5,16 +5,16 @@
     <section class="forms">
       <form @submit.prevent="send">
         <label for="name">Imię i nazwisko</label>
-        <input type="text" name="name">
+        <input v-model="name" type="text" name="name">
 
         <label for="mail">Twój adres e-mail</label>
-        <input type="mail" name="mail">
+        <input v-model="mail" type="mail" name="mail">
 
         <label for="title">Tytuł wiadomości</label>
-        <input type="text" name="title">
+        <input v-model="title" type="text" name="title">
 
         <label for="content">Treść wiadomości</label>
-        <textarea name="content"></textarea>
+        <textarea v-model="content" name="content"></textarea>
 
         <div class="
           pretty
@@ -64,7 +64,11 @@ export default {
   layout: 'static',
   data() {
     return {
-      accepted: false
+      accepted: false,
+      name: '',
+      mail: '',
+      title: '',
+      content: ''
     };
   },
   methods: {
