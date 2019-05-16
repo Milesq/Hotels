@@ -6,7 +6,7 @@
       <section style="margin-right: 20px" class="tile">
         <h3 class="tile__header">Atrakcje</h3>
         <div class="tile__content tile__content--attractions">
-          <span v-for="element in attractions" :key="'attraction__' + element[0]">
+          <span v-for="(element, i) in attractions" :key="'attraction__' + i">
             <i class="fas fa-check"></i>
             {{ element }}
           </span>
@@ -44,14 +44,11 @@
     </section>
     <section class="ads">
       <Ad
-        img="https://placeimg.com/400/250/any"
-      >Co wziąść na basen? Pełna lista które musisz zabrać!</Ad>
-      <Ad
-        img="https://placeimg.com/400/500/any"
-      >Higiena po basenie, czyli pamiętaj o wzięciu prysznica!</Ad>
-      <Ad
-        img="https://placeimg.com/300/350/any"
-      >Najlepsze ćwiczenia odchudzające na basenie! Sprawdź naszą listę!</Ad>
+        v-for="(ad, i) in ads"
+        :key="'ad' + i"
+        :img="API + ad.image.url"
+        @click.native="$router.push('/blog/' + ad.id)"
+      >{{ ad.title }}</Ad>
     </section>
     <section class="grid grid--smallscreen">
       <section style="margin-right: 20px; background-color: white" class="tile">
@@ -212,7 +209,8 @@ export default {
 
     return true;
   },
-  async asyncData({ $axios }) {
+  async asyncData({ $axios, getRandomObjects }) {
+    const ads = await getRandomObjects('post');
     const pool = (await $axios.get(`${API}/swimmingpools/1`)).data;
 
     const possibilityAttractions = [
@@ -277,7 +275,9 @@ export default {
       price: {
         student: pool.studentPrice,
         normal: pool.price
-      }
+      },
+
+      ads
     };
   },
   data() {
@@ -307,6 +307,7 @@ export default {
     Comments,
     Gallery
   },
+  middleware: 'getRandomObjects',
   filters: {
     fromUrlToHuman(notFriendly) {
       let friendly = notFriendly[0].toUpperCase();

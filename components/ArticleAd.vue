@@ -40,6 +40,8 @@ article {
   font-weight: 700;
   transition: .5s ease-in-out all;
 
+  cursor: pointer;
+
   &:hover {
     background-size: 140%;
   }
