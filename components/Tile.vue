@@ -18,7 +18,7 @@
         <h2 @click="$router.push(href)">{{ title }}</h2>
         <br>
         <span class="description">
-          {{ description | short }}
+          <span v-html="md2html(short(description))"></span>
           <nuxt-link :to="href">Czytaj więcej</nuxt-link>
         </span>
       </div>
@@ -28,6 +28,7 @@
 
 <script>
 import ImagePlaceholder from '@/components/ImagePlaceholder.vue';
+import showdown from 'showdown';
 
 export default {
   props: {
@@ -64,8 +65,12 @@ export default {
       default: 'no'
     }
   },
-  filters: {
-    short: desc => `${desc.substr(0, 250)}...`
+  methods: {
+    short: desc => `${desc.substr(0, 250)}...`,
+    md2html(data) {
+      const converter = new showdown.Converter();
+      return converter.makeHtml(data);
+    }
   },
   components: {
     ImagePlaceholder
