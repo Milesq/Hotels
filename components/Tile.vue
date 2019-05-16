@@ -107,6 +107,9 @@ export default {
   .img {
     z-index: 0;
     transition: ease-in .5s transform;
+    overflow: hidden;
+    width: 400px;
+    height: 230px;
 
     &:hover {
       transform: scale(1.2) rotate(2deg);
@@ -126,13 +129,14 @@ export default {
     background-color: #fff;
     z-index: 1;
     padding: 20px 10px;
+    width: 100%;
 
     h2 {
       font-size: 20px;
     }
 
     .description {
-      font-family: 'Segoe UI'
+      font-family: 'Segoe UI';
     }
   }
 </style>

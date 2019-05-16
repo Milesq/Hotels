@@ -18,6 +18,9 @@ export default function (ctx) {
     }
 
     randomObjects = [...randomObjects];
+    while (randomObjects.length < howMuch) {
+      randomObjects.push(Math.floor(Math.random() * max + 1));
+    }
     randomObjects = randomObjects.map(postNumber => $axios.get(`${API}/${type}s/${postNumber}`));
     randomObjects = await Promise.all(randomObjects);
     return randomObjects.map(x => x.data);
