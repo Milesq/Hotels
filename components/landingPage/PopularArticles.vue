@@ -35,9 +35,6 @@ export default {
       API
     };
   },
-  mounted() {
-    console.log(this.data);
-  },
   components: {
     Tile
   }
