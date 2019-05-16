@@ -8,19 +8,6 @@
         title="Aquapark Delfin Warszawa"
         class="tile"
       />
-      <Tile
-        alt=""
-        href="/search/all"
-        title="Aquapark Delfin Warszawa"
-        class="tile"
-        :active="true"
-      />
-      <Tile
-        alt=""
-        href="/search/all"
-        title="Aquapark Delfin Warszawa"
-        class="tile"
-      />
     </article>
   </section>
 </template>
@@ -29,6 +16,10 @@
 import Tile from '../Tile.vue';
 
 export default {
+  props: ['data'],
+  mounted() {
+    console.log(this.data[0]);
+  },
   components: {
     Tile
   }

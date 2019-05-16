@@ -9,20 +9,6 @@
         class="tile"
         light
       />
-      <Tile
-        alt=""
-        href="/blog/1"
-        title="Aquapark Delfin Warszawa"
-        class="tile"
-        light
-      />
-      <Tile
-        alt=""
-        href="/blog/0"
-        title="Aquapark Delfin Warszawa"
-        class="tile"
-        light
-      />
     </article>
   </section>
 </template>
@@ -31,6 +17,7 @@
 import Tile from '../Tile.vue';
 
 export default {
+  props: ['data'],
   components: {
     Tile
   }

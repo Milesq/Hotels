@@ -4,18 +4,26 @@
       <Header />
       <SearchBar />
     </nav>
-    <Recommended />
-    <PopularArticles />
+    <Recommended :data="swimmingpools" />
+    <PopularArticles :data="posts" />
   </section>
 </template>
 
 <script>
+/* eslint-disable */
 import Header from '../components/landingPage/Header.vue';
 import SearchBar from '../components/landingPage/SearchBar.vue';
 import Recommended from '../components/landingPage/Recommended.vue';
 import PopularArticles from '../components/landingPage/PopularArticles.vue';
 
 export default {
+  async asyncData({ getRandomObjects }) {
+    return {
+      posts: await getRandomObjects('post'),
+      swimmingpools: await getRandomObjects('swimmingpool')
+    };
+  },
+  middleware: 'getRandomObjects',
   components: {
     Header,
     SearchBar,
