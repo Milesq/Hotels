@@ -29,7 +29,7 @@
           </label>
         </div>
       </span>
-      <label class="filter filter__range">
+      <label v-if="$route.params.city !== 'all'" class="filter filter__range">
         Odległość od miasta
         <span>
           <input
@@ -74,6 +74,7 @@
 
 <script>
 import ObjectInfo from '~/components/ObjectInfo.vue';
+import debounce from 'lodash.debounce';
 import { API } from '@/assets/config.json';
 
 const maps = place => `https://nominatim.openstreetmap.org/search?q=${place}&format=json`;
@@ -84,14 +85,14 @@ function geo([x1, y1], [x2, y2]) {
   return sqrt(a) * 111.3214;
 }
 
-async function watchHandler() {
-  let filtered = this.swimmingPools.filter(el => this.openHoursBeg >= el.open[0]);
-  filtered = filtered.filter(el => this.openHoursEnd <= el.open[1]);
+let debouncedWatchHandler = async function (self) {
+  let filtered = self.swimmingPools.filter(el => self.openHoursBeg >= el.open[0]);
+  filtered = filtered.filter(el => self.openHoursEnd <= el.open[1]);
 
-  if (this.category !== '---') filtered = filtered.filter(el => el.type[this.category]);
+  if (self.category !== '---') filtered = filtered.filter(el => el.type[self.category]);
 
   /* eslint-disable */
-  const mustHave = this.attractions.map(_ => _.toLowerCase());
+  const mustHave = self.attractions.map(_ => _.toLowerCase());
   filtered = filtered.filter(
     ({ attractions }) =>
       mustHave.every(
@@ -100,28 +101,33 @@ async function watchHandler() {
             _ =>
               _.toLowerCase()).includes(item))
     );
+  /* eslin-enable */
 
-  /* eslint-enable */
+  if (self.$route.params.city !== 'all') {
+    let tips = filtered.map(async (item) => {
+      const { data } = await self.$axios.get(maps(item.address));
+      if (data.length === 0) {
+        console.log(`${item.name} was ommited!`);
+        return true;
+      }
 
-  // if (this.$route.params.city !== 'all') {
-  let tips = filtered.map(async (item) => {
-    const { data } = await this.$axios.get(maps(item.address));
-    if (data.length === 0) {
-      console.log(`${item.name} was ommited!`);
-      return true;
-    }
+      const [{ lat, lon }] = data;
+      const place = [lat, lon].map(x => x * 1);
+      return geo(self.cityCoords, place) <= self.r;
+    });
 
-    const [{ lat, lon }] = data;
-    const place = [lat, lon].map(x => x * 1);
-    return geo(this.cityCoords, place) < this.r;
-  });
+    tips = await Promise.all(tips);
 
-  tips = await Promise.all(tips);
+    filtered = filtered.filter((item, i) => tips[i]);
+  }
 
-  filtered = filtered.filter((item, i) => tips[i]);
-  // }
+  self.filteredSwimmingPools = filtered;
+};
 
-  this.filteredSwimmingPools = filtered;
+debouncedWatchHandler = debounce(debouncedWatchHandler, 75);
+
+async function watchHandler() {
+  debouncedWatchHandler(this);
 }
 
 const watchers = {};
@@ -144,7 +150,7 @@ export default {
     // eslint-disable-next-line
     let url = `${API}/swimmingpools`;
     const city = encodeURIComponent(params.city);
-    // if (city !== 'all') url += `/?address_contains=${city}`;
+    if (city !== 'all') url += `/?address_contains=${city}`;
 
     let swimmingPools = (await $axios.get(url)).data;
     swimmingPools = swimmingPools.map((pool) => {
@@ -241,7 +247,7 @@ export default {
 
       category: '---',
       attractions: [],
-      r: 100,
+      r: 200,
       rating: 0,
       openHoursBeg: '8.30',
       openHoursEnd: '14',

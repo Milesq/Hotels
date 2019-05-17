@@ -21,7 +21,8 @@
     "no-plusplus": "off",
     "no-unused-vars": "warn",
     "prefer-const": "warn",
-    "arrow-body-style": "warn"
+    "arrow-body-style": "warn",
+    "func-names": "off"
   },
   "parserOptions": {
     "parser": "babel-eslint"
