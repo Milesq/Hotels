@@ -76,9 +76,15 @@
 import ObjectInfo from '~/components/ObjectInfo.vue';
 import { API } from '@/assets/config.json';
 
-// TODO: add husky
+const maps = place => `https://nominatim.openstreetmap.org/search?q=${place}&format=json`;
 
-function watchHandler() {
+function geo([x1, y1], [x2, y2]) {
+  const { sqrt, cos, PI } = Math;
+  const a = ((x2 - x1) ** 2) + ((cos(x1 * PI / 180) * (y2 - y1)) ** 2);
+  return sqrt(a) * 111.3214;
+}
+
+async function watchHandler() {
   let filtered = this.swimmingPools.filter(el => this.openHoursBeg >= el.open[0]);
   filtered = filtered.filter(el => this.openHoursEnd <= el.open[1]);
 
@@ -94,14 +100,26 @@ function watchHandler() {
             _ =>
               _.toLowerCase()).includes(item))
     );
+
   /* eslint-enable */
 
-  if (this.$route.params.city !== 'all') {
-    filtered = filtered.filter((item) => {
-      console.log(item.address);
+  // if (this.$route.params.city !== 'all') {
+  let tips = filtered.map(async (item) => {
+    const { data } = await this.$axios.get(maps(item.address));
+    if (data.length === 0) {
+      console.log(`${item.name} was ommited!`);
       return true;
-    });
-  }
+    }
+
+    const [{ lat, lon }] = data;
+    const place = [lat, lon].map(x => x * 1);
+    return geo(this.cityCoords, place) < this.r;
+  });
+
+  tips = await Promise.all(tips);
+
+  filtered = filtered.filter((item, i) => tips[i]);
+  // }
 
   this.filteredSwimmingPools = filtered;
 }
@@ -122,9 +140,11 @@ for (const el of [
 }
 
 export default {
-  async asyncData({ $axios, params: { city } }) {
+  async asyncData({ $axios, params }) {
+    // eslint-disable-next-line
     let url = `${API}/swimmingpools`;
-    if (city !== 'all') url += `/?address_contains=${city}`;
+    const city = encodeURIComponent(params.city);
+    // if (city !== 'all') url += `/?address_contains=${city}`;
 
     let swimmingPools = (await $axios.get(url)).data;
     swimmingPools = swimmingPools.map((pool) => {
@@ -205,25 +225,14 @@ export default {
       };
     });
 
+    let [cityCoords] = (await $axios.get(maps(city))).data;
+    cityCoords = [cityCoords.lat, cityCoords.lon];
+
     return {
       swimmingPools,
-      filteredSwimmingPools: swimmingPools
+      filteredSwimmingPools: swimmingPools,
+      cityCoords
     };
-    // return {
-    //   swimmingPools: [
-    //     {
-    //       name: 'Basen Warszawa',
-    //       img: 'https://placeimg.com/400/250/any',
-    //       address: 'Warszawa ul. Długa 64',
-    //       ratings: {
-    //         average: 4.7,
-    //         numbers: 120
-    //       },
-    //       open: [8, 22],
-    //       attractions: ['Basen sportowy', 'Basen olimpijski', 'Brodzik dla dzieci']
-    //     }
-    //   ]
-    // };
   },
   data() {
     return {

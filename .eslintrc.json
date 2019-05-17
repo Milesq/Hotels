@@ -18,7 +18,10 @@
     "dot-notation": "off",
     "new-parens": "off",
     "linebreak-style": ["error", "windows"],
-    "no-plusplus": "off"
+    "no-plusplus": "off",
+    "no-unused-vars": "warn",
+    "prefer-const": "warn",
+    "arrow-body-style": "warn"
   },
   "parserOptions": {
     "parser": "babel-eslint"
