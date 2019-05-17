@@ -192,7 +192,7 @@ export default {
         img: gallery.map(img => API + img.url),
         address,
         attractions,
-        open: open[new Date().getDay()],
+        open: open[new Date().getDay() - 1],
         ratings: {
           average: 4.7,
           numbers: 120
