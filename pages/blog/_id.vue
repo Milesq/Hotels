@@ -1,7 +1,9 @@
 <template>
   <section class="wrapper">
     <article class="post" v-html="dataHtml"></article>
-    <Comments for="blog" />
+    <no-ssr>
+      <Comments :data="data.comments" />
+    </no-ssr>
   </section>
 </template>
 
@@ -24,14 +26,14 @@ export default {
     return flag;
   },
   async asyncData({ params: { id }, $axios }) {
-    const { data: { content } } = await $axios.get(`${API}/posts/${id}`);
+    const { data } = await $axios.get(`${API}/posts/${id}`);
 
-    return { data: content };
+    return { data };
   },
   computed: {
     dataHtml() {
       const converter = new showdown.Converter();
-      return converter.makeHtml(this.data);
+      return converter.makeHtml(this.data.content);
     }
   },
   layout: 'static',
