@@ -1,9 +1,8 @@
 <template>
   <section class="wrapper">
+    <h1 class="header">{{ data.title }}</h1>
     <article class="post" v-html="dataHtml"></article>
-    <no-ssr>
-      <Comments :data="data.comments" />
-    </no-ssr>
+    <Comments :data="data.comments" />
   </section>
 </template>
 
@@ -27,7 +26,6 @@ export default {
   },
   async asyncData({ params: { id }, $axios }) {
     const { data } = await $axios.get(`${API}/posts/${id}`);
-
     return { data };
   },
   computed: {
@@ -60,5 +58,10 @@ export default {
   text-align: center;
   max-width: 100%;
   overflow: hidden;
+  padding: 10px 45px;
+}
+
+.header {
+  text-align: center;
 }
 </style>
