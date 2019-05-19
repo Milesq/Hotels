@@ -23,7 +23,7 @@
               <div class="pretty p-default p-round p-thick p-smooth">
                   <input type="checkbox" :value="attraction" v-model="attractions">
                   <div class="state p-primary-o">
-                      <label>{{ attraction }}</label>
+                    <label>{{ attraction }}</label>
                   </div>
               </div>
           </label>
@@ -218,7 +218,7 @@ export default {
         img: gallery.map(img => API + img.url),
         address,
         attractions,
-        open: open[new Date().getDay() - 1],
+        open: open[((new Date().getDay() + 6) % 7)],
         ratings: {
           average: 4.7,
           numbers: 120
