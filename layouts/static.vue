@@ -10,7 +10,7 @@
               type="text"
               v-model="city"
               placeholder="Podaj nazwę miasta"><!--
-              --><span @click="search" class="search__button">
+              --><span @click="search" style="padding-top: 12px" class="search__button">
                 <i class="fas fa-map-marker-alt"></i>
               </span>
           </span>
@@ -125,7 +125,8 @@ $shadow: 0 1px 4px -1px #000;
 .search__button {
   border-left: 0;
   border: none;
-  padding-bottom: 12.5px;
+  padding-bottom: 13px;
+  /*  !important; */
   color: $secondary-color;
 }
 
