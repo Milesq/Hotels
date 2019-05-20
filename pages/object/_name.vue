@@ -131,63 +131,55 @@
       <div class="tile__content ratings">
         <div class="ratings__main">
           <span>
-            <span style="font-weight: 700">3.5</span>
+            <span style="font-weight: 700">{{ average }}</span>
             <i class="fas fa-star"></i>
           </span>
           <span class="ratings__numbers">
             Na podstawie
-            <b>136 opini</b>
+            <b>{{ comments.length }} opini</b>
           </span>
         </div>
         <div class="details">
           <div class="details__unit">
             <span style="font-weight: 800">Obsługa:</span>
             <span>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star no-active"></i>
-              <i class="fas fa-star no-active"></i>
-              <i class="fas fa-star no-active"></i>
+              <i v-for="i in 5" :key="i" :class="['fas fa-star', {
+                'no-active': averageStars.staff < i
+              }]"></i>
             </span>
-            <span style="font-weight: 800">2.0</span>
+            <span style="font-weight: 800">{{ averageStars.staff }}</span>
           </div>
           <div class="details__unit">
             <span style="font-weight: 800">Zatłoczenie:</span>
             <span>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star no-active"></i>
+              <i v-for="i in 5" :key="i" :class="['fas fa-star', {
+                'no-active': averageStars.clutter < i
+              }]"></i>
             </span>
-            <span style="font-weight: 800">4.0</span>
+            <span style="font-weight: 800">{{ averageStars.clutter }}</span>
           </div>
           <div class="details__unit">
             <span style="font-weight: 800">Czystość:</span>
             <span>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
+              <i v-for="i in 5" :key="i" :class="['fas fa-star', {
+                'no-active': averageStars.cleanliness < i
+              }]"></i>
             </span>
-            <span style="font-weight: 800">5.0</span>
+            <span style="font-weight: 800">{{ averageStars.cleanliness }}</span>
           </div>
           <div class="details__unit">
             <span style="font-weight: 800">Atrakcje:</span>
             <span>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star no-active"></i>
-              <i class="fas fa-star no-active"></i>
-              <i class="fas fa-star no-active"></i>
-              <i class="fas fa-star no-active"></i>
+              <i v-for="i in 5" :key="i" :class="['fas fa-star', {
+                'no-active': averageStars.attractions < i
+              }]"></i>
             </span>
-            <span style="font-weight: 800">1.0</span>
+            <span style="font-weight: 800">{{ averageStars.attractions }}</span>
           </div>
         </div>
       </div>
     </section>
-    <Comments :for="$route.params.name"/>
+    <Comments stars @send="send" :data="comments"/>
   </div>
 </template>
 
@@ -195,7 +187,15 @@
 import Comments from '@/components/Comments.vue';
 import Gallery from '@/components/Gallery.vue';
 import Ad from '@/components/ArticleAd.vue';
-import { API } from '@/assets/config.json';
+import { API, auth } from '@/assets/config.json';
+
+function fromUrlToHuman(notFriendly) {
+  let friendly = notFriendly[0].toUpperCase();
+  friendly += notFriendly.substr(1);
+  return friendly
+    .split('')
+    .reduce((acc, el) => acc + (/[A-Z]|-/.test(el) ? ' ' : '') + el);
+}
 
 export default {
   validate({ redirect, params: { name } }) {
@@ -209,9 +209,10 @@ export default {
 
     return true;
   },
-  async asyncData({ $axios, getRandomObjects }) {
+  async asyncData({ $axios, getRandomObjects, params: { name } }) {
+    const { data: [{ id }] } = await $axios.get(`${API}/swimmingpools?name_contains=${fromUrlToHuman(name)}`);
     const ads = await getRandomObjects('post');
-    const pool = (await $axios.get(`${API}/swimmingpools/1`)).data;
+    const pool = (await $axios.get(`${API}/swimmingpools/${id}`)).data;
 
     const possibilityAttractions = [
       'BasenSportowy25m',
@@ -263,6 +264,7 @@ export default {
     });
 
     return {
+      id,
       attractions,
       partners: pool.partners,
       description: pool.description,
@@ -277,7 +279,8 @@ export default {
         normal: pool.price
       },
 
-      ads
+      ads,
+      comments: pool.comments
     };
   },
   data() {
@@ -286,6 +289,30 @@ export default {
       galleryID: 0,
       API
     };
+  },
+  methods: {
+    async send(comment) {
+      try {
+        const { data: { jwt } } = await this.$axios.post(`${API}/auth/local`, {
+          identifier: auth.name,
+          password: auth.pass
+        });
+
+        await this.$axios.post(`${API}/comments`, {
+          swimmingpool: '' + this.id,
+          author: comment.user.name,
+          content: comment.content
+        }, {
+          headers: {
+            Authorization: `Bearer ${jwt}`
+          }
+        });
+
+        window.location.reload();
+      } catch (err) {
+        console.log(err);
+      }
+    }
   },
   layout: 'static',
   computed: {
@@ -300,6 +327,34 @@ export default {
       return `https://maps.google.com/maps?q=${
         this.address
       }&t=&z=13&ie=UTF8&iwloc=&output=embed`;
+    },
+    averageStars() {
+      let stars = this.comments.map(el => JSON.parse(el.content).stars);
+      stars = stars.reduce((acc, el) => ({
+        staff: acc.staff + el.staff,
+        attractions: acc.attractions + el.attractions,
+        clutter: acc.clutter + el.clutter,
+        cleanliness: acc.cleanliness + el.cleanliness
+      }), {
+        staff: 0,
+        attractions: 0,
+        clutter: 0,
+        cleanliness: 0
+      });
+
+      // eslint-disable-next-line
+      for (const x of ['staff', 'attractions', 'clutter', 'cleanliness']) {
+        stars[x] /= this.comments.length;
+      }
+
+      return stars;
+    },
+    average() {
+      const {
+        staff, attractions, clutter, cleanliness
+      } = this.averageStars;
+
+      return Math.round(10 * (staff + attractions + clutter + cleanliness) / 4) / 10;
     }
   },
   components: {
@@ -309,13 +364,7 @@ export default {
   },
   middleware: 'getRandomObjects',
   filters: {
-    fromUrlToHuman(notFriendly) {
-      let friendly = notFriendly[0].toUpperCase();
-      friendly += notFriendly.substr(1);
-      return friendly
-        .split('')
-        .reduce((acc, el) => acc + (/[A-Z]/.test(el) ? ' ' : '') + el);
-    },
+    fromUrlToHuman,
     weekDay: day => ([
       'Poniedziałek',
       'Wtorek',

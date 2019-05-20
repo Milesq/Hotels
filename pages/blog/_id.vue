@@ -2,15 +2,14 @@
   <section class="wrapper">
     <h1 class="header">{{ data.title }}</h1>
     <article class="post" v-html="dataHtml"></article>
-    <Comments :data="data.comments" />
+    <Comments @send="send" :data="data.comments" />
   </section>
 </template>
 
 <script>
 import Comments from '@/components/Comments.vue';
-import { API } from '@/assets/config.json';
+import { API, auth } from '@/assets/config.json';
 import showdown from 'showdown';
-
 
 export default {
   async validate({ params, $axios }) {
@@ -27,6 +26,26 @@ export default {
   async asyncData({ params: { id }, $axios }) {
     const { data } = await $axios.get(`${API}/posts/${id}`);
     return { data };
+  },
+  methods: {
+    async send(comment) {
+      const { data: { jwt } } = await this.$axios.post(`${API}/auth/local`, {
+        identifier: auth.name,
+        password: auth.pass
+      });
+
+      await this.$axios.post(`${API}/comments`, {
+        post: this.$route.params.id * 1,
+        author: comment.user.name,
+        content: comment.content
+      }, {
+        headers: {
+          Authorization: `Bearer ${jwt}`
+        }
+      });
+
+      window.location.reload();
+    }
   },
   computed: {
     dataHtml() {
