@@ -8,10 +8,17 @@
               Zalogowano jako {{ user.name }}.
               <span class="link" @click="logout">Wyloguj się</span>
             </div>
-            <textarea
-              placeholder="Dodaj komentarz"
-              v-model="newComment"
-              class="new-comment__area"></textarea>
+            <div
+              :data-text-counter="newComment.length"
+              data-text-counter-max="180"
+              style="width: 100%">
+              <textarea
+                placeholder="Dodaj komentarz"
+                v-model="newComment"
+                :class="['new-comment__area', {
+                  'new-comment__area--error animated shake': newComment.length > 180
+                }]"></textarea>
+            </div>
             <button @click="addComment" class="new-comment__send-button">
               Dodaj komentarz
             </button>
@@ -26,7 +33,7 @@
 
       <article
         v-for="(comment, i) in data"
-        :key="'comment' + forProps + i"
+        :key="'comment' + i"
         class="comment">
         <span class="comment__header">
           <span class="comment__header__author">{{ comment.author }}</span>
@@ -40,6 +47,8 @@
 </template>
 
 <script>
+import 'animate.css';
+
 export default {
   props: ['data'],
   data() {
@@ -52,6 +61,14 @@ export default {
   },
   methods: {
     addComment() {
+      if (!/\S/.test(this.newComment) || this.newComment.length > 180) {
+        return;
+      }
+
+      this.$emit('send', {
+        user: this.user,
+        content: this.newComment
+      });
       this.newComment = '';
     },
     logout() {
@@ -75,6 +92,19 @@ export default {
 <style lang="scss" scoped>
 @import '@/assets/variables.scss';
 @import '@/assets/BlueTile.scss';
+
+*[data-text-counter] {
+  position: relative;
+
+  &::after {
+    font-size: 12px;
+    content: attr(data-text-counter)"/"attr(data-text-counter-max);
+    position: absolute;
+    right: 5px;
+    bottom: 15px;
+    color: #cacaca;
+  }
+}
 
 .comment {
   background-color: #fff;
@@ -135,6 +165,12 @@ export default {
     resize: none;
     border-radius: 3px;
     padding: 15px;
+
+    &--error {
+      box-shadow: 0 0 5px 1px red;
+      outline: red;
+      color: red;
+    }
   }
 
   &__send-button {
