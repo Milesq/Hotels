@@ -187,7 +187,7 @@
         </div>
       </div>
     </section>
-    <Comments :for="$route.params.name"/>
+    <Comments @send="send" :data="comments"/>
   </div>
 </template>
 
@@ -196,6 +196,15 @@ import Comments from '@/components/Comments.vue';
 import Gallery from '@/components/Gallery.vue';
 import Ad from '@/components/ArticleAd.vue';
 import { API } from '@/assets/config.json';
+
+
+function fromUrlToHuman(notFriendly) {
+  let friendly = notFriendly[0].toUpperCase();
+  friendly += notFriendly.substr(1);
+  return friendly
+    .split('')
+    .reduce((acc, el) => acc + (/[A-Z]|-/.test(el) ? ' ' : '') + el);
+}
 
 export default {
   validate({ redirect, params: { name } }) {
@@ -209,9 +218,10 @@ export default {
 
     return true;
   },
-  async asyncData({ $axios, getRandomObjects }) {
+  async asyncData({ $axios, getRandomObjects, params: { name } }) {
+    const { data: [{ id }] } = await $axios.get(`${API}/swimmingpools?name_contains=${fromUrlToHuman(name)}`);
     const ads = await getRandomObjects('post');
-    const pool = (await $axios.get(`${API}/swimmingpools/1`)).data;
+    const pool = (await $axios.get(`${API}/swimmingpools/${id}`)).data;
 
     const possibilityAttractions = [
       'BasenSportowy25m',
@@ -263,6 +273,7 @@ export default {
     });
 
     return {
+      id,
       attractions,
       partners: pool.partners,
       description: pool.description,
@@ -277,15 +288,52 @@ export default {
         normal: pool.price
       },
 
-      ads
+      ads,
+      comments: pool.comments
     };
   },
   data() {
     return {
       fullLengthDescription: false,
       galleryID: 0,
-      API
+      API,
+      comments: [
+        {
+          author: 'Milesq',
+          content: 'ok 1',
+          created_at: 1558352080055
+        },
+        {
+          author: 'Milesq',
+          content: 'ok 1',
+          created_at: 1558352080055
+        }
+      ]
     };
+  },
+  methods: {
+    async send(comment) {
+      try {
+        const { data: { jwt } } = await this.$axios.post(`${API}/auth/local`, {
+          identifier: 'app',
+          password: 'vSNw57Lqsu67Dxr'
+        });
+
+        await this.$axios.post(`${API}/comments`, {
+          swimmingpool: '' + this.id,
+          author: comment.user.name,
+          content: comment.content
+        }, {
+          headers: {
+            Authorization: `Bearer ${jwt}`
+          }
+        });
+
+        window.location.reload();
+      } catch (err) {
+        console.log(err);
+      }
+    }
   },
   layout: 'static',
   computed: {
@@ -309,13 +357,7 @@ export default {
   },
   middleware: 'getRandomObjects',
   filters: {
-    fromUrlToHuman(notFriendly) {
-      let friendly = notFriendly[0].toUpperCase();
-      friendly += notFriendly.substr(1);
-      return friendly
-        .split('')
-        .reduce((acc, el) => acc + (/[A-Z]/.test(el) ? ' ' : '') + el);
-    },
+    fromUrlToHuman,
     weekDay: day => ([
       'Poniedziałek',
       'Wtorek',
