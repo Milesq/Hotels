@@ -8,7 +8,7 @@
               Zalogowano jako {{ user.name }}.
               <span class="link" @click="logout">Wyloguj się</span>
             </div>
-            <div class="stars">
+            <div class="stars" v-if="stars !== undefined">
               <div v-for="el in 4" :key="'_' + el">
                 <span>{{ userStarsDesc[el - 1][0] }}</span>
                 <span>
@@ -54,10 +54,10 @@
           <span class="comment__header__date">{{ comment.created_at | fromUnix }}</span>
         </span>
         <div class="comment__content">
-          <div class="comment__content__detail-opinion">
+          <div v-if="stars !== undefined" class="comment__content__detail-opinion">
             <div>
               Obsługa:
-              <span vi in json(comment..stars.-if="staff.length"> - </span>
+              <span v-if="json(comment.content).stars.clutter.staff"> - </span>
               <i
                 v-for="i in json(comment.content).stars.staff"
                 :key="i"
