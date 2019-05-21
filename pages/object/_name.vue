@@ -187,7 +187,7 @@
         </div>
       </div>
     </section>
-    <Comments @send="send" :data="comments"/>
+    <Comments stars @send="send" :data="comments"/>
   </div>
 </template>
 

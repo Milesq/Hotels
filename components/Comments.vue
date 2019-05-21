@@ -8,6 +8,25 @@
               Zalogowano jako {{ user.name }}.
               <span class="link" @click="logout">Wyloguj się</span>
             </div>
+            <div class="stars">
+              <div v-for="el in [['Obsługa', 'staff'],
+                                 ['Zatłoczenie', 'clutter'],
+                                 ['Czystość', 'cleanliness'],
+                                 ['Atrakcje', 'attractions']]" :key="el[1]">
+                <span>{{ el[0] }}</span>
+                <span>
+                  <!-- <i
+                    v-for="(rating, i) in userStars[el[1]]" :key="el[1] + '' + i"
+                    class="fas fa-star"></i> -->
+                  <!-- <i
+                    v-for="(rating, i) in userStars[el[1]]" :key="el[1] + '' + i"
+                    class="fas fa-star"></i>
+                  <i
+                    v-for="(rating, i) in 5 - userStars[el[1]]" :key="el[1] + 'active' + i"
+                    class="fas fa-star no-active"></i> -->
+                </span>
+              </div>
+            </div>
             <div
               :data-text-counter="newComment.length"
               data-text-counter-max="180"
@@ -47,15 +66,21 @@
 </template>
 
 <script>
-import 'animate.css';
+// import 'animate.css';
 
 export default {
-  props: ['data'],
+  props: ['data', 'stars'],
   data() {
     return {
       newComment: '',
       user: {
         name: 'Ania Kowalska'
+      },
+      userStars: {
+        staff: 0,
+        clutter: 0,
+        cleanliness: 0,
+        attractions: 0
       }
     };
   },
@@ -93,6 +118,21 @@ export default {
 @import '@/assets/variables.scss';
 @import '@/assets/BlueTile.scss';
 
+.stars {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 7px;
+  font-weight: 400;
+
+  & > * {
+    display: flex;
+    justify-content: space-between;
+    width: 15%;
+    margin: 9px;
+  }
+}
+
 *[data-text-counter] {
   position: relative;
 
@@ -103,6 +143,14 @@ export default {
     right: 5px;
     bottom: 15px;
     color: #cacaca;
+  }
+}
+
+.fas {
+  color: $secondary-color;
+
+  &.no-active {
+    color: #e5e5e5;
   }
 }
 
