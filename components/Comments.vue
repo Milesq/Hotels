@@ -54,7 +54,41 @@
           <span class="comment__header__date">{{ comment.created_at | fromUnix }}</span>
         </span>
         <div class="comment__content">
-          <!-- {{ json(comment.content).comment }} -->
+          <div class="comment__content__detail-opinion">
+            <div>
+              Obsługa:
+              <span vi in json(comment..stars.-if="staff.length"> - </span>
+              <i
+                v-for="i in json(comment.content).stars.staff"
+                :key="i"
+                class="fas fa-star"></i>
+            </div>
+            <div>
+              Zatłoczenie:
+              <span v-if="json(comment.content).stars.clutter.length"> - </span>
+              <i
+                v-for="i in json(comment.content).stars.clutter"
+                :key="i"
+                class="fas fa-star"></i>
+            </div>
+            <div>
+              Czystość:
+              <span v-if="json(comment.content).stars.cleanliness.length"> - </span>
+              <i
+                v-for="i in json(comment.content).stars.cleanliness"
+                :key="i"
+                class="fas fa-star"></i>
+            </div>
+            <div>
+              Atrakcje:
+              <span v-if="json(comment.content).stars.attractions.length"> - </span>
+              <i
+                v-for="i in json(comment.content).stars.attractions"
+                :key="i"
+                class="fas fa-star"></i>
+            </div>
+          </div>
+          <div>{{ json(comment.content).comment }}</div>
         </div>
       </article>
   </section>
@@ -191,6 +225,14 @@ export default {
     margin-top: 10px;
     font-weight: 300;
     font-size: .95em;
+
+    &__detail-opinion {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      margin-bottom: 15px;
+      font-size: 1.1em;
+      font-weight: 600;
+    }
   }
 }
 
