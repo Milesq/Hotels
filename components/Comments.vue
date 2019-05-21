@@ -9,21 +9,16 @@
               <span class="link" @click="logout">Wyloguj się</span>
             </div>
             <div class="stars">
-              <div v-for="el in [['Obsługa', 'staff'],
-                                 ['Zatłoczenie', 'clutter'],
-                                 ['Czystość', 'cleanliness'],
-                                 ['Atrakcje', 'attractions']]" :key="el[1]">
-                <span>{{ el[0] }}</span>
+              <div v-for="el in 4" :key="'_' + el">
+                <span>{{ userStarsDesc[el - 1][0] }}</span>
                 <span>
-                  <!-- <i
-                    v-for="(rating, i) in userStars[el[1]]" :key="el[1] + '' + i"
-                    class="fas fa-star"></i> -->
-                  <!-- <i
-                    v-for="(rating, i) in userStars[el[1]]" :key="el[1] + '' + i"
-                    class="fas fa-star"></i>
                   <i
-                    v-for="(rating, i) in 5 - userStars[el[1]]" :key="el[1] + 'active' + i"
-                    class="fas fa-star no-active"></i> -->
+                    v-for="rating in 5"
+                    :key="userStarsDesc[el - 1][1] + 'star' + rating"
+                    @click="userStars[userStarsDesc[el - 1][1]] = rating"
+                    :class="['fas', 'fa-star', {
+                      'no-active': rating > userStars[userStarsDesc[el - 1][1]]
+                    }]"></i>
                 </span>
               </div>
             </div>
@@ -59,7 +54,7 @@
           <span class="comment__header__date">{{ comment.created_at | fromUnix }}</span>
         </span>
         <div class="comment__content">
-          {{ comment.content }}
+          <!-- {{ json(comment.content).comment }} -->
         </div>
       </article>
   </section>
@@ -73,6 +68,7 @@ export default {
   data() {
     return {
       newComment: '',
+      commentCommited: false,
       user: {
         name: 'Ania Kowalska'
       },
@@ -81,18 +77,30 @@ export default {
         clutter: 0,
         cleanliness: 0,
         attractions: 0
-      }
+      },
+      userStarsDesc: [
+        ['Obsługa', 'staff'],
+        ['Zatłoczenie', 'clutter'],
+        ['Czystość', 'cleanliness'],
+        ['Atrakcje', 'attractions']
+      ]
     };
   },
   methods: {
     addComment() {
+      this.commentCommited = true;
       if (!/\S/.test(this.newComment) || this.newComment.length > 180) {
         return;
       }
 
       this.$emit('send', {
         user: this.user,
-        content: this.newComment
+        content: JSON.stringify({
+          comment: this.newComment,
+          stars: {
+            ...this.userStars
+          }
+        })
       });
       this.newComment = '';
     },
@@ -103,7 +111,8 @@ export default {
     getUserData: (...args) => {
       console.log('getUserData', ...args);
       return true;
-    }
+    },
+    json: JSON.parse
   },
   filters: {
     fromUnix(unixDate) {
@@ -148,6 +157,7 @@ export default {
 
 .fas {
   color: $secondary-color;
+  cursor: pointer;
 
   &.no-active {
     color: #e5e5e5;

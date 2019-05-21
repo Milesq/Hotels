@@ -8,7 +8,7 @@
 
 <script>
 import Comments from '@/components/Comments.vue';
-import { API } from '@/assets/config.json';
+import { API, auth } from '@/assets/config.json';
 import showdown from 'showdown';
 
 export default {
@@ -30,8 +30,8 @@ export default {
   methods: {
     async send(comment) {
       const { data: { jwt } } = await this.$axios.post(`${API}/auth/local`, {
-        identifier: 'app',
-        password: 'vSNw57Lqsu67Dxr'
+        identifier: auth.name,
+        password: auth.pass
       });
 
       await this.$axios.post(`${API}/comments`, {

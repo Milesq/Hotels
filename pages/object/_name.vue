@@ -195,7 +195,7 @@
 import Comments from '@/components/Comments.vue';
 import Gallery from '@/components/Gallery.vue';
 import Ad from '@/components/ArticleAd.vue';
-import { API } from '@/assets/config.json';
+import { API, auth } from '@/assets/config.json';
 
 
 function fromUrlToHuman(notFriendly) {
@@ -315,8 +315,8 @@ export default {
     async send(comment) {
       try {
         const { data: { jwt } } = await this.$axios.post(`${API}/auth/local`, {
-          identifier: 'app',
-          password: 'vSNw57Lqsu67Dxr'
+          identifier: auth.name,
+          password: auth.pass
         });
 
         await this.$axios.post(`${API}/comments`, {
