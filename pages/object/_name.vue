@@ -147,7 +147,7 @@
                 'no-active': averageStars.staff < i
               }]"></i>
             </span>
-            <span style="font-weight: 800">{{ averageStars.staff }}</span>
+            <span style="font-weight: 800">{{ averageStars.staff | oneDigitAfterComma }}</span>
           </div>
           <div class="details__unit">
             <span style="font-weight: 800">Zatłoczenie:</span>
@@ -156,7 +156,7 @@
                 'no-active': averageStars.clutter < i
               }]"></i>
             </span>
-            <span style="font-weight: 800">{{ averageStars.clutter }}</span>
+            <span style="font-weight: 800">{{ averageStars.clutter | oneDigitAfterComma }}</span>
           </div>
           <div class="details__unit">
             <span style="font-weight: 800">Czystość:</span>
@@ -165,7 +165,7 @@
                 'no-active': averageStars.cleanliness < i
               }]"></i>
             </span>
-            <span style="font-weight: 800">{{ averageStars.cleanliness }}</span>
+            <span style="font-weight: 800">{{ averageStars.cleanliness|oneDigitAfterComma }}</span>
           </div>
           <div class="details__unit">
             <span style="font-weight: 800">Atrakcje:</span>
@@ -174,7 +174,7 @@
                 'no-active': averageStars.attractions < i
               }]"></i>
             </span>
-            <span style="font-weight: 800">{{ averageStars.attractions }}</span>
+            <span style="font-weight: 800">{{ averageStars.attractions|oneDigitAfterComma }}</span>
           </div>
         </div>
       </div>
@@ -329,7 +329,11 @@ export default {
       }&t=&z=13&ie=UTF8&iwloc=&output=embed`;
     },
     averageStars() {
-      let stars = this.comments.map(el => JSON.parse(el.content).stars);
+      let stars = this.comments.map(el => ({
+        ...el,
+        content: Buffer.from(el.content, 'base64').toString('ascii')
+      }));
+      stars = stars.map(el => JSON.parse(el.content).stars);
       stars = stars.reduce((acc, el) => ({
         staff: acc.staff + el.staff,
         attractions: acc.attractions + el.attractions,
@@ -379,6 +383,9 @@ export default {
       if (minutes === undefined) return '00';
       if (minutes.length === 2) return minutes;
       return minutes + '0';
+    },
+    oneDigitAfterComma(num) {
+      return Math.round(num * 10) / 10;
     }
   }
 };

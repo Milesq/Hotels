@@ -129,12 +129,12 @@ export default {
 
       this.$emit('send', {
         user: this.user,
-        content: JSON.stringify({
+        content: btoa(JSON.stringify({
           comment: this.newComment,
           stars: {
             ...this.userStars
           }
-        })
+        }))
       });
       this.newComment = '';
     },
@@ -146,7 +146,7 @@ export default {
       console.log('getUserData', ...args);
       return true;
     },
-    json: JSON.parse
+    json: x => JSON.parse(Buffer.from(x, 'base64').toString('ascii'))
   },
   filters: {
     fromUnix(unixDate) {
