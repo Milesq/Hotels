@@ -25,7 +25,7 @@
         <span>aquapark</span>
       </div>
       <div
-        @click="$router.push('/search/all/?type=swimming-pool')"
+        @click="$router.push('/search/all/?type=swimmingpool')"
         class="categories__breadcrumb">
         <i class="fas fa-water category-icon"></i>
         <span>basen</span>

@@ -19,6 +19,7 @@
           <label
             v-for="attraction in possibilityAttractions"
             :key="attraction + '-attraction'"
+            :ref="'attraction_' + attraction"
             style="display: block">
               <div class="pretty p-default p-round p-thick p-smooth">
                   <input type="checkbox" :value="attraction" v-model="attractions">
@@ -278,6 +279,37 @@ export default {
         'Caldarium'
       ]
     };
+  },
+  mounted() {
+    function httpGETParse(string) {
+      let str = string[0] === '?'? string.substr(1) : string;
+      str = str.split('&');
+      str = str.map(el => el.split('='));
+
+      return str.reduce((acc, el) => ({
+        ...acc,
+        [el[0]]: el[1]
+      }), {});
+    }
+
+    const filters = httpGETParse(window.location.search);
+
+    if (filters.type) {
+      this.category = filters.type;
+    }
+
+    const dict = {
+      'BasenZewnetrzny': 'Basen zewnętrzny',
+      'GrotaSolna': 'Grota solna',
+      'Jacuzzi': 'Jacuzzi'
+    };
+
+    if (filters.attraction) {
+      (
+        this.$refs['attraction_' + dict[filters.attraction]]
+        || [{ click() { console.log('nothing'); } }]
+      )[0].click();
+    }
   },
   watch: watchers,
   components: {
