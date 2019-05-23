@@ -9,7 +9,9 @@
         <select v-model="category">
           <option value="---">Dowolny</option>
           <option value="aquapark">Aquapark</option>
-          <option value="swimmingpool">Basen</option>
+          <option value="swimmingpoolIndoor">Basen Kryty</option>
+          <option value="swimmingpoolOutdoor">Basen Odkryty</option>
+          <option value="swimmingpoolThermal">Basen Termalny</option>
           <option value="sauna">Sauna</option>
         </select>
       </label>
@@ -160,7 +162,9 @@ export default {
         gallery,
         open,
         address,
-        swimmingpool,
+        swimmingpoolThermal,
+        swimmingpoolOutdoor,
+        swimmingpoolIndoor,
         sauna,
         aquapark
       } = pool;
@@ -225,7 +229,9 @@ export default {
           numbers: 120
         },
         type: {
-          swimmingpool,
+          swimmingpoolThermal,
+          swimmingpoolIndoor,
+          swimmingpoolOutdoor,
           sauna,
           aquapark
         }
@@ -279,37 +285,6 @@ export default {
         'Caldarium'
       ]
     };
-  },
-  mounted() {
-    function httpGETParse(string) {
-      let str = string[0] === '?'? string.substr(1) : string;
-      str = str.split('&');
-      str = str.map(el => el.split('='));
-
-      return str.reduce((acc, el) => ({
-        ...acc,
-        [el[0]]: el[1]
-      }), {});
-    }
-
-    const filters = httpGETParse(window.location.search);
-
-    if (filters.type) {
-      this.category = filters.type;
-    }
-
-    const dict = {
-      'BasenZewnetrzny': 'Basen zewnętrzny',
-      'GrotaSolna': 'Grota solna',
-      'Jacuzzi': 'Jacuzzi'
-    };
-
-    if (filters.attraction) {
-      (
-        this.$refs['attraction_' + dict[filters.attraction]]
-        || [{ click() { console.log('nothing'); } }]
-      )[0].click();
-    }
   },
   watch: watchers,
   components: {

@@ -12,9 +12,9 @@
         <h3>Kategorie:</h3>
         <ul>
           <li><NLink to="/search/all?type=aquapark">Aquapark</NLink></li>
-          <li><NLink to="/search/all?attraction=Jacuzzi">Jacuzzi</NLink></li>
-          <li><NLink to="/search/all?attraction=GrotaSolna">Grota solna</NLink></li>
-          <li><NLink to="/search/all?attraction=BasenZewnetrzny">Basen zewnętrzny</NLink></li>
+          <li><NLink to="/search/all?type=swimming-pool-indoor">Basen Otwarty</NLink></li>
+          <li><NLink to="/search/all?type=swimming-pool-outdoor">Basen Kryty</NLink></li>
+          <li><NLink to="/search/all?type=swimming-pool-thermal">Basen Termalny </NLink></li>
           <li><NLink to="/search/all?type=sauna">Sauna</NLink></li>
         </ul>
       </div>
