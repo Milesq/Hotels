@@ -74,13 +74,33 @@ export default {
 }
 
 .post {
-  text-align: center;
+  text-align: left;
   max-width: 100%;
   overflow: hidden;
-  padding: 10px 45px;
+  font-size: 16px;
+  font-weight: 400;
+
+  @media(min-width: 785px) {
+    padding: 10px 100px;
+  }
 }
 
 .header {
   text-align: center;
+}
+</style>
+
+<style lang="scss">
+.post {
+  p {
+    margin-bottom: 20px;
+  }
+
+  img {
+    max-width: 100%;
+    /* max-height: 60vh; */
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
 </style>
