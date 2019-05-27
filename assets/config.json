@@ -1,5 +1,5 @@
 {
-  "API": "http://localhost:1337",
+  "API": "https://admin.adamlojza.usermd.net",
   "auth": {
     "name": "app",
     "pass": "vSNw57Lqsu67Dxr"

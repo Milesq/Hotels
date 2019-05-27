@@ -61,7 +61,12 @@ export default {
         ret = ret.substr(0, MAX) + '...';
       }
 
-      return converter.makeHtml(ret);
+      ret = converter.makeHtml(ret);
+      while (/<img[^>]+>/.test(ret)) {
+        ret = ret.replace(/<img[^>]+>/, '');
+      }
+
+      return ret;
     }
   }
 };
