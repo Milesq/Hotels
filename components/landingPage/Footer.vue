@@ -47,7 +47,8 @@
     justify-content: space-around;
     flex-wrap: wrap;
     padding: 35px;
-    border-top: .8px solid#626262;
+    border-top: .8px solid #c1c1c1;;
+    /* border-top: .8px solid #626262; */
 
     div {
       @media(max-width: 585px) {
@@ -73,7 +74,8 @@
   .for-law {
     display: flex;
     justify-content: center;
-    border-top: .5px solid#626262;
+    border-top: .5px solid #c1c1c1;
+    /* border-top: .5px solid #626262; */
     padding: 25px;
   }
 

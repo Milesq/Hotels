@@ -29,7 +29,7 @@
         <span style="font-size: .87em; cursor: pointer">
           Dane wpisane w formularzu kontaktowym będą udzielane
           w celu udzielenia odpowiedzi na przesłane zapytanie zgodnie z
-          <nuxt-link to="/privacy">polityką prywatności</nuxt-link>
+          <nuxt-link to="/privacy" class="link">polityką prywatności</nuxt-link>
         </span>
 
         <input
@@ -98,6 +98,10 @@ textarea {
   height: 150px;
 }
 
+h2 {
+  margin-bottom: 15px;
+}
+
 [type=submit] {
   $color: hsl(209, 67, 73);
 
@@ -153,6 +157,10 @@ form {
     grid-template-columns: 1fr 1fr;
     grid-column-gap: 10vw;
   }
+}
+
+.link {
+  color: #3fc4ff;
 }
 
 .tile {

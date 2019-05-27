@@ -1,6 +1,8 @@
 <template>
   <div>
-    <div class="container">
+    <div class="container" :style="{
+      backgroundColor: this.$route.name == 'contact'? '#eee' : '#fff'
+    }">
       <nav class="search-bar">
         <Header :shadow="false">
           <span class="search-container">
@@ -66,11 +68,11 @@ html {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   box-sizing: border-box;
-  background-color: #c1c1c1;
+  /* background-color: #c1c1c1; */
 }
 
 body {
-  padding: 0 $page-padding;
+  padding: 0;
   @media(max-width: 800px) {
     padding: 0;
     font-size: .8em;
@@ -91,7 +93,7 @@ body {
 }
 
 .container {
-  background-color: #f5f5f5;
+  background-color: #fff;
   display: flex;
   align-items: center;
   font-weight: 500;
