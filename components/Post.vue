@@ -133,4 +133,8 @@ export default {
 .link {
   color: $secondary-color;
 }
+
+.post-logo {
+  background-size: cover;
+}
 </style>
