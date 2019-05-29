@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="container" :style="{
-      backgroundColor: this.$route.name == 'contact'? '#eee' : '#fff'
+      backgroundColor: ['contact', 'search-city'].indexOf($route.name) !== -1 ? '#eee' : '#fff'
     }">
       <nav class="search-bar">
         <Header :shadow="false">
@@ -19,7 +19,6 @@
         </Header>
       </nav>
       <main style="width: 100%">
-        <Breadcrumb />
         <nuxt />
       </main>
     </div>
@@ -30,7 +29,6 @@
 <script>
 import Header from '../components/landingPage/Header.vue';
 import Footer from '../components/landingPage/Footer.vue';
-import Breadcrumb from '../components/Breadcrumb.vue';
 // eslint-disable-next-line
 import registerServiceWorker from '@/assets/registerServiceWorker.js';
 
@@ -42,8 +40,7 @@ export default {
   },
   components: {
     Header,
-    Footer,
-    Breadcrumb
+    Footer
   },
   middleware: 'https',
   methods: {

@@ -1,5 +1,6 @@
 <template>
   <section class="text">
+    <Breadcrumb :crumbs="['Kontakt']" />
     <h1>Skontaktuj się z nami</h1>
     <h2>Wypełnij formularz kontaktowy żeby się z nami skontaktować!</h2>
     <section class="forms">
@@ -60,6 +61,8 @@
 </template>
 
 <script>
+import Breadcrumb from '../components/Breadcrumb.vue';
+
 export default {
   layout: 'static',
   data() {
@@ -78,6 +81,9 @@ export default {
     send() {
       console.log('sent!');
     }
+  },
+  components: {
+    Breadcrumb
   }
 };
 </script>

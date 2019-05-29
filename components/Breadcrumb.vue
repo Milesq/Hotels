@@ -1,16 +1,23 @@
 <template>
   <div class="breadcrumb">
     <nuxt-link to="/">Strona główna</nuxt-link>
-    <!-- <nuxt-link v-for="(el, i) in $route.path.split('/')" :key="i">
-      {{ el }}
-    </nuxt-link> -->
+    {{ crumbs }}
+    <!-- <span v-for="(el, i) in breadcrumbs" :key="i">
+      / <nuxt-link :to="el.link">{{ el.name }}</nuxt-link>
+    </span> -->
+    <!-- <span>
+      {{ dict[$route.path.split('/').slice(-1)[0]] }}
+    </span> -->
   </div>
 </template>
 
 <script>
 export default {
-  mounted() {
-    console.log(this.$route.path.split('/'));
+  props: {
+    crumbs: {
+      type: Array,
+      default: () => ['']
+    }
   }
 };
 </script>

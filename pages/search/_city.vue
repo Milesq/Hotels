@@ -1,81 +1,87 @@
 <template>
-  <section class="container">
-    <nav class="filters">
-      <h3 class="title">
-        <span>Filtry</span> <i class="fas fa-filter"></i>
-      </h3>
-      <label class="filter filter__object-type">
-        Rodzaj obiektu
-        <select v-model="category">
-          <option value="---">Dowolny</option>
-          <option value="aquapark">Aquapark</option>
-          <option value="swimmingpoolIndoor">Basen Kryty</option>
-          <option value="swimmingpoolOutdoor">Basen Odkryty</option>
-          <option value="swimmingpoolThermal">Basen Termalny</option>
-          <option value="sauna">Sauna</option>
-        </select>
-      </label>
-      <span class="filter filter__attractions">
-        Atrakcje
-        <div class="filter__wrapper">
-          <label
-            v-for="attraction in possibilityAttractions"
-            :key="attraction + '-attraction'"
-            :ref="'attraction_' + attraction"
-            style="display: block">
-              <div class="pretty p-default p-round p-thick p-smooth">
-                  <input type="checkbox" :value="attraction" v-model="attractions">
-                  <div class="state p-primary-o">
-                    <label>{{ attraction }}</label>
-                  </div>
-              </div>
-          </label>
-        </div>
-      </span>
-      <label v-if="$route.params.city !== 'all'" class="filter filter__range">
-        Odległość od miasta
-        <span>
-          <input
-            type="range"
-            min="0"
-            max="200"
-            v-model="r">
-            <!-- Witchout next line, range input is too long when r <= 100 -->
-            <span v-if="r < 100" style="color: transparent">0</span>
-            {{ r }}km
+  <section>
+    <Breadcrumb
+      :crumbs="[$route.params.city === 'all'? 'Baseny W Polsce' : $route.params.city]"
+      style="margin-left: 150px" />
+    <section class="container" style="background-color: #eee">
+      <nav class="filters">
+        <h3 class="title">
+          <span>Filtry</span> <i class="fas fa-filter"></i>
+        </h3>
+        <label class="filter filter__object-type">
+          Rodzaj obiektu
+          <select v-model="category">
+            <option value="---">Dowolny</option>
+            <option value="aquapark">Aquapark</option>
+            <option value="swimmingpoolIndoor">Basen Kryty</option>
+            <option value="swimmingpoolOutdoor">Basen Odkryty</option>
+            <option value="swimmingpoolThermal">Basen Termalny</option>
+            <option value="sauna">Sauna</option>
+          </select>
+        </label>
+        <span class="filter filter__attractions">
+          Atrakcje
+          <div class="filter__wrapper">
+            <label
+              v-for="attraction in possibilityAttractions"
+              :key="attraction + '-attraction'"
+              :ref="'attraction_' + attraction"
+              style="display: block">
+                <div class="pretty p-default p-round p-thick p-smooth">
+                    <input type="checkbox" :value="attraction" v-model="attractions">
+                    <div class="state p-primary-o">
+                      <label>{{ attraction }}</label>
+                    </div>
+                </div>
+            </label>
+          </div>
         </span>
-      </label>
-      <span class="filter">
-        <span style="display: block">Godziny otwarcia</span>
-        <span>
-          <label>Do: <input type="number" min="0" max="24" v-model="openHoursBeg"></label>
-          <label>Od: <input type="number" min="0" max="24" v-model="openHoursEnd"></label>
+        <label v-if="$route.params.city !== 'all'" class="filter filter__range">
+          Odległość od miasta
+          <span>
+            <input
+              type="range"
+              min="0"
+              max="200"
+              v-model="r">
+              <!-- Witchout next line, range input is too long when r <= 100 -->
+              <span v-if="r < 100" style="color: transparent">0</span>
+              {{ r }}km
+          </span>
+        </label>
+        <span class="filter">
+          <span style="display: block">Godziny otwarcia</span>
+          <span>
+            <label>Do: <input type="number" min="0" max="24" v-model="openHoursBeg"></label>
+            <label>Od: <input type="number" min="0" max="24" v-model="openHoursEnd"></label>
+          </span>
         </span>
-      </span>
-    </nav>
-    <span></span>
-    <section class="results">
-      <h1>Baseny - {{ $route.params.city == 'all'? 'Polska' : $route.params.city }}</h1>
-      <!-- <section v-if="filteredSwimmingPools.length"> -->
-      <ObjectInfo
-        v-for="object in filteredSwimmingPools"
-        :key="object.name + 'searchResult'"
-        :data="object" />
-      <!-- </section> -->
-      <!-- <article v-else>
-        Nic nie znaleziono!
-        <section>
-          <ObjectInfo
-            v-for="object in swimmingPools"
-            :key="object.name + 'searchResult'"
-            :data="object" />
-        </section>
-      </article> -->
+      </nav>
+      <span></span>
+      <section class="results">
+        <h1>Baseny - {{ $route.params.city == 'all'? 'Polska' : $route.params.city }}</h1>
+        <!-- <section v-if="filteredSwimmingPools.length"> -->
+        <ObjectInfo
+          v-for="object in filteredSwimmingPools"
+          :key="object.name + 'searchResult'"
+          :data="object" />
+        <!-- </section> -->
+        <!-- <article v-else>
+          Nic nie znaleziono!
+          <section>
+            <ObjectInfo
+              v-for="object in swimmingPools"
+              :key="object.name + 'searchResult'"
+              :data="object" />
+          </section>
+        </article> -->
+      </section>
     </section>
   </section>
 </template>
 
 <script>
+import Breadcrumb from '@/components/Breadcrumb.vue';
 import ObjectInfo from '~/components/ObjectInfo.vue';
 import debounce from 'lodash.debounce';
 import { API } from '@/assets/config.json';
@@ -288,7 +294,8 @@ export default {
   },
   watch: watchers,
   components: {
-    ObjectInfo
+    ObjectInfo,
+    Breadcrumb
   },
   layout: 'static'
 };

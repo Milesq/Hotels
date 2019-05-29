@@ -1,5 +1,6 @@
 <template>
   <main class="text">
+    <Breadcrumb :crumbs="['Regulamin']" />
     <div style="padding: 0 20px">
       <h1>Regulamin</h1>
       <span>Lorem ipsum dolor sit amet consectetur adipisicing
@@ -40,7 +41,12 @@
 </template>
 
 <script>
+import Breadcrumb from '../components/Breadcrumb.vue';
+
 export default {
-  layout: 'static'
+  layout: 'static',
+  components: {
+    Breadcrumb
+  }
 };
 </script>

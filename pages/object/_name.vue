@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+    <Breadcrumb :crumbs="['Baseny', $route.params.name]" />
     <Gallery :images="gallery.map(img => this.API + img.url)" />
     <h1>{{ $route.params.name | fromUrlToHuman }}</h1>
     <section style="margin-top: 15px" class="grid grid--smallscreen">
@@ -184,6 +185,7 @@
 </template>
 
 <script>
+import Breadcrumb from '@/components/Breadcrumb.vue';
 import Comments from '@/components/Comments.vue';
 import Gallery from '@/components/Gallery.vue';
 import Ad from '@/components/ArticleAd.vue';
@@ -368,7 +370,8 @@ export default {
   components: {
     Ad,
     Comments,
-    Gallery
+    Gallery,
+    Breadcrumb
   },
   middleware: 'getRandomObjects',
   filters: {

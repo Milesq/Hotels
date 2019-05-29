@@ -1,5 +1,6 @@
 <template>
   <section class="wrapper">
+    <Breadcrumb :crumbs="['Artykuły', data.title]" />
     <h1 class="header">{{ data.title }}</h1>
     <article class="post" v-html="dataHtml"></article>
     <Comments @send="send" :data="data.comments" />
@@ -7,6 +8,7 @@
 </template>
 
 <script>
+import Breadcrumb from '@/components/Breadcrumb.vue';
 import Comments from '@/components/Comments.vue';
 import { API, auth } from '@/assets/config.json';
 import showdown from 'showdown';
@@ -55,7 +57,8 @@ export default {
   },
   layout: 'static',
   components: {
-    Comments
+    Comments,
+    Breadcrumb
   }
 };
 </script>

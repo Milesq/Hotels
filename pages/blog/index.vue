@@ -1,5 +1,6 @@
 <template>
   <section class="container">
+    <Breadcrumb :crumbs="['Blog']" />
     <div v-for="post in posts" :key="`post_${post.id}`">
       <Post
       :title="post.title"
@@ -11,6 +12,7 @@
 </template>
 
 <script>
+import Breadcrumb from '@/components/Breadcrumb.vue';
 import Post from '@/components/Post.vue';
 import { API } from '@/assets/config.json';
 
@@ -32,7 +34,8 @@ export default {
     return { posts: data };
   },
   components: {
-    Post
+    Post,
+    Breadcrumb
   },
   layout: 'static'
 };
