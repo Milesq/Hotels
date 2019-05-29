@@ -19,6 +19,7 @@
         </Header>
       </nav>
       <main style="width: 100%">
+        <Breadcrumb />
         <nuxt />
       </main>
     </div>
@@ -29,6 +30,7 @@
 <script>
 import Header from '../components/landingPage/Header.vue';
 import Footer from '../components/landingPage/Footer.vue';
+import Breadcrumb from '../components/Breadcrumb.vue';
 // eslint-disable-next-line
 import registerServiceWorker from '@/assets/registerServiceWorker.js';
 
@@ -40,7 +42,8 @@ export default {
   },
   components: {
     Header,
-    Footer
+    Footer,
+    Breadcrumb
   },
   middleware: 'https',
   methods: {
