@@ -7,15 +7,12 @@
 
 <script>
 import Footer from '@/components/landingPage/Footer.vue';
-// eslint-disable-next-line
-import registerServiceWorker from '@/assets/registerServiceWorker.js';
 
 export default {
   components: {
     Footer
   },
-  middleware: 'https',
-  mounted: registerServiceWorker
+  middleware: 'https'
 };
 </script>
 

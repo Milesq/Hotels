@@ -31,8 +31,6 @@
 <script>
 import Header from '../components/landingPage/Header.vue';
 import Footer from '../components/landingPage/Footer.vue';
-// eslint-disable-next-line
-import registerServiceWorker from '@/assets/registerServiceWorker.js';
 
 export default {
   data() {
@@ -49,8 +47,7 @@ export default {
     search() {
       this.$router.push(`/search/${this.city}`);
     }
-  },
-  mounted: registerServiceWorker
+  }
 };
 </script>
 
