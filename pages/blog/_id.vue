@@ -1,6 +1,9 @@
 <template>
   <section class="wrapper">
-    <Breadcrumb :crumbs="[['Artykuły', '/object'], data.title]" />
+    <div class="meta">
+      <Breadcrumb :crumbs="[['Artykuły', '/object'], data.title]" />
+      <Share link="" />
+    </div>
     <h1 class="header">{{ data.title }}</h1>
     <article class="post" v-html="dataHtml"></article>
     <Comments @send="send" :data="data.comments" />
@@ -9,6 +12,7 @@
 
 <script>
 import Breadcrumb from '@/components/Breadcrumb.vue';
+import Share from '@/components/Share.vue';
 import Comments from '@/components/Comments.vue';
 import { API, auth } from '@/assets/config.json';
 import showdown from 'showdown';
@@ -58,7 +62,8 @@ export default {
   layout: 'static',
   components: {
     Comments,
-    Breadcrumb
+    Breadcrumb,
+    Share
   }
 };
 </script>
@@ -90,6 +95,12 @@ export default {
 
 .header {
   text-align: center;
+}
+
+.meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 </style>
 

@@ -24,6 +24,7 @@ export default {
 <style scoped lang="scss">
 .breadcrumb {
   margin: 20px;
+  display: inline;
 
   &__link {
     color: #1976d3 + #111;
