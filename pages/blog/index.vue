@@ -1,6 +1,7 @@
 <template>
-  <section class="container">
-    <Breadcrumb :crumbs="['Blog']" />
+  <section class="blog-container" style="background-color: #eee">
+    <Breadcrumb class="breadcrumb" :crumbs="['Blog']" />
+    <h1 class="header">Blog</h1>
     <div v-for="post in posts" :key="`post_${post.id}`">
       <Post
       :title="post.title"
@@ -42,7 +43,12 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.container {
+.blog-container {
   margin: 20px 0;
+}
+
+.header,
+.breadcrumb {
+  margin-left: 70px;
 }
 </style>

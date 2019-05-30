@@ -1,6 +1,6 @@
 <template>
   <section class="wrapper">
-    <Breadcrumb :crumbs="['Artykuły', data.title]" />
+    <Breadcrumb :crumbs="[['Artykuły', '/object'], data.title]" />
     <h1 class="header">{{ data.title }}</h1>
     <article class="post" v-html="dataHtml"></article>
     <Comments @send="send" :data="data.comments" />

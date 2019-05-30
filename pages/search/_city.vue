@@ -2,7 +2,7 @@
   <section>
     <Breadcrumb
       :crumbs="[$route.params.city === 'all'? 'Baseny W Polsce' : $route.params.city]"
-      style="margin-left: 150px" />
+      style="margin-left: 160px; transform: translateY(13px)" />
     <section class="container" style="background-color: #eee">
       <nav class="filters">
         <h3 class="title">
@@ -332,6 +332,7 @@ export default {
   padding: 20px;
   background-color: #fff;
   margin: 10% 0;
+  margin-top: 12.5%;
   box-shadow: 0 2px 5px -3px #000;
 
   @media(min-width: 950px) {

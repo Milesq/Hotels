@@ -1,6 +1,6 @@
 <template>
-  <div class="container">
-    <Breadcrumb :crumbs="['Baseny', fromUrlToHuman($route.params.name)]" />
+  <div class="container" style="padding-top: 0;">
+    <Breadcrumb :crumbs="[['Baseny', '/object'], fromUrlToHuman($route.params.name)]" />
     <Gallery :images="gallery.map(img => this.API + img.url)" />
     <h1>{{ $route.params.name | fromUrlToHuman }}</h1>
     <section style="margin-top: 15px" class="grid grid--smallscreen">

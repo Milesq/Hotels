@@ -1,7 +1,9 @@
 <template>
   <div>
     <div class="container" :style="{
-      backgroundColor: ['contact', 'search-city'].indexOf($route.name) !== -1 ? '#eee' : '#fff'
+      backgroundColor: ['blog',
+                        'contact',
+                        'search-city'].indexOf($route.name) !== -1 ? '#eee' : '#fff'
     }">
       <nav class="search-bar">
         <Header :shadow="false">
