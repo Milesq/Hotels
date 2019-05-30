@@ -22,14 +22,14 @@
 </template>
 
 
-<style scoped>
+<style scoped lang="scss">
 .modal-mask {
   position: fixed;
   z-index: 9998;
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
+  height: 100vh;
   background-color: rgba(0, 0, 0, .5);
   display: table;
   transition: opacity .3s ease;
@@ -42,10 +42,15 @@
 }
 
 .modal-container {
-  width: 300px;
+  width: 90%;
+
+  @media (min-width: 650px) {
+    width: 600px;
+  }
+
   margin: 0px auto;
   background-color: #fff;
-  border-radius: 2px;
+  border-radius: 3px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
   transition: all .3s ease;
   font-family: Helvetica, Arial, sans-serif;
@@ -61,7 +66,7 @@
 }
 
 .modal-body {
-  padding: 20px 30px;
+  padding: 10px;
 }
 
 .fa-times {

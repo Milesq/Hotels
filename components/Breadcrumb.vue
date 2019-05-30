@@ -23,7 +23,10 @@ export default {
 
 <style scoped lang="scss">
 .breadcrumb {
-  margin: 20px;
+  @media (min-width: 910px) {
+    margin: 20px;
+  }
+
   display: inline;
 
   &__link {

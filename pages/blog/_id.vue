@@ -101,6 +101,10 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  @media (max-width: 910px) {
+    flex-direction: column;
+  }
 }
 </style>
 
