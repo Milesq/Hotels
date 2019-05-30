@@ -163,7 +163,7 @@ export default {
 
     let swimmingPools = (await $axios.get(url)).data;
     swimmingPools = swimmingPools.map((pool) => {
-      const {
+      let {
         name,
         gallery,
         open,
@@ -174,6 +174,10 @@ export default {
         sauna,
         aquapark
       } = pool;
+
+      if (open.length !== 7 || open.some(x => x.length != 2)) {
+        open = new Array(7).fill([1, 24]);
+      }
 
       const possibilityAttractions = [
         'BasenSportowy25m',

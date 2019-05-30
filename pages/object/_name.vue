@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <Breadcrumb :crumbs="['Baseny', $route.params.name]" />
+    <Breadcrumb :crumbs="['Baseny', fromUrlToHuman($route.params.name)]" />
     <Gallery :images="gallery.map(img => this.API + img.url)" />
     <h1>{{ $route.params.name | fromUrlToHuman }}</h1>
     <section style="margin-top: 15px" class="grid grid--smallscreen">
@@ -220,6 +220,10 @@ export default {
     const ads = await getRandomObjects('post');
     const pool = (await $axios.get(`${API}/swimmingpools/${id}`)).data;
 
+    if (pool.open.length !== 7 || pool.open.some(x => x.length !== 2)) {
+      pool.open = new Array(7).fill([1, 24]);
+    }
+
     const possibilityAttractions = [
       'BasenSportowy25m',
       'BasenOlimpijski50m',
@@ -318,7 +322,8 @@ export default {
       } catch (err) {
         console.log(err);
       }
-    }
+    },
+    fromUrlToHuman
   },
   layout: 'static',
   computed: {

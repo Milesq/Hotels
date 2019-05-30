@@ -1,13 +1,9 @@
 <template>
   <div class="breadcrumb">
-    <nuxt-link to="/">Strona główna</nuxt-link>
-    {{ crumbs }}
-    <!-- <span v-for="(el, i) in breadcrumbs" :key="i">
-      / <nuxt-link :to="el.link">{{ el.name }}</nuxt-link>
-    </span> -->
-    <!-- <span>
-      {{ dict[$route.path.split('/').slice(-1)[0]] }}
-    </span> -->
+    <nuxt-link class="breadcrumb__link" to="/">Strona główna</nuxt-link>
+    <span v-for="(el, i) in crumbs" :key="i">
+      / <nuxt-link class="breadcrumb__link" :to="'/'">{{ el }}</nuxt-link>
+    </span>
   </div>
 </template>
 
@@ -23,5 +19,9 @@ export default {
 </script>
 
 <style scoped lang="scss">
-
+.breadcrumb__link {
+  color: #1976d3 + #111;
+  font: Hind;
+  text-decoration: none;
+}
 </style>
