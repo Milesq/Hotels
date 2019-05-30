@@ -1,7 +1,7 @@
 <template>
   <section class="wrapper">
     <div class="meta">
-      <Breadcrumb :crumbs="[['Artykuły', '/object'], data.title]" />
+      <Breadcrumb :crumbs="[['Blog', '/blog'], data.title]" />
       <Share link="" />
     </div>
     <h1 class="header">{{ data.title }}</h1>
