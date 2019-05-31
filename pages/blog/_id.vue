@@ -87,6 +87,7 @@ export default {
   overflow: hidden;
   font-size: 16px;
   font-weight: 400;
+  white-space: pre-wrap;
 
   @media(min-width: 785px) {
     padding: 10px 100px;

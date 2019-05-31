@@ -1,6 +1,6 @@
 <template>
   <div class="container" style="padding-top: 0;">
-    <Breadcrumb :crumbs="[['Baseny', '/object'], fromUrlToHuman($route.params.name)]" />
+    <Breadcrumb :crumbs="[[city, '/search/' + city], fromUrlToHuman($route.params.name)]" />
     <Gallery :images="gallery.map(img => this.API + img.url)" />
     <h1>{{ $route.params.name | fromUrlToHuman }}</h1>
     <section style="margin-top: 15px" class="grid grid--smallscreen">
@@ -278,7 +278,8 @@ export default {
       attractions,
       partners: pool.partners,
       description: pool.description,
-      address: pool.address,
+      address: pool.city + ' ' + pool.address,
+      city: pool.city,
       phone: pool.phone,
       mail: pool.mail,
       gallery: pool.gallery,
