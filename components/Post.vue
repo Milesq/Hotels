@@ -127,7 +127,7 @@ export default {
 
 .desc {
   font-weight: 400;
-  font-size: .95em;
+  font-size: 1.11em;
 }
 
 .link {

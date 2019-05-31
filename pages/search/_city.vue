@@ -159,7 +159,7 @@ export default {
     // eslint-disable-next-line
     let url = `${API}/swimmingpools`;
     const city = encodeURIComponent(params.city);
-    if (city !== 'all') url += `/?city=${city}`;
+    if (city !== 'all') url += `/?_q=${city}`;
 
     let swimmingPools = (await $axios.get(url)).data;
     swimmingPools = swimmingPools.map((pool) => {
