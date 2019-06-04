@@ -3,50 +3,43 @@
     <Breadcrumb :crumbs="['Polityka Prywatności']" />
     <div style="padding: 0 20px">
       <h1>Regulamin</h1>
-      <span>Lorem ipsum dolor sit amet consectetur adipisicing
-        elit. Voluptatem maiores itaque provident minus quisquam voluptatum
-        voluptates vero repellat a, voluptate voluptas ut ducimus
-        iure nobis in nam commodi cum sunt?
-      </span>
 
-      <article>
-        <h3 class="header">Postanowienia ogólne</h3>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing
-          elit. Voluptatem maiores itaque provident minus quisquam voluptatum
-          voluptates vero repellat a, voluptate voluptas ut ducimus
-          iure nobis in nam commodi cum sunt?
-        </p>
-      </article>
-      <article>
-        <h3 class="header">Wyrażanie opini oraz wprowadzanie danych</h3>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing
-          elit. Voluptatem maiores itaque provident minus quisquam voluptatum
-          voluptates vero repellat a, voluptate voluptas ut ducimus
-          iure nobis in nam commodi cum sunt?
-        </p>
-      </article>
-      <article>
-        <h3 class="header">Odpowiedzialność</h3>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing
-          elit. Voluptatem maiores itaque provident minus quisquam voluptatum
-          voluptates vero repellat a, voluptate voluptas ut ducimus
-          iure nobis in nam commodi cum sunt?
-        </p>
-      </article>
+      <article v-html="privacy"></article>
     </div>
   </main>
 </template>
 
 <script>
+import showdown from 'showdown';
 import Breadcrumb from '../components/Breadcrumb.vue';
 
 export default {
+  async asyncData({ $axios }) {
+    return {
+      data: (await $axios.get('/law/privacy.md')).data
+    };
+  },
   layout: 'static',
   components: {
     Breadcrumb
+  },
+  computed: {
+    privacy() {
+      const converter = new showdown.Converter();
+      return converter.makeHtml(this.data);
+    }
   }
 };
 </script>
+
+<style>
+strong {
+  margin: 15px 0;
+  display: block;
+}
+
+a {
+  color: #5d8fe4;
+  text-decoration: none;
+}
+</style>
