@@ -42,4 +42,8 @@ export default {
 .subtitle {
   margin-top: 0;
 }
+
+.subtitle {
+  text-align: center;
+}
 </style>

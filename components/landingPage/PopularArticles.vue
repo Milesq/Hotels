@@ -39,4 +39,8 @@ export default {
 .container {
   margin-bottom: 5vmin;
 }
+
+.subtitle {
+  text-align: center;
+}
 </style>
