@@ -12,11 +12,12 @@
 <script>
 import showdown from 'showdown';
 import Breadcrumb from '../components/Breadcrumb.vue';
+import { page } from '@/assets/config.json';
 
 export default {
   async asyncData({ $axios }) {
     return {
-      data: (await $axios.get('/law/privacy.md')).data
+      data: (await $axios.get(page + '/law/privacy.md')).data
     };
   },
   layout: 'static',
