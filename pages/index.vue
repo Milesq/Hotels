@@ -37,16 +37,17 @@ export default {
 @import '@/assets/variables.scss';
 
 .search-bar {
-  background: url(https://placeimg.com/1000/350/any);
+  background: url("/background.jpg");
 
   @media (max-width: 678px) {
     background-size: cover;
   }
+  margin-bottom: 50px;
 
   width: 100vw;
   background-position: 0 0;
   background-repeat: no-repeat;
-  background-size: 100%;
+  background-size: 100% 530px;
   background-attachment: fixed;
 }
 </style>

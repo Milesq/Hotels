@@ -1,10 +1,11 @@
 <template>
-  <div>
+  <div class="flex-center">
     <img
       @load="loaded = true"
       :src="src"
       :alt="alt"
-      v-show="loaded">
+      v-show="loaded"
+      class="img">
 
       <div v-show="!loaded" :class="['lds-roller', { dark }]">
         <div></div>
@@ -29,6 +30,19 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.img {
+  width: 100%;
+  /* height: 100%; */
+}
+
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+</style>
 
 <style scoped>
 .lds-roller {

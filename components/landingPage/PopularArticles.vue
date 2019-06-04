@@ -2,13 +2,6 @@
   <section class="container">
     <h2 class="subtitle">Popularne artykuły</h2>
     <article class="tiles">
-      <!-- <Tile
-        alt=""
-        href="/blog/0"
-        title="Aquapark Delfin Warszawa"
-        class="tile"
-        light
-      /> -->
       <div v-for="object in data" :key="object.id">
         <Tile
           alt=""

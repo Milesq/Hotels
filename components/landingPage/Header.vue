@@ -3,7 +3,7 @@
     light: !shadow
   }">
     <nuxt-link to="/">
-      <img src="https://placeimg.com/200/50/any" alt="Logo strony">
+      <img src="/logo.png" alt="Logo strony" class="logo">
     </nuxt-link>
     <slot />
     <div class="center-y">
@@ -27,6 +27,10 @@ export default {
 <style lang="scss" scoped>
 @import '@/assets/variables.scss';
 
+.logo {
+  height: 30px;
+}
+
 header {
   display: flex;
   justify-content: space-between;
@@ -36,7 +40,6 @@ header {
     position: sticky;
     top: 0px;
   }
-
 
   min-height: $header-height;
   width: 100vw;
