@@ -49,6 +49,9 @@ export default {
 
 .header,
 .breadcrumb {
+  @media (max-width: 870px) {
+    margin-left: 10px;
+  }
   margin-left: 70px;
 }
 </style>

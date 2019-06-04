@@ -55,7 +55,7 @@ export default {
     desc() {
       const converter = new showdown.Converter();
 
-      const MAX = 800;
+      const MAX = 600;
       let ret = this.description;
       if (ret.length > MAX) {
         ret = ret.substr(0, MAX) + '...';
@@ -86,7 +86,7 @@ export default {
 
 .container {
   display: grid;
-  grid-template-columns: 1fr 2fr;
+  grid-template-columns: 2fr 5fr;
   box-shadow: 0 2px 5px -3px #000;
   background-color: #fff;
 
@@ -119,8 +119,10 @@ export default {
     height: 100%;
     transition: ease-in-out .6s all;
 
-    &:hover {
-      transform: scale(.95);
+    @media (min-width: 870px) {
+      &:hover {
+        transform: scale(.95);
+      }
     }
   }
 }
@@ -135,6 +137,6 @@ export default {
 }
 
 .post-logo {
-  background-size: cover;
+  background-size: 100% 100%;
 }
 </style>
