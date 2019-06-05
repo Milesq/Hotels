@@ -1,24 +1,22 @@
-import pkg from './package.json';
+const content = `Znajdź najlepsze miejsce nad wodą już w 30 sekund!
+Wybieraj spośród setek obiektów w całej Polsce! Poznaj atrakcje, ceny,
+godziny otwarcia, opinie i inne informacje zebrane w jednym miejscu!
+Największa Polska baza basenów, aquaparków, kąpielisk i saun czekających na Ciebie!`;
 
 export default {
   mode: 'universal',
-
-  /*
-  ** Headers of the page
-  */
   head: {
     htmlAttrs: {
       lang: 'pl'
     },
-    title: pkg.name,
+    title: 'Największa baza basenów, aquaparków, saun w Polsce!',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: pkg.description },
+      { hid: 'description', name: 'description', content },
       { name: 'author', content: 'Milesq' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
       {
         rel: 'stylesheet',
         href: 'https://use.fontawesome.com/releases/v5.8.1/css/all.css'
@@ -29,49 +27,25 @@ export default {
       }
     ]
   },
-
-  /*
-  ** Customize the progress-bar color
-  */
   loading: {
     color: 'green',
     height: '5px',
     duration: 1500,
     continuous: true
   },
-
-  /*
-  ** Global CSS
-  */
-  css: [],
-
-  /*
-  ** Plugins to load before mounting the App
-  */
-  plugins: [
-  ],
-
-  /*
-  ** Nuxt.js modules
-  */
   modules: [
-    // Doc: https://axios.nuxtjs.org/usage
-    '@nuxtjs/axios'
+    '@nuxtjs/axios',
+    '@nuxtjs/pwa'
   ],
-  /*
-  ** Axios module configuration
-  */
-  axios: {
-    // See https://github.com/nuxt-community/axios-module#options
+  workbox: {
+    offlinePage: '/offline'
   },
-
-  /*
-  ** Build configuration
-  */
+  manifest: {
+    name: 'Baza Polskich basenów',
+    lang: 'pl',
+    theme_color: '#5d8fe4'
+  },
   build: {
-    /*
-    ** You can extend webpack config here
-    */
     extend(config, ctx) {
       // Run ESLint on save
       if (ctx.isDev && ctx.isClient) {
@@ -82,6 +56,12 @@ export default {
           exclude: /(node_modules)/
         });
       }
+
+      config.module.rules.push({
+        test: /\.md$/,
+        loader: 'raw-loader',
+        exclude: /(node_modules)/
+      });
     }
   }
 };
