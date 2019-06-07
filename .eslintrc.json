@@ -22,7 +22,9 @@
     "no-unused-vars": "warn",
     "prefer-const": "warn",
     "arrow-body-style": "warn",
-    "func-names": "off"
+    "func-names": "off",
+    "implicit-arrow-linebreak": "off",
+    "no-nested-ternary": "off"
   },
   "parserOptions": {
     "parser": "babel-eslint"

@@ -173,6 +173,22 @@ export default {
     justify-content: space-between;
     width: 15%;
     margin: 9px;
+
+    @media (max-width: 1295px) {
+      flex-direction: column;
+    }
+  }
+
+  @media (min-width: 550px) and (max-width: 1295px) {
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  @media (max-width: 550px) {
+    align-items: center;
+    & > * {
+      width: 100%;
+    }
   }
 }
 

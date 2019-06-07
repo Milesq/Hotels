@@ -5,7 +5,7 @@
       <div v-for="object in data" :key="object.id">
         <Tile
           alt=""
-          :href="`/object/${slugify(object.name)}`"
+          :href="`/object/${customize(slugify(object.name))}`"
           :title="object.name"
           :src="API + object.gallery[0].url"
           :description="object.description"
@@ -29,7 +29,18 @@ export default {
     };
   },
   methods: {
-    slugify
+    slugify,
+    customize(addr) {
+      let customized = addr[0].toUpperCase();
+      customized += addr.substr(1);
+      return customized
+        .split('')
+        .reduce((acc, el, i, arr) =>
+          acc
+          + (/-/.test(el)
+            ? arr[i + 1].toUpperCase()
+            : (arr[i - 1] === '-' ? '' : el)));
+    }
   },
   components: {
     Tile
