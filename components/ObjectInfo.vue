@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper">
+  <div class="objectinfo__wrapper">
     <!-- <pre>{{ JSON.stringify(data, null, 2) }}</pre> -->
     <nuxt-link :to="url">
       <div :style="{
@@ -74,7 +74,7 @@ export default {
 @import '@/assets/variables.scss';
 $green: #48a277;
 
-.wrapper {
+.objectinfo__wrapper {
   display: grid;
   @media(min-width: 650px) {
     grid-template-columns: 1fr 1fr;
@@ -83,21 +83,21 @@ $green: #48a277;
   background-color: #fff;
   box-shadow: 0 2px 5px -3px #000;
   margin: 30px 0;
+  margin-top: 50px;
 }
 
 .logo-img {
   height: 250px;
-  width: 400px;
+  width: 100%;
   overflow: hidden;
   background-position: center;
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: 100%;
   cursor: pointer;
   transition: .2s linear all;
   background-blend-mode: darken;
 
   &:hover {
-    /* filter: contrast(120%); */
     background-color: #999;
   }
 }

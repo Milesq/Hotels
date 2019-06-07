@@ -2,7 +2,7 @@
   <section>
     <Breadcrumb
       :crumbs="[$route.params.city === 'all'? 'Baseny W Polsce' : $route.params.city]"
-      style="margin-left: 160px; transform: translateY(13px); display: block" />
+      class="breadcrumbs" />
     <section class="container" style="background-color: #eee">
       <nav class="filters">
         <h3 class="title">
@@ -59,22 +59,27 @@
       </nav>
       <span></span>
       <section class="results">
-        <h1>Baseny - {{ $route.params.city == 'all'? 'Polska' : $route.params.city }}</h1>
-        <!-- <section v-if="filteredSwimmingPools.length"> -->
+        <h1 class="header">
+          Baseny - {{ $route.params.city == 'all'? 'Polska' : $route.params.city }}
+        </h1>
+        <section v-if="filteredSwimmingPools.length">
         <ObjectInfo
           v-for="object in filteredSwimmingPools"
           :key="object.name + 'searchResult'"
           :data="object" />
-        <!-- </section> -->
-        <!-- <article v-else>
-          Nic nie znaleziono!
+        </section>
+        <article v-else>
+          Nic nie znaleziono! <br>
+          <span v-if="swimmingPools.length">
+            Zobacz inne baseny w tym mieście
+          </span>
           <section>
             <ObjectInfo
               v-for="object in swimmingPools"
               :key="object.name + 'searchResult'"
               :data="object" />
           </section>
-        </article> -->
+        </article>
       </section>
     </section>
   </section>
@@ -159,7 +164,7 @@ export default {
     // eslint-disable-next-line
     let url = `${API}/swimmingpools`;
     const city = encodeURIComponent(params.city);
-    if (city !== 'all') url += `/?_q=${city}`;
+    if (city !== 'all') url += `/?city_contains=${city}`;
 
     let swimmingPools = (await $axios.get(url)).data;
     swimmingPools = swimmingPools.map((pool) => {
@@ -310,25 +315,49 @@ export default {
 
 <style scoped lang="scss">
 .container {
+  position: relative;
   display: grid;
-  @media(min-width: 950px) {
+  @media(min-width: 1100px) {
     grid-template-columns: 1fr 3fr;
   }
 
   padding: 0 10%;
 
-  @media(max-width: 1150px) {
+  @media(max-width: 1300px) {
     padding: 25px;
+  }
+
+  @media (max-width: 550px) {
+    padding: 5px;
+  }
+}
+
+.header {
+  @media(max-width: 1100px) {
+    position: absolute;
+    top: 0;
   }
 }
 
 .results {
-  @media(min-width: 950px) {
+  @media(min-width: 1100px) {
     margin-left: 50px;
   }
 
   min-height: 100%;
   margin-bottom: 20px;
+}
+
+.breadcrumbs {
+  --size: 160px;
+  margin-left: var(--size);
+  transform: translateY(calc(var(--size) / 12.3));
+  display: block;
+
+  @media(max-width: 1100px) {
+    --size: 10px;
+    margin-top: 20px;
+  }
 }
 
 .filters {
@@ -338,12 +367,16 @@ export default {
   margin-top: 12.5%;
   box-shadow: 0 2px 5px -3px #000;
 
-  @media(min-width: 950px) {
+  @media(max-width: 1100px) {
+    margin-top: 20%;
+  }
+
+  @media(min-width: 1100px) {
     position: fixed;
     top: -40px;
   }
 
-  @media(max-width: 1150px) {
+  @media(max-width: 1300px) {
     top: 0;
   }
 }
