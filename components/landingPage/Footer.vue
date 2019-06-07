@@ -12,8 +12,8 @@
         <h3>Kategorie:</h3>
         <ul>
           <li><NLink to="/search/all?type=aquapark">Aquapark</NLink></li>
-          <li><NLink to="/search/all?type=swimming-pool-indoor">Basen Otwarty</NLink></li>
-          <li><NLink to="/search/all?type=swimming-pool-outdoor">Basen Kryty</NLink></li>
+          <li><NLink to="/search/all?type=swimming-pool-outdoor">Basen Otwarty</NLink></li>
+          <li><NLink to="/search/all?type=swimming-pool-indoor">Basen Kryty</NLink></li>
           <li><NLink to="/search/all?type=swimming-pool-thermal">Basen Termalny </NLink></li>
           <li><NLink to="/search/all?type=sauna">Sauna</NLink></li>
         </ul>
