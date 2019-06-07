@@ -6,17 +6,19 @@
     <section class="container" style="background-color: #eee">
       <nav class="filters">
         <h3 class="title">
-          <span>Filtry</span> <i class="fas fa-filter"></i>
+          <span>Filtry</span> <i @click="reset" title="Resetuj filtry" class="fas fa-filter"></i>
         </h3>
         <label class="filter filter__object-type">
           Rodzaj obiektu
-          <v-select :options="[
+          <v-select
+            :options=" [
               { code: 'aquapark', label: 'Aquapark'},
               { code: 'swimmingpoolIndoor', label: 'Basen Wewnętrzny'},
               { code: 'swimmingpoolOutdoor', label: 'Basen Zewnętrzny'},
-              { code: 'swimmingpoolThermal', label: 'Basen termalny'},
+              { code: 'swimmingpoolThermal', label: 'Basen Termalny'},
               { code: 'sauna', label: 'Sauna'}
             ]"
+            :reduce="({ code }) => code"
             v-model="category"></v-select>
         </label>
         <span class="filter filter__attractions">
@@ -25,7 +27,7 @@
             <v-select
               v-model="attractions"
               :clearable="false"
-              :multiple="true"
+              multiple
               :closeOnSelect="false"
               :options="possibilityAttractions"></v-select>
           </div>
@@ -39,7 +41,7 @@
               max="200"
               v-model="r">
               <!-- Witchout next line, range input is too long when r <= 100 -->
-              <span v-if="r < 100" style="color: transparent">0</span>
+              <span v-if="r < 100" style="color: transparent; user-select: none">0</span>
               {{ r }}km
           </span>
         </label>
@@ -95,7 +97,7 @@ let debouncedWatchHandler = async function (self) {
   let filtered = self.swimmingPools.filter(el => self.openHoursBeg >= el.open[0]);
   filtered = filtered.filter(el => self.openHoursEnd <= el.open[1]);
 
-  if (self.category !== '') filtered = filtered.filter(el => el.type[self.category]);
+  if (self.category !== null) filtered = filtered.filter(el => el.type[self.category]);
 
   /* eslint-disable */
   const mustHave = self.attractions.map(_ => _.toLowerCase());
@@ -143,7 +145,6 @@ for (const el of [
   'category',
   'attractions',
   'r',
-  'rating',
   'openHoursBeg',
   'openHoursEnd',
   'possibilityAttractions'
@@ -246,7 +247,7 @@ export default {
           aquapark
         }
       };
-    });
+    }); // TODO: ratings
 
     let [cityCoords] = (await $axios.get(maps(city))).data;
     cityCoords = [cityCoords.lat, cityCoords.lon];
@@ -262,10 +263,9 @@ export default {
       swimmingPools: [],
       filteredSwimmingPools: [],
 
-      category: '',
+      category: null,
       attractions: [],
       r: 50,
-      rating: 0,
       openHoursBeg: '8.30',
       openHoursEnd: '14',
       possibilityAttractions: [
@@ -295,6 +295,29 @@ export default {
         'Caldarium'
       ]
     };
+  },
+  methods: {
+    reset() {
+      this.category = null;
+      this.attractions = [];
+      this.r = 50;
+      this.openHoursBeg = '8.30';
+      this.openHoursEnd = '14';
+    }
+  },
+  mounted() {
+    const capitalize = str => str[0].toUpperCase() + str.slice(1);
+
+    let { type } = this.$route.query;
+    if(type) {
+      if(/[a-z]-[a-z]+-[a-z]/i.test(type)) {
+        type = type.toLowerCase().split('-');
+        type.push(capitalize(type.pop()));
+        this.category = type.join('');
+      } else {
+        this.category = type;
+      }
+    }
   },
   watch: watchers,
   components: {
@@ -418,6 +441,7 @@ $default-shadow: 0 0 10px -5px #000;
 
   .fas {
     font-size: 20px;
+    cursor: pointer;
   }
 }
 
