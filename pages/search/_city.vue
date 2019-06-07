@@ -10,30 +10,24 @@
         </h3>
         <label class="filter filter__object-type">
           Rodzaj obiektu
-          <select v-model="category">
-            <option value="---">Dowolny</option>
-            <option value="aquapark">Aquapark</option>
-            <option value="swimmingpoolIndoor">Basen Kryty</option>
-            <option value="swimmingpoolOutdoor">Basen Odkryty</option>
-            <option value="swimmingpoolThermal">Basen Termalny</option>
-            <option value="sauna">Sauna</option>
-          </select>
+          <v-select :options="[
+              { code: 'aquapark', label: 'Aquapark'},
+              { code: 'swimmingpoolIndoor', label: 'Basen Wewnętrzny'},
+              { code: 'swimmingpoolOutdoor', label: 'Basen Zewnętrzny'},
+              { code: 'swimmingpoolThermal', label: 'Basen termalny'},
+              { code: 'sauna', label: 'Sauna'}
+            ]"
+            v-model="category"></v-select>
         </label>
         <span class="filter filter__attractions">
           Atrakcje
           <div class="filter__wrapper">
-            <label
-              v-for="attraction in possibilityAttractions"
-              :key="attraction + '-attraction'"
-              :ref="'attraction_' + attraction"
-              style="display: block">
-                <div class="pretty p-default p-round p-thick p-smooth">
-                    <input type="checkbox" :value="attraction" v-model="attractions">
-                    <div class="state p-primary-o">
-                      <label>{{ attraction }}</label>
-                    </div>
-                </div>
-            </label>
+            <v-select
+              v-model="attractions"
+              :clearable="false"
+              :multiple="true"
+              :closeOnSelect="false"
+              :options="possibilityAttractions"></v-select>
           </div>
         </span>
         <label v-if="$route.params.city !== 'all'" class="filter filter__range">
@@ -68,18 +62,15 @@
           :key="object.name + 'searchResult'"
           :data="object" />
         </section>
-        <article v-else>
-          Nic nie znaleziono! <br>
-          <span v-if="swimmingPools.length">
-            Zobacz inne baseny w tym mieście
+        <section v-else class="not-found">
+          <h2 class="not-found__info">Niestety nic nie znaleźliśmy w
+            <span class="city-name">{{ $route.params.city }}</span>
+          </h2>
+          <h3 class="help-msg">Poniżej lista obiektów w odległości {{ r = 120 }}km</h3>
+          <span class="light-font">
+            Możesz również ręcznie zwiększyć promień wyszukiwania w filtrze
           </span>
-          <section>
-            <ObjectInfo
-              v-for="object in swimmingPools"
-              :key="object.name + 'searchResult'"
-              :data="object" />
-          </section>
-        </article>
+        </section>
       </section>
     </section>
   </section>
@@ -89,6 +80,7 @@
 import Breadcrumb from '@/components/Breadcrumb.vue';
 import ObjectInfo from '~/components/ObjectInfo.vue';
 import debounce from 'lodash.debounce';
+import VSelect from 'vue-select';
 import { API } from '@/assets/config.json';
 
 const maps = place => `https://nominatim.openstreetmap.org/search?q=${place}&format=json`;
@@ -103,7 +95,7 @@ let debouncedWatchHandler = async function (self) {
   let filtered = self.swimmingPools.filter(el => self.openHoursBeg >= el.open[0]);
   filtered = filtered.filter(el => self.openHoursEnd <= el.open[1]);
 
-  if (self.category !== '---') filtered = filtered.filter(el => el.type[self.category]);
+  if (self.category !== '') filtered = filtered.filter(el => el.type[self.category]);
 
   /* eslint-disable */
   const mustHave = self.attractions.map(_ => _.toLowerCase());
@@ -121,7 +113,7 @@ let debouncedWatchHandler = async function (self) {
     let tips = filtered.map(async (item) => {
       const { data } = await self.$axios.get(maps(item.address));
       if (data.length === 0) {
-        console.log(`${item.name} was ommited!`);
+        console.log(`${item.name} was ommited! ${item.address}`);
         return true;
       }
 
@@ -270,9 +262,9 @@ export default {
       swimmingPools: [],
       filteredSwimmingPools: [],
 
-      category: '---',
+      category: '',
       attractions: [],
-      r: 200,
+      r: 50,
       rating: 0,
       openHoursBeg: '8.30',
       openHoursEnd: '14',
@@ -307,13 +299,16 @@ export default {
   watch: watchers,
   components: {
     ObjectInfo,
-    Breadcrumb
+    Breadcrumb,
+    VSelect
   },
   layout: 'static'
 };
 </script>
 
 <style scoped lang="scss">
+$default-shadow: 0 0 10px -5px #000;
+
 .container {
   position: relative;
   display: grid;
@@ -336,6 +331,40 @@ export default {
   @media(max-width: 1100px) {
     position: absolute;
     top: 0;
+  }
+}
+
+.not-found {
+  box-shadow: $default-shadow;
+
+  background-color: #fff;
+  height: 250px;
+  padding: 25px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  &__info {
+    font-weight: 400;
+    font-size: 1.3rem;
+  }
+
+  & > * {
+    margin: 15px auto;
+  }
+
+  .city-name {
+    text-transform: capitalize;
+  }
+
+  .light-font {
+    font-weight: 300;
+  }
+
+  .help-msg {
+    font-size: 2rem;
   }
 }
 
@@ -365,7 +394,7 @@ export default {
   background-color: #fff;
   margin: 10% 0;
   margin-top: 12.5%;
-  box-shadow: 0 2px 5px -3px #000;
+  box-shadow: $default-shadow;
 
   @media(max-width: 1100px) {
     margin-top: 20%;
@@ -379,11 +408,6 @@ export default {
   @media(max-width: 1300px) {
     top: 0;
   }
-}
-
-.filter__wrapper {
-  height: 175px;
-  overflow-y: scroll;
 }
 
 .title {
@@ -436,5 +460,8 @@ export default {
 }
 
 @import '@/assets/rangeInput.scss';
-@import '~pretty-checkbox/src/pretty-checkbox.scss';
+</style>
+
+<style lang="scss">
+@import "vue-select/src/scss/vue-select.scss";
 </style>

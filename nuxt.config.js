@@ -37,6 +37,7 @@ export default {
     '@nuxtjs/axios',
     '@nuxtjs/pwa'
   ],
+  plugins: ['~/plugins/vue-select'],
   workbox: {
     offlinePage: '/offline'
   },
