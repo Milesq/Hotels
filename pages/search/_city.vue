@@ -6,7 +6,8 @@
     <section class="container" style="background-color: #eee">
       <nav class="filters">
         <h3 class="title">
-          <span>Filtry</span> <i @click="reset" title="Resetuj filtry" class="fas fa-filter"></i>
+          <span>Filtry</span>
+          <i @click="reset" title="Resetuj filtry" class="fas fa-filter"></i>
         </h3>
         <label class="filter filter__object-type">
           Rodzaj obiektu
@@ -26,7 +27,6 @@
           <div class="filter__wrapper">
             <v-select
               v-model="attractions"
-              :clearable="false"
               multiple
               :closeOnSelect="false"
               :options="possibilityAttractions"></v-select>
@@ -350,6 +350,28 @@ $default-shadow: 0 0 10px -5px #000;
   }
 }
 
+.filters {
+  padding: 20px;
+  background-color: #fff;
+  margin: 10% 0;
+  margin-top: 12.5%;
+  box-shadow: $default-shadow;
+
+  @media(min-width: 1100px) {
+    position: fixed;
+    top: 40px;
+  }
+}
+
+.results {
+  @media(min-width: 1100px) {
+    margin-left: 50px;
+  }
+
+  min-height: 100%;
+  margin-bottom: 20px;
+}
+
 .header {
   @media(max-width: 1100px) {
     position: absolute;
@@ -391,15 +413,6 @@ $default-shadow: 0 0 10px -5px #000;
   }
 }
 
-.results {
-  @media(min-width: 1100px) {
-    margin-left: 50px;
-  }
-
-  min-height: 100%;
-  margin-bottom: 20px;
-}
-
 .breadcrumbs {
   --size: 160px;
   margin-left: var(--size);
@@ -409,27 +422,6 @@ $default-shadow: 0 0 10px -5px #000;
   @media(max-width: 1100px) {
     --size: 10px;
     margin-top: 20px;
-  }
-}
-
-.filters {
-  padding: 20px;
-  background-color: #fff;
-  margin: 10% 0;
-  margin-top: 12.5%;
-  box-shadow: $default-shadow;
-
-  @media(max-width: 1100px) {
-    margin-top: 20%;
-  }
-
-  @media(min-width: 1100px) {
-    position: fixed;
-    top: -40px;
-  }
-
-  @media(max-width: 1300px) {
-    top: 0;
   }
 }
 
@@ -488,4 +480,8 @@ $default-shadow: 0 0 10px -5px #000;
 
 <style lang="scss">
 @import "vue-select/src/scss/vue-select.scss";
+
+.filter__wrapper .vs__selected-options {
+  flex-direction: column;
+}
 </style>
