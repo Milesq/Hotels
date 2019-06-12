@@ -57,14 +57,12 @@
       <section style="margin-right: 20px; background-color: white" class="tile">
         <h3 class="tile__header">Kontakt</h3>
         <div class="tile__content contact" style="margin: 0">
-          <iframe
-            class="map"
-            :src="mapSrc"
-            frameborder="0"
-            scrolling="no"
-            marginheight="0"
-            marginwidth="0"
-          ></iframe>
+          <div class="map" v-if="latlng !== null">
+            <Map :latlng="latlng" />
+          </div>
+          <div v-else>
+            <h3>Nie możemy znaleźć mapy dla tego basenu</h3>
+          </div>
           <div class="contact__address" style="margin-bottom: 20px" v-text="address"></div>
           <div class="contact__wrapper contact--map">
             <i class="fas fa-map-marked-alt"></i>
@@ -190,6 +188,7 @@
 import Breadcrumb from '@/components/Breadcrumb.vue';
 import Comments from '@/components/Comments.vue';
 import Gallery from '@/components/Gallery.vue';
+import Map from '@/components/Map.vue';
 import Ad from '@/components/ArticleAd.vue';
 import { API, auth } from '@/assets/config.json';
 
@@ -275,6 +274,15 @@ export default {
       return ret;
     });
 
+    let { data: [latlng] } = await $axios
+      .get(`https://nominatim.openstreetmap.org/search?q=${
+        encodeURI(pool.city + ' ' + pool.address)
+      }&format=json`);
+
+    if (latlng.length !== 0) {
+      latlng = [latlng.lat, latlng.lon];
+    } else latlng = null;
+
     return {
       id,
       attractions,
@@ -293,7 +301,9 @@ export default {
       },
 
       ads,
-      comments: pool.comments
+      comments: pool.comments,
+
+      latlng
     };
   },
   data() {
@@ -379,7 +389,8 @@ export default {
     Ad,
     Comments,
     Gallery,
-    Breadcrumb
+    Breadcrumb,
+    Map
   },
   middleware: 'getRandomObjects',
   filters: {
@@ -523,6 +534,7 @@ export default {
 
 .map {
   width: 100%;
+  height: 250px;
 }
 
 .partners-none {

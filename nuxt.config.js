@@ -35,7 +35,8 @@ export default {
   },
   modules: [
     '@nuxtjs/axios',
-    '@nuxtjs/pwa'
+    '@nuxtjs/pwa',
+    'nuxt-leaflet'
   ],
   plugins: ['~/plugins/vue-select'],
   workbox: {

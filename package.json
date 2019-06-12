@@ -21,6 +21,7 @@
     "lodash.debounce": "^4.0.8",
     "node-sass": "^4.11.0",
     "nuxt": "^2.8.1",
+    "nuxt-leaflet": "^0.0.19",
     "polish-plurals": "^1.1.0",
     "pretty-checkbox": "^3.0.3",
     "raw-loader": "^3.0.0",
