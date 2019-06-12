@@ -58,7 +58,7 @@
         <h3 class="tile__header">Kontakt</h3>
         <div class="tile__content contact" style="margin: 0">
           <div class="map" v-if="latlng !== null">
-            <Map :latlng="latlng" />
+            <Map :latlng="[latlng]" />
           </div>
           <div v-else>
             <h3>Nie możemy znaleźć mapy dla tego basenu</h3>

@@ -24,7 +24,8 @@
     "arrow-body-style": "warn",
     "func-names": "off",
     "implicit-arrow-linebreak": "off",
-    "no-nested-ternary": "off"
+    "no-nested-ternary": "off",
+    "no-restricted-globals": "off"
   },
   "parserOptions": {
     "parser": "babel-eslint"

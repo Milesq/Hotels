@@ -55,14 +55,29 @@
       </nav>
       <span></span>
       <section class="results">
-        <h1 class="header">
-          Baseny - {{ $route.params.city == 'all'? 'Polska' : $route.params.city }}
-        </h1>
+        <section class="meta">
+          <h1 class="header">
+            Baseny - {{ $route.params.city == 'all'? 'Polska' : $route.params.city }}
+          </h1>
+          <div @click="showmap = !showmap" class="show-map">
+            <i class="icon fas fa-map-marked-alt"></i>
+            <button>{{
+                showmap? 'Ukryj' : 'Pokaż'
+              }} mapę</button>
+          </div>
+        </section>
+        <transition name="map">
+          <section class="map" :class="{
+            'map--show': showmap
+          }">
+            <Map :latlng="swimmingPoolsCoords.map(el => [el.lat, el.lon])" />
+          </section>
+        </transition>
         <section v-if="filteredSwimmingPools.length">
-        <ObjectInfo
-          v-for="object in filteredSwimmingPools"
-          :key="object.name + 'searchResult'"
-          :data="object" />
+          <ObjectInfo
+            v-for="object in filteredSwimmingPools"
+            :key="object.name + 'searchResult'"
+            :data="object" />
         </section>
         <section v-else class="not-found">
           <h2 class="not-found__info">Niestety nic nie znaleźliśmy w
@@ -81,6 +96,7 @@
 <script>
 import Breadcrumb from '@/components/Breadcrumb.vue';
 import ObjectInfo from '~/components/ObjectInfo.vue';
+import Map from '~/components/Map.vue';
 import debounce from 'lodash.debounce';
 import VSelect from 'vue-select';
 import { API } from '@/assets/config.json';
@@ -160,7 +176,7 @@ export default {
     if (city !== 'all') url += `/?city_contains=${city}`;
 
     let swimmingPools = (await $axios.get(url)).data;
-    swimmingPools = swimmingPools.map((pool) => {
+    swimmingPools = swimmingPools.map(async (pool) => {
       let {
         name,
         gallery,
@@ -229,6 +245,17 @@ export default {
         return ret;
       });
 
+      let { data } = await $axios.get(maps(encodeURI(address)));
+      if (data.length === 0) {
+        console.log(`${name} was ommited! ${address}`);
+        data = [{
+          lat: null,
+          lon: null
+        }];
+      }
+
+      const [{ lat, lon }] = data;
+
       return {
         name,
         img: gallery.map(img => API + img.url),
@@ -245,9 +272,15 @@ export default {
           swimmingpoolOutdoor,
           sauna,
           aquapark
+        },
+        coords: {
+          lat,
+          lon
         }
       };
     }); // TODO: ratings
+
+    swimmingPools = await Promise.all(swimmingPools);
 
     let [cityCoords] = (await $axios.get(maps(city))).data;
     cityCoords = [cityCoords.lat, cityCoords.lon];
@@ -255,7 +288,8 @@ export default {
     return {
       swimmingPools,
       filteredSwimmingPools: swimmingPools,
-      cityCoords
+      cityCoords,
+      swimmingPoolsCoords: swimmingPools.map(x => x.coords).filter(x => x.lat !== null)
     };
   },
   data() {
@@ -293,7 +327,9 @@ export default {
         'Tepidarium',
         'Laconium',
         'Caldarium'
-      ]
+      ],
+
+      showmap: false
     };
   },
   methods: {
@@ -323,6 +359,7 @@ export default {
   components: {
     ObjectInfo,
     Breadcrumb,
+    Map,
     VSelect
   },
   layout: 'static'
@@ -331,6 +368,49 @@ export default {
 
 <style scoped lang="scss">
 $default-shadow: 0 0 10px -5px #000;
+
+.map {
+  background-color: #0f0;
+  overflow: hidden;
+  height: 0;
+  box-shadow: $default-shadow;
+
+  transition: height .33s ease;
+
+  &--show {
+    height: 250px;
+  }
+}
+
+.meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .show-map {
+    cursor: pointer;
+    font-weight: 500;
+
+    border-radius: 4px;
+    box-shadow: 0 3px 5px -3px #000;
+    padding: 6px;
+    height: 30.4px;
+    background-color: #fff;
+
+    display: inline-flex;
+    justify-content: space-between;
+  }
+
+  .icon {
+    margin-right: 5px;
+  }
+
+  button {
+    cursor: inherit;
+    background: transparent;
+    border: none;
+  }
+}
 
 .container {
   position: relative;
