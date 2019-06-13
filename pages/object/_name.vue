@@ -58,7 +58,7 @@
         <h3 class="tile__header">Kontakt</h3>
         <div class="tile__content contact" style="margin: 0">
           <div class="map" v-if="latlng !== null">
-            <Map :latlng="[latlng]" />
+            <Map :zoom="13" :latlng="[latlng]" />
           </div>
           <div v-else>
             <h3>Nie możemy znaleźć mapy dla tego basenu</h3>
@@ -279,9 +279,11 @@ export default {
         encodeURI(pool.city + ' ' + pool.address)
       }&format=json`);
 
-    if (latlng.length !== 0) {
+    if (latlng) {
       latlng = [latlng.lat, latlng.lon];
-    } else latlng = null;
+    } else {
+      latlng = null;
+    }
 
     return {
       id,

@@ -70,7 +70,7 @@
           <section class="map" :class="{
             'map--show': showmap
           }">
-            <Map :latlng="swimmingPoolsCoords.map(el => [el.lat, el.lon])" />
+            <!-- <Map :latlng="swimmingPoolsCoords" /> -->
           </section>
         </transition>
         <section v-if="filteredSwimmingPools.length">
@@ -285,11 +285,16 @@ export default {
     let [cityCoords] = (await $axios.get(maps(city))).data;
     cityCoords = [cityCoords.lat, cityCoords.lon];
 
+    let swimmingPoolsCoords = swimmingPools.map(x => x.coords).filter(x => x.lat !== null);
+    if(swimmingPoolsCoords.length) {
+      swimmingPoolsCoords = swimmingPoolsCoords.map(el => [el.lat, el.lon]);
+    }
+
     return {
       swimmingPools,
       filteredSwimmingPools: swimmingPools,
       cityCoords,
-      swimmingPoolsCoords: swimmingPools.map(x => x.coords).filter(x => x.lat !== null)
+      swimmingPoolsCoords
     };
   },
   data() {

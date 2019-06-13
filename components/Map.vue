@@ -15,7 +15,11 @@ export default {
   computed: {
     averageCoords() {
       function average(tab) {
-        return tab.reduce((a, b) => a + b) / tab.length;
+        if (tab.length !== 0) {
+          return tab.reduce((a, b) => a + b) / tab.length;
+        }
+
+        return [0, 0];
       }
 
       const avg = this.latlng.map(coords => coords.map(parseFloat));
