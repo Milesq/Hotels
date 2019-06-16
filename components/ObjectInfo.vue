@@ -27,8 +27,8 @@
         </span>
         <div class="rating">
           <i class="fas fa-star"></i>
-          <span class="rating__average">{{ data.ratings.average }}</span>
-          <span class="rating__numbers">({{ data.ratings.numbers }})</span>
+          <span class="rating__average">{{ starsAverage }}</span>
+          <span class="rating__numbers">({{ data.stars.length }})</span>
         </div>
       </div>
     </div>
@@ -65,6 +65,19 @@ export default {
       while (url.search(' ') !== -1) url = url.replace(' ', '');
       url = url.charAt(0).toLowerCase() + url.slice(1);
       return `/object/${url}`;
+    },
+    starsAverage() {
+      let average = this.data.stars.map(el => el.stars);
+      average = average.map(el => (el.staff + el.clutter + el.attractions + el.cleanliness) / 4);
+      average = average.reduce((a, b) => a + b, 0);
+
+      if (this.data.stars.length) {
+        average /= this.data.stars.length;
+      } else {
+        average = 0;
+      }
+
+      return Math.round(100 * average) / 100;
     }
   }
 };

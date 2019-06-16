@@ -187,7 +187,8 @@ export default {
         swimmingpoolIndoor,
         sauna,
         aquapark,
-        city
+        city,
+        comments
       } = pool;
 
       address = `${city} ${address}`;
@@ -262,10 +263,6 @@ export default {
         address,
         attractions,
         open: open[((new Date().getDay() + 6) % 7)],
-        ratings: {
-          average: 4.7,
-          numbers: 120
-        },
         type: {
           swimmingpoolThermal,
           swimmingpoolIndoor,
@@ -276,9 +273,10 @@ export default {
         coords: {
           lat,
           lon
-        }
+        },
+        stars: comments.map(el => JSON.parse(Buffer.from(el.content, 'base64').toString()))
       };
-    }); // TODO: ratings
+    });
 
     swimmingPools = await Promise.all(swimmingPools);
 
