@@ -1,6 +1,8 @@
 <template>
   <div class="gallery">
-    <div class="gallery__image" ref="image"></div>
+    <div class="gallery__image" :style="{
+      backgroundImage: `url(${images[id]})`
+    }"></div>
   </div>
 </template>
 
@@ -27,20 +29,13 @@ export default {
       else this.id = 0;
     }
   },
-  watch: {
-    id(id) {
-      this.$refs.image.style.backgroundImage = `url(${this.images[id]})`;
-    }
-  },
   mounted() {
-    this.$refs.image.style.backgroundImage = `url(${this.images[0]})`;
     setInterval(this.change, this.interval);
   }
 };
 </script>
 
 <style scoped lang="scss">
-
 .gallery {
   height: 600px;
   width: 100%;

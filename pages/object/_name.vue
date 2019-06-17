@@ -132,7 +132,7 @@
       <div class="tile__content ratings">
         <div class="ratings__main">
           <span>
-            <span style="font-weight: 700">{{ average }}</span>
+            <span style="font-weight: 700">{{ average | oneDigitAfterComma }}</span>
             <i class="fas fa-star"></i>
           </span>
           <span class="ratings__numbers">
@@ -413,7 +413,7 @@ export default {
       return minutes + '0';
     },
     oneDigitAfterComma(num) {
-      return Math.round(num * 10) / 10;
+      return (Math.round(num * 10) / 10) || '-';
     }
   }
 };
