@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import { API } from '@/assets/config.json';
 
 function required(message = '') {

@@ -1,24 +1,10 @@
-[![Build Status](https://travis-ci.com/Milesq/Hotels.svg?token=sB2RiYGtoe8tKfWzUwEX&branch=master)](https://travis-ci.com/Milesq/Hotels)
+# Swimmingpools list
 
-# hotels
+> My commercial Nuxt.js project
+> Project of swimming pools search in Poland
 
-> My dazzling Nuxt.js project
+## Used technologies
 
-## Build Setup
-
-``` bash
-# install dependencies
-$ yarn install
-
-# serve with hot reload at localhost:3000
-$ yarn run dev
-
-# build for production and launch server
-$ yarn run build
-$ yarn start
-
-# generate static project
-$ yarn run generate
-```
-
-For detailed explanation on how things work, checkout [Nuxt.js docs](https://nuxtjs.org).
+- Vue
+- Nuxt
+- Strapi

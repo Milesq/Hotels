@@ -94,11 +94,12 @@
 </template>
 
 <script>
+import debounce from 'lodash.debounce';
+import VSelect from 'vue-select';
+
 import Breadcrumb from '@/components/Breadcrumb.vue';
 import ObjectInfo from '~/components/ObjectInfo.vue';
 import Map from '~/components/Map.vue';
-import debounce from 'lodash.debounce';
-import VSelect from 'vue-select';
 import { API } from '@/assets/config.json';
 
 const maps = place => `https://nominatim.openstreetmap.org/search?q=${place}&format=json`;

@@ -27,8 +27,8 @@
 </template>
 
 <script>
-import ImagePlaceholder from '@/components/ImagePlaceholder.vue';
 import showdown from 'showdown';
+import ImagePlaceholder from '@/components/ImagePlaceholder.vue';
 
 export default {
   props: {

@@ -11,11 +11,12 @@
 </template>
 
 <script>
+import showdown from 'showdown';
+
 import Breadcrumb from '@/components/Breadcrumb.vue';
 import Share from '@/components/Share.vue';
 import Comments from '@/components/Comments.vue';
 import { API, auth } from '@/assets/config.json';
-import showdown from 'showdown';
 
 export default {
   async validate({ params, $axios }) {
