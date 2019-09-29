@@ -10,7 +10,6 @@
 </template>
 
 <script>
-/* global isNaN */
 export default {
   computed: {
     averageCoords() {
