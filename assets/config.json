@@ -1,8 +1,8 @@
 {
-  "API": "___________",
+  "API": "http://localhost:1337",
   "auth": {
-    "name": "______",
-    "pass": "________"
+    "name": "app",
+    "pass": "vSNw57Lqsu67Dxr"
   },
   "page": "_____"
 }

@@ -1,11 +1,11 @@
 <template>
   <div id="map-wrap" style="height: 100%">
-    <no-ssr>
+    <client-only>
       <l-map :zoom="zoom" :center="averageCoords">
         <l-tile-layer url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"></l-tile-layer>
         <l-marker v-for="(ll, i) in latlng" :key="i" :lat-lng="ll"></l-marker>
       </l-map>
-    </no-ssr>
+    </client-only>
   </div>
 </template>
 
