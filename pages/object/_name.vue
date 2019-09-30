@@ -256,7 +256,7 @@ export default {
 
     // eslint-disable-next-line
     for (const x of possibilityAttractions) {
-      if (pool[x] === 1) attractions.push(x);
+      if (pool[x] === true) attractions.push(x);
     }
 
     attractions = attractions.map(
